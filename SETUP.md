@@ -36,9 +36,9 @@ pnpm install
   - uses [pnpm vs npm](https://pnpm.io/pnpm-vs-npm)
   - uses [vitest](https://vitest.dev/) vs Jest
   - uses husky vs pre-commit
-  - uses [commitizen](https://github.com/commitizen/cz-cli) for git-commits
+  - ~~uses [commitizen](https://github.com/commitizen/cz-cli) for git-commits~~
   - uses [cypress](https://docs.cypress.io/guides/overview/why-cypress) for e2e (end-to-end) tests
     - note: disabled recording because it requires cypress cloud during CI
-  - uses [codecov](https://about.codecov.io/) for code coverage reporting
+  - ~~uses [codecov](https://about.codecov.io/) for code coverage reporting~~
     - for actual repo, will require admin rights to add codecov app to research bank github repo and set repo secret. See [codecov install docs for details](https://docs.codecov.com/docs)
   -
