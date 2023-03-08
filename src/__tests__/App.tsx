@@ -5,7 +5,7 @@ import renderWithProviders from 'testUtils'
 
 describe('<App />', () => {
 	it('renders', async () => {
-		window.history.pushState({}, 'Home', '/')
+		window.history.pushState({}, 'Home', '/unicef-ai4d-research-bank/')
 		renderWithProviders(<App />, false)
 
 		await expect(screen.findByText('Apple')).resolves.toBeInTheDocument()
