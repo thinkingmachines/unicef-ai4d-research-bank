@@ -7,6 +7,11 @@ const config = {
 	theme: {
 		fontFamily: {
 			sans: ['Inter', ...defaultConfig.theme.fontFamily.sans]
+		},
+		extend: {
+			colors: {
+				'cloud-burst': '#24295C'
+			}
 		}
 	},
 	experimental: { optimizeUniversalDefaults: true },
