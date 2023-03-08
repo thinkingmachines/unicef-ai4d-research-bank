@@ -11,8 +11,11 @@ export default function App(): ReactElement {
 		<BrowserRouter>
 			<Suspense fallback={<LoadingOrError />}>
 				<Routes>
-					<Route path='/' element={<Gallery />} />
-					<Route path=':fruitName' element={<Details />} />
+					<Route path='/unicef-ai4d-research-bank/' element={<Gallery />} />
+					<Route
+						path='/unicef-ai4d-research-bank/:fruitName'
+						element={<Details />}
+					/>
 				</Routes>
 			</Suspense>
 		</BrowserRouter>
