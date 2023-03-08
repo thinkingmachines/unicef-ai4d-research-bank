@@ -76,6 +76,7 @@
 		"@typescript-eslint/member-ordering": "off",
 		"@typescript-eslint/prefer-includes": "off",
 		"@typescript-eslint/no-restricted-imports": "off",
+		"@typescript-eslint/explicit-function-return-type": "off",
 
 		"import/no-deprecated": "error",
 		"import/order": "off",
@@ -118,7 +119,7 @@
 		"react/function-component-definition": [
 			"error",
 			{
-				"namedComponents": "function-declaration"
+				"namedComponents": ["function-declaration", "arrow-function"]
 			}
 		],
 		"react/no-unstable-nested-components": "error",
