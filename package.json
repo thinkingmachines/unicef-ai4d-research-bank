@@ -20,7 +20,8 @@
 		"run-eslint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
 		"run-stylelint": "stylelint --cache --fix --ignore-path .gitignore **/*.css",
 		"lint": "run-p run-tsc run-eslint run-stylelint",
-		"validate": "run-p lint test:ci test:e2e:headless"
+		"validate": "run-p lint test:ci test:e2e:headless",
+		"merge-catalog": "node scripts/merge_catalog.js"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "4.26.0",
