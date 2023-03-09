@@ -1,15 +1,8 @@
-# UNICEF AI4D (AI for Development) Research Bank Project
+# Vitamin
 
-<!--
 [![codecov](https://codecov.io/gh/wtchnm/Vitamin/branch/main/graph/badge.svg?token=H9BBAKGYI0)](https://codecov.io/gh/wtchnm/Vitamin) ![Test workflow](https://github.com/wtchnm/Vitamin/actions/workflows/test.yml/badge.svg) ![CodeQL workflow](https://github.com/wtchnm/Vitamin/actions/workflows/codeql-analysis.yml/badge.svg) [![Total alerts](https://img.shields.io/lgtm/alerts/g/wtchnm/Vitamin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wtchnm/Vitamin/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wtchnm/Vitamin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wtchnm/Vitamin/context:javascript) [![Vitamin](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/etow1b&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/etow1b/runs) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/wtchnm/Vitamin/blob/main/LICENSE)
--->
 
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/wtchnm/Vitamin/blob/main/LICENSE)
-
-The UNICEF AI4D Research Bank is part of Thinking Machines's [overall push for open science through the AI4D](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) (AI for Development) initiative which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.
-
-This site itself is hosted on [Github Pages](https://thinkingmachines.github.io/unicef-ai4d-research-bank) and uses
-the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ simplified features
+Opinionated Vite starter template.
 
 ## Features
 
@@ -19,14 +12,33 @@ the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ si
 - [PWA](https://github.com/antfu/vite-plugin-pwa) with [17/17 Lighthouse score](https://web.dev/pwa-checklist/).
 - Write unit and integration tests with [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/).
 - Write e2e tests with [Cypress](https://www.cypress.io).
-- ~~GitHub Actions for automatic [dependency updates](https://renovatebot.com/), [CodeQL Analysis](https://securitylab.github.com/tools/codeql), running tests and code coverage with [Codecov](https://about.codecov.io/).~~
-- Deploy to ~~[vercel.com](https://vercel.com/) with pre-configured [SPA fallback](https://vercel.com/docs/configuration#routes/advanced/spa-fallback).~~ Github Pages.
+- GitHub Actions for automatic [dependency updates](https://renovatebot.com/), [CodeQL Analysis](https://securitylab.github.com/tools/codeql), running tests and code coverage with [Codecov](https://about.codecov.io/).
+- Deploy to [vercel.com](https://vercel.com/) with pre-configured [SPA fallback](https://vercel.com/docs/configuration#routes/advanced/spa-fallback).
 
 ## Getting started
 
-To see the instructions for original Vitamin template [see this](old-README.md)
+Use this repository as a [GitHub template](https://github.com/wtchnm/Vitamin/generate) or use [degit](https://github.com/Rich-Harris/degit) to clone to your machine with an empty git history:
 
-Customizations made to the installation and setup instructions for the Research Bank site are now [updated here](SETUP.md):
+```
+npx degit wtchnm/Vitamin#main my-app
+```
+
+Then, install the dependencies:
+
+```
+pnpm install
+```
+
+### Before you start coding
+
+- [ ] If you don't plan to use GitHub Actions, delete the `.github` directory.
+- [ ] Clean up the `cypress/integration/index.spec.ts` file.
+- [ ] Change the `favicon.png`, `apple-touch-icon.png`, `android-chrome-192x192.png` and `android-chrome-512x512.png`. [favicon.io](https://favicon.io) is a cool tool for generating these assets.
+- [ ] In the `src` folder, remove the `__tests__`, `api` and `components` folder and the `types.ts` file.
+- [ ] If you don't plan to use `react-query`, remove the query client logic in the `main.tsx` file.
+- [ ] Change the title, description and theme color in the `index.html` and `vite.config.ts`. The [Inter](https://rsms.me/inter/) font is included, so remove it if you want.
+- [ ] Modify or delete the `LICENSE` file.
+- [ ] Change the `name` field in package.json.
 
 ## Scripts
 
