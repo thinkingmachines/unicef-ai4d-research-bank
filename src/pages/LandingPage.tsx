@@ -1,8 +1,5 @@
-import Header from '../components/Header'
-
 const LandingPage = () => (
-	<div className='h-screen bg-white'>
-		<Header />
+	<div className='h-[calc(100vh_-_3rem)] bg-white'>
 		<div className='flex h-96 flex-col items-center justify-center bg-cloud-burst px-10 text-white'>
 			<span className='mb-3 text-center text-3xl font-bold text-white'>
 				Accelerating machine learning adoption in the development sector
