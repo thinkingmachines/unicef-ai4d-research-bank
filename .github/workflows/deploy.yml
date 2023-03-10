@@ -23,6 +23,13 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo VITE_HOME_PATH=$VITE_HOME_PATH >> .env
+        env:
+          VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
+
       - name: Build project
         run: pnpm build
         env:
