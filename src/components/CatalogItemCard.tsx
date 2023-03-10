@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import type { CatalogItemType } from 'types/CatalogItem.type'
+import HOME_PATH from '../constants'
 
 interface CatalogItemProperties {
 	catalogItemData: CatalogItemType
@@ -6,6 +8,7 @@ interface CatalogItemProperties {
 
 const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
 	const {
+		id,
 		name,
 		description,
 		organization,
@@ -39,21 +42,23 @@ const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
 	}
 
 	return (
-		<div className='my-3 flex flex-col rounded border p-3'>
-			<span className='text-xs text-cloud-burst'>{organization.name}</span>
-			<div className='text-md font-bold text-cloud-burst'>
-				{name}
-				{yearPeriodSection}
+		<Link to={`${HOME_PATH}/catalogue/${id}`}>
+			<div className='my-3 flex flex-col rounded border p-3'>
+				<span className='text-xs text-cloud-burst'>{organization.name}</span>
+				<div className='text-md font-bold text-cloud-burst'>
+					{name}
+					{yearPeriodSection}
+				</div>
+				<p className='text-xs text-gray-600'>{description}</p>
+				<div className='mt-3 flex flex-row'>
+					{countryRegionSection}
+					<span className='w-1/2 text-xs text-gray-600'>
+						Date Created: {dateAdded}
+					</span>
+					{dateModifiedSection}
+				</div>
 			</div>
-			<p className='text-xs text-gray-600'>{description}</p>
-			<div className='mt-3 flex flex-row'>
-				{countryRegionSection}
-				<span className='w-1/2 text-xs text-gray-600'>
-					Date Created: {dateAdded}
-				</span>
-				{dateModifiedSection}
-			</div>
-		</div>
+		</Link>
 	)
 }
 
