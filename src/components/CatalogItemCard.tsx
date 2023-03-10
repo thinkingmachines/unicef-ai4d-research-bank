@@ -1,29 +1,57 @@
-import CatalogItemMock from '../mocks/CatalogItem.data.json'
+import type { CatalogItemType } from 'types/CatalogItem.type'
 
-const CatalogItemCard = () => {
+interface CatalogItemProperties {
+	catalogItemData: CatalogItemType
+}
+
+const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
 	const {
 		name,
 		description,
 		organization,
 		'country-region': countryRegion,
 		'date-added': dateAdded,
+		'date-modified': dateModified,
 		'year-period': yearPeriod
-	} = CatalogItemMock
+	} = catalogItemData
+
+	let yearPeriodSection
+	if (yearPeriod) {
+		yearPeriodSection = <span> ({yearPeriod})</span>
+	}
+
+	let countryRegionSection
+	if (countryRegion) {
+		countryRegionSection = (
+			<span className='w-1/2 text-xs text-gray-600'>
+				Country/Region: {countryRegion}
+			</span>
+		)
+	}
+
+	let dateModifiedSection
+	if (dateModified) {
+		dateModifiedSection = (
+			<span className='w-1/2 text-xs text-gray-600'>
+				Date Created: {dateModified}
+			</span>
+		)
+	}
 
 	return (
 		<div className='my-3 flex flex-col rounded border p-3'>
 			<span className='text-xs text-cloud-burst'>{organization.name}</span>
-			<span className='text-md font-bold text-cloud-burst'>
-				{name} ({yearPeriod})
-			</span>
+			<div className='text-md font-bold text-cloud-burst'>
+				{name}
+				{yearPeriodSection}
+			</div>
 			<p className='text-xs text-gray-600'>{description}</p>
 			<div className='mt-3 flex flex-row'>
-				<span className='w-1/2 text-xs text-gray-600'>
-					Country/Region: {countryRegion}
-				</span>
+				{countryRegionSection}
 				<span className='w-1/2 text-xs text-gray-600'>
 					Date Created: {dateAdded}
 				</span>
+				{dateModifiedSection}
 			</div>
 		</div>
 	)
