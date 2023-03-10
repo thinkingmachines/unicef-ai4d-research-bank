@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom'
-import type { CatalogItemType } from 'types/CatalogItem.type'
+import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import HOME_PATH from '../constants'
 
-interface CatalogItemProperties {
-	catalogItemData: CatalogItemType
+interface CatalogueItemProperties {
+	catalogueItemData: CatalogueItemType
 }
 
-const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
+const CatalogueItemCard = ({ catalogueItemData }: CatalogueItemProperties) => {
 	const {
 		id,
 		name,
@@ -16,7 +16,7 @@ const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
 		'date-added': dateAdded,
 		'date-modified': dateModified,
 		'year-period': yearPeriod
-	} = catalogItemData
+	} = catalogueItemData
 
 	let yearPeriodSection
 	if (yearPeriod) {
@@ -62,4 +62,4 @@ const CatalogItemCard = ({ catalogItemData }: CatalogItemProperties) => {
 	)
 }
 
-export default CatalogItemCard
+export default CatalogueItemCard

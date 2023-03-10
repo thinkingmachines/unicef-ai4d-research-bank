@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom'
-import CatalogItemsMock from '../mocks/CatalogItems.data.json'
+import CatalogueItemsMock from '../mocks/CatalogueItems.data.json'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
 
-	const catalogueItem = CatalogItemsMock.items.find(
-		mockCatalogItem => mockCatalogItem.id === id
+	const catalogueItem = CatalogueItemsMock.items.find(
+		mockCatalogueItem => mockCatalogueItem.id === id
 	)
 
 	if (!catalogueItem) {

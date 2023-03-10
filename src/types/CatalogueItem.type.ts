@@ -1,4 +1,4 @@
-export interface CatalogItemType {
+export interface CatalogueItemType {
 	id: string
 	name: string
 	description: string
