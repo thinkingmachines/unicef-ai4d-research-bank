@@ -25,6 +25,8 @@ pnpm install
 
 ```
 
+- Create `.env.local` based from the `.env.sample` file.
+
 ## Customizations
 
 - Deploy to github pages instead of vercel (see [deploy workflow](.github/workflows/deploy.yml))
