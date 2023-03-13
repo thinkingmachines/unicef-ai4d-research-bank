@@ -1,9 +1,9 @@
-import CatalogItemCard from 'components/CatalogItemCard'
-import type { CatalogItemType } from 'types/CatalogItem.type'
-import CatalogItemsMock from '../mocks/CatalogItems.data.json'
+import CatalogueItemCard from 'components/CatalogueItemCard'
+import type { CatalogueItemType } from 'types/CatalogueItem.type'
+import CatalogueItemsMock from '../mocks/CatalogueItems.data.json'
 
 const CataloguePage = () => {
-	const catalogItems = CatalogItemsMock.items as CatalogItemType[]
+	const catalogueItems = CatalogueItemsMock.items as CatalogueItemType[]
 
 	return (
 		<div className='h-[calc(100vh_-_3rem)] bg-white'>
@@ -17,10 +17,10 @@ const CataloguePage = () => {
 						placeholder='Search for a dataset or a model'
 						className='appearance-none rounded border py-2 px-3 text-cloud-burst shadow'
 					/>
-					{catalogItems.map(catalogItem => (
-						<CatalogItemCard
-							key={catalogItem.id}
-							catalogItemData={catalogItem}
+					{catalogueItems.map(catalogueItem => (
+						<CatalogueItemCard
+							key={catalogueItem.id}
+							catalogueItemData={catalogueItem}
 						/>
 					))}
 				</div>

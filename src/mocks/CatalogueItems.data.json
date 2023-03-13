@@ -26,11 +26,6 @@
 			"links": [
 				{
 					"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl",
-					"description": "Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'",
-					"type": "model-weights"
-				},
-				{
-					"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl",
 					"description": "Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage",
 					"type": "model-weights"
 				},
