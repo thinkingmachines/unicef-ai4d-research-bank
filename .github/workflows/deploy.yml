@@ -21,19 +21,10 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm i
-
-      - name: Create .env file
-        run: |
-          touch .env
-          echo VITE_HOME_PATH=$VITE_HOME_PATH >> .env
-        env:
-          VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
+        run: pnpm i && cp .env.github .env
 
       - name: Build project
         run: pnpm build
-        env:
-          VITE_HOME_PATH: ${{ env.VITE_HOME_PATH }}
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
