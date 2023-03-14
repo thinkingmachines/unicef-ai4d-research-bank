@@ -1,15 +1,46 @@
+import { fetchCatalogItem } from 'api'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import CatalogueItemsMock from '../mocks/CatalogueItems.data.json'
+import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
+	const [isLoading, setIsLoading] = useState(false)
+	const [catalogueItem, setCatalogueItem] = useState<
+		CatalogueItemType | undefined
+	>()
 
-	const catalogueItem = CatalogueItemsMock.items.find(
-		mockCatalogueItem => mockCatalogueItem.id === id
-	)
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				setIsLoading(true)
+				const nextCatalogueItem = await fetchCatalogItem(id)
+				setCatalogueItem(nextCatalogueItem)
+			} catch (error) {
+				// eslint-disable-next-line no-console
+				console.error(error)
+			} finally {
+				setIsLoading(false)
+			}
+		}
+
+		void fetchData()
+	}, [id])
+
+	if (isLoading) {
+		return (
+			<div className='h-[calc(100vh_-_3rem)] bg-white text-cloud-burst'>
+				Loading...
+			</div>
+		)
+	}
 
 	if (!catalogueItem) {
-		return <div>error</div>
+		return (
+			<div className='h-[calc(100vh_-_3rem)] bg-white text-cloud-burst'>
+				error
+			</div>
+		)
 	}
 
 	const {
@@ -19,7 +50,6 @@ const CatalogueItemPage = () => {
 		'date-added': dateAdded,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		'evaluation-metrics': evaluationMetrics,
 		links
 	} = catalogueItem
 
@@ -46,15 +76,6 @@ const CatalogueItemPage = () => {
 						<tr>
 							<td className='font-bold'>Year/Period:</td>
 							<td>{yearPeriod}</td>
-						</tr>
-						<tr>
-							<td className='mr-3 font-bold'>Evaluation Metric:</td>
-							<td>
-								<a href={evaluationMetrics.link.url}>
-									{evaluationMetrics.metric['metric-type']}(
-									{evaluationMetrics.metric.value})
-								</a>
-							</td>
 						</tr>
 					</table>
 				</section>
