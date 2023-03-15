@@ -22,3 +22,10 @@ export const getCountryList = async (): Promise<(string | undefined)[]> => {
 		.map(item => item['country-region'])
 	return [...new Set(countries)]
 }
+export const getOrganizationList = async (): Promise<
+	(string | undefined)[]
+> => {
+	const catalog = await fetchCatalogItems()
+	const orgs = catalog.map(item => item.organization.name)
+	return [...new Set(orgs)]
+}

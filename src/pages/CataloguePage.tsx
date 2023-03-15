@@ -1,23 +1,29 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Space } from 'antd'
-import { fetchCatalogItems, getCountryList } from 'api'
+import { fetchCatalogItems, getCountryList, getOrganizationList } from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 
 const { RangePicker } = DatePicker
-
+interface ValueLabel {
+	label: string | undefined
+	value: string | undefined
+}
 const onCountryRegionChange = () => {}
 const onTagsChange = () => {}
 const onOrganizationChange = () => {}
-const makeCountryLabels = (countries: (string | undefined)[]) =>
-	countries
+
+const makeLabels = (items: (string | undefined)[]): ValueLabel[] =>
+	items
 		.filter(item => item !== undefined)
 		.map(item => ({ label: item, value: item }))
+
 const CataloguePage = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
-	const [countryList, setCountryList] = useState([])
+	const [countryList, setCountryList] = useState<ValueLabel[]>([])
+	const [orgList, setOrgList] = useState<ValueLabel[]>([])
 	let catalogueItemsSection
 
 	useEffect(() => {
@@ -26,8 +32,11 @@ const CataloguePage = () => {
 			const nextCatalogueItems = await fetchCatalogItems()
 			setCatalogueItems(nextCatalogueItems)
 			const nextCountryList = await getCountryList()
-			const nextCountryLabels = makeCountryLabels(nextCountryList)
+			const nextCountryLabels = makeLabels(nextCountryList)
 			setCountryList(nextCountryLabels)
+			const nextOrgList = await getOrganizationList()
+			const nextOrgLabels = makeLabels(nextOrgList)
+			setOrgList(nextOrgLabels)
 			setIsLoading(false)
 		}
 		void fetchData()
@@ -91,7 +100,7 @@ const CataloguePage = () => {
 								placeholder='Select an organization...'
 								defaultValue={[]}
 								onChange={onOrganizationChange}
-								options={[{ label: 'Timor Leste', value: 'Timor Leste' }]}
+								options={orgList}
 							/>
 						</div>
 
