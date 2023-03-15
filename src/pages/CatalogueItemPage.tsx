@@ -1,7 +1,10 @@
 import { fetchCatalogItem } from 'api'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import type { CatalogueItemType } from '../types/CatalogueItem.type'
+import type {
+	CatalogueItemType,
+	EvaluationMetricsType
+} from '../types/CatalogueItem.type'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
@@ -43,8 +46,33 @@ const CatalogueItemPage = () => {
 		'date-added': dateAdded,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
+		'evaluation-metrics': evaluationMetric,
 		links
 	} = catalogueItem
+
+	const evaluationMetricSection = (
+		evaluationMetric as EvaluationMetricsType[]
+	).map(evalItem => {
+		const { metric, link } = evalItem
+		// Metric and link can be undefined so there is a need to check if it exists
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (metric) {
+			return (
+				<div key={metric['metric-type']}>
+					{metric['metric-type']} ({metric.value})
+				</div>
+			)
+		}
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (link) {
+			return (
+				<a href={link.url} target='_blank' rel='noreferrer' key={link.url}>
+					{link.description}
+				</a>
+			)
+		}
+		return '-'
+	})
 
 	return (
 		<div className='h-[calc(100vh_-_3rem)] bg-white'>
@@ -70,6 +98,12 @@ const CatalogueItemPage = () => {
 							<tr>
 								<td className='font-bold'>Year/Period:</td>
 								<td>{yearPeriod}</td>
+							</tr>
+							<tr>
+								<td className='align-top font-bold'>Evaluation Metric:</td>
+								<td>
+									<div>{evaluationMetricSection}</div>
+								</td>
 							</tr>
 						</tbody>
 					</table>
