@@ -1,15 +1,42 @@
+import { fetchCatalogItem } from 'api'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import CatalogueItemsMock from '../mocks/CatalogueItems.data.json'
+import type {
+	CatalogueItemType,
+	EvaluationMetricsType
+} from '../types/CatalogueItem.type'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
+	const [isLoading, setIsLoading] = useState(true)
+	const [catalogueItem, setCatalogueItem] = useState<
+		CatalogueItemType | undefined
+	>()
 
-	const catalogueItem = CatalogueItemsMock.items.find(
-		mockCatalogueItem => mockCatalogueItem.id === id
-	)
+	useEffect(() => {
+		const fetchData = async () => {
+			setIsLoading(true)
+			const nextCatalogueItem = await fetchCatalogItem(id)
+			setCatalogueItem(nextCatalogueItem)
+			setIsLoading(false)
+		}
+		void fetchData()
+	}, [id])
+
+	if (isLoading) {
+		return (
+			<div className='h-[calc(100vh_-_3rem)] bg-white text-cloud-burst'>
+				Loading...
+			</div>
+		)
+	}
 
 	if (!catalogueItem) {
-		return <div>error</div>
+		return (
+			<div className='h-[calc(100vh_-_3rem)] bg-white text-cloud-burst'>
+				error
+			</div>
+		)
 	}
 
 	const {
@@ -19,9 +46,33 @@ const CatalogueItemPage = () => {
 		'date-added': dateAdded,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		'evaluation-metrics': evaluationMetrics,
+		'evaluation-metrics': evaluationMetric,
 		links
 	} = catalogueItem
+
+	const evaluationMetricSection = (
+		evaluationMetric as EvaluationMetricsType[]
+	).map(evalItem => {
+		const { metric, link } = evalItem
+		// Metric and link can be undefined so there is a need to check if it exists
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (metric) {
+			return (
+				<div key={metric['metric-type']}>
+					{metric['metric-type']} ({metric.value})
+				</div>
+			)
+		}
+		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (link) {
+			return (
+				<a href={link.url} target='_blank' rel='noreferrer' key={link.url}>
+					{link.description}
+				</a>
+			)
+		}
+		return '-'
+	})
 
 	return (
 		<div className='h-[calc(100vh_-_3rem)] bg-white'>
@@ -39,23 +90,22 @@ const CatalogueItemPage = () => {
 				<section className='mt-5'>
 					<h2 className='text-xl font-bold'>Properties</h2>
 					<table className='border-separate border-spacing-x-5 border-spacing-y-2'>
-						<tr>
-							<td className='font-bold'>Country/Region:</td>
-							<td>{countryRegion}</td>
-						</tr>
-						<tr>
-							<td className='font-bold'>Year/Period:</td>
-							<td>{yearPeriod}</td>
-						</tr>
-						<tr>
-							<td className='mr-3 font-bold'>Evaluation Metric:</td>
-							<td>
-								<a href={evaluationMetrics.link.url}>
-									{evaluationMetrics.metric['metric-type']}(
-									{evaluationMetrics.metric.value})
-								</a>
-							</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td className='font-bold'>Country/Region:</td>
+								<td>{countryRegion}</td>
+							</tr>
+							<tr>
+								<td className='font-bold'>Year/Period:</td>
+								<td>{yearPeriod}</td>
+							</tr>
+							<tr>
+								<td className='align-top font-bold'>Evaluation Metric:</td>
+								<td>
+									<div>{evaluationMetricSection}</div>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</section>
 				<section className='mt-5'>

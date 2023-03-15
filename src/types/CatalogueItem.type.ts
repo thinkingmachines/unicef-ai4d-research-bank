@@ -10,7 +10,7 @@ export interface CatalogueItemType {
 	'country-region'?: string
 	'year-period'?: number
 	'used-by'?: UsedByType
-	'evaluation-metrics'?: EvaluationMetricsType
+	'evaluation-metrics'?: EvaluationMetricsType[]
 	links: LinkType[]
 }
 
@@ -25,8 +25,8 @@ export interface UsedByType {
 }
 
 export interface EvaluationMetricsType {
-	metric: MetricType
-	link: MetricLink
+	metric?: MetricType
+	link?: MetricLink
 }
 
 export interface MetricType {
