@@ -5,25 +5,18 @@ import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItem, setCatalogueItem] = useState<
 		CatalogueItemType | undefined
 	>()
 
 	useEffect(() => {
 		const fetchData = async () => {
-			try {
-				setIsLoading(true)
-				const nextCatalogueItem = await fetchCatalogItem(id)
-				setCatalogueItem(nextCatalogueItem)
-			} catch (error) {
-				// eslint-disable-next-line no-console
-				console.error(error)
-			} finally {
-				setIsLoading(false)
-			}
+			setIsLoading(true)
+			const nextCatalogueItem = await fetchCatalogItem(id)
+			setCatalogueItem(nextCatalogueItem)
+			setIsLoading(false)
 		}
-
 		void fetchData()
 	}, [id])
 
@@ -69,14 +62,16 @@ const CatalogueItemPage = () => {
 				<section className='mt-5'>
 					<h2 className='text-xl font-bold'>Properties</h2>
 					<table className='border-separate border-spacing-x-5 border-spacing-y-2'>
-						<tr>
-							<td className='font-bold'>Country/Region:</td>
-							<td>{countryRegion}</td>
-						</tr>
-						<tr>
-							<td className='font-bold'>Year/Period:</td>
-							<td>{yearPeriod}</td>
-						</tr>
+						<tbody>
+							<tr>
+								<td className='font-bold'>Country/Region:</td>
+								<td>{countryRegion}</td>
+							</tr>
+							<tr>
+								<td className='font-bold'>Year/Period:</td>
+								<td>{yearPeriod}</td>
+							</tr>
+						</tbody>
 					</table>
 				</section>
 				<section className='mt-5'>
