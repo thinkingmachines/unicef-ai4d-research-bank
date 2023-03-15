@@ -9,6 +9,8 @@ date-added: '2022-03-02'
 tags:
   - poverty-mapping
   - timor-leste
+  - sklearn-model
+  - machine-learning
 country-region: timor-leste
 year-period: 2016
 evaluation-metrics:
