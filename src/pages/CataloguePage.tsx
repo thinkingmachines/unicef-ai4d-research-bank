@@ -1,6 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Space } from 'antd'
-import { fetchCatalogItems, getCountryList, getOrganizationList } from 'api'
+import {
+	fetchCatalogItems,
+	getCountryList,
+	getOrganizationList,
+	getTagList
+} from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
@@ -24,6 +29,7 @@ const CataloguePage = () => {
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
 	const [countryList, setCountryList] = useState<ValueLabel[]>([])
 	const [orgList, setOrgList] = useState<ValueLabel[]>([])
+	const [tagList, setTagList] = useState<ValueLabel[]>([])
 	let catalogueItemsSection
 
 	useEffect(() => {
@@ -37,6 +43,9 @@ const CataloguePage = () => {
 			const nextOrgList = await getOrganizationList()
 			const nextOrgLabels = makeLabels(nextOrgList)
 			setOrgList(nextOrgLabels)
+			const nextTagList = await getTagList()
+			const nextTagLabels = makeLabels(nextTagList)
+			setTagList(nextTagLabels)
 			setIsLoading(false)
 		}
 		void fetchData()
@@ -112,9 +121,7 @@ const CataloguePage = () => {
 								style={{ width: '100%' }}
 								placeholder='Select a tag...'
 								onChange={onTagsChange}
-								options={[
-									{ label: 'poverty-mapping', value: 'poverty-mapping' }
-								]}
+								options={tagList}
 							/>
 						</div>
 					</Space>

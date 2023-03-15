@@ -29,3 +29,10 @@ export const getOrganizationList = async (): Promise<
 	const orgs = catalog.map(item => item.organization.name)
 	return [...new Set(orgs)]
 }
+
+export const getTagList = async (): Promise<(string | undefined)[]> => {
+	const catalog = await fetchCatalogItems()
+	const tags = catalog.filter(item => 'tags' in item).map(item => item.tags)
+	const alltags = tags.flat(1)
+	return [...new Set(alltags)]
+}
