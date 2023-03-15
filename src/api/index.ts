@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/no-null */
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import HOME_PATH from '../constants'
 
@@ -11,12 +10,7 @@ export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
 
 export const fetchCatalogItem = async (
 	id: string
-): Promise<CatalogueItemType | null> => {
+): Promise<CatalogueItemType | undefined> => {
 	const catalog = await fetchCatalogItems()
-	const matchCatalog = catalog.filter(item => item.id === id)
-	if (matchCatalog.length > 0) {
-		const nextItem = matchCatalog[0]
-		return nextItem
-	}
-	return null
+	return catalog.find(item => item.id === id)
 }
