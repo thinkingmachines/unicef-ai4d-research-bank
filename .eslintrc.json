@@ -70,6 +70,7 @@
 			"error",
 			{ "ignoreArrowShorthand": true }
 		],
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/non-nullable-type-assertion-style": "off",
 		"@typescript-eslint/strict-boolean-expressions": "off",
 		"@typescript-eslint/no-implicit-any-catch": "off",
