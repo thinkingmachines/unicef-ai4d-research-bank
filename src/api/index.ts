@@ -1,16 +1,16 @@
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
+import HOME_PATH from '../constants'
 
-// eslint-disable-next-line import/prefer-default-export
 export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
-	const response = await fetch('/api/data/catalog.json') // Replace with your own JSON file path
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-	const catalog: CatalogueItemType[] = await response.json()
+	const response = await fetch(`${HOME_PATH}/api/data/catalog.json`)
+	const catalog: CatalogueItemType[] =
+		(await response.json()) as CatalogueItemType[]
 	return catalog
 }
 
 export const fetchCatalogItem = async (
-	catalogItemId?: string
+	id: string
 ): Promise<CatalogueItemType | undefined> => {
-	const catalogItems: CatalogueItemType[] = await fetchCatalogItems()
-	return catalogItems.find(item => item.id === catalogItemId)
+	const catalog = await fetchCatalogItems()
+	return catalog.find(item => item.id === id)
 }

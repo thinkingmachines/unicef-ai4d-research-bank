@@ -12,20 +12,20 @@ tags:
 country-region: timor-leste
 year-period: 2016
 links:
-  - url: https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-raw-geojson'
   - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
     type: 'dataset-raw-csv'
 
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
     description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
     type: 'code-notebook'
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-tl_final_model_training.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-tl_final_model_training.ipynb
     description: 'Timor Leste Model Rollout Part 1 (Training Final Single-country Model)'
     type: 'code-notebook'
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
     description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
     type: 'code-notebook'
 data-columns:

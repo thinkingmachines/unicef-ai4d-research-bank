@@ -1,10 +1,7 @@
 import { fetchCatalogItem } from 'api'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import type {
-	CatalogueItemType,
-	EvaluationMetricsType
-} from '../types/CatalogueItem.type'
+import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
@@ -50,26 +47,33 @@ const CatalogueItemPage = () => {
 		links
 	} = catalogueItem
 
-	const evaluationMetricSection = (
-		evaluationMetric as EvaluationMetricsType[]
-	).map(evalItem => {
+	const evaluationMetricSection = evaluationMetric?.map(evalItem => {
 		const { metric, link } = evalItem
 		// Metric and link can be undefined so there is a need to check if it exists
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		if (metric) {
+		const metricItem = metric && (
+			<>
+				{metric['metric-type']} ({metric.value})
+			</>
+		)
+		const linkItem = link && (
+			<a href={link.url} target='_blank' rel='noreferrer'>
+				{link.description}
+			</a>
+		)
+		if (metric && link) {
 			return (
 				<div key={metric['metric-type']}>
-					{metric['metric-type']} ({metric.value})
+					{metricItem}
+					<br />
+					{linkItem}
 				</div>
 			)
 		}
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+		if (metric) {
+			return <div key={metric['metric-type']}>{metricItem}</div>
+		}
 		if (link) {
-			return (
-				<a href={link.url} target='_blank' rel='noreferrer' key={link.url}>
-					{link.description}
-				</a>
-			)
+			return <div key={link.url}>{linkItem}</div>
 		}
 		return '-'
 	})
@@ -99,12 +103,14 @@ const CatalogueItemPage = () => {
 								<td className='font-bold'>Year/Period:</td>
 								<td>{yearPeriod}</td>
 							</tr>
-							<tr>
-								<td className='align-top font-bold'>Evaluation Metric:</td>
-								<td>
-									<div>{evaluationMetricSection}</div>
-								</td>
-							</tr>
+							{evaluationMetric !== undefined && (
+								<tr>
+									<td className='align-top font-bold'>Evaluation Metric:</td>
+									<td>
+										<div>{evaluationMetricSection}</div>
+									</td>
+								</tr>
+							)}
 						</tbody>
 					</table>
 				</section>
