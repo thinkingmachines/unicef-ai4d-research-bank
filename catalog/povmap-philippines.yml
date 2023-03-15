@@ -15,22 +15,29 @@ evaluation-metrics:
   - metric:
       metric-type: rsquared
       value: 0.59
-  - link:
-      description: 'Additional evaluation metrics discussion'
+    link:
+      description: 'How we computed the Rsquared for the Predicted Wealth Index'
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-ph-kh/model_ph.html#evaluate-model-training-using-cross-validation
+  - metric:
+      metric-type: F1-Score
+      value: 0.49
+    link:
+      description: 'Additional evaluation metrics discussion on the F1 Score for the split quantiles'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-ph-kh/model_ph.html#evaluate-model-training-using-cross-validation
+
 links:
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl
     description: 'Philippines Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_ph.geojson
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_ph.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-geojson'
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-ph_final_model_rollout.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-ph_final_model_rollout.ipynb
     description: 'Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
     type: 'code-notebook'
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-ph_final_model_training.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-ph_final_model_training.ipynb
     description: 'Philippines Model Rollout Part 1 (Training Final Single-country Model)'
     type: 'code-notebook'
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-ph_generate_populated_grids.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-ph_generate_populated_grids.ipynb
     description: 'Philippines Model Rollout Part 2 (Generate Roll-out Grids)'
     type: 'code-notebook'
