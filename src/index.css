@@ -42,4 +42,8 @@
 	select:focus {
 		--tw-ring-color: transparent;
 	}
+
+	html {
+		letter-spacing: -0.025em;
+	}
 }
