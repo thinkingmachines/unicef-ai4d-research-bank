@@ -4,24 +4,17 @@ import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 
 const CataloguePage = () => {
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
 	let catalogueItemsSection
 
-	const fetchData = async () => {
-		try {
+	useEffect(() => {
+		const fetchData = async () => {
 			setIsLoading(true)
 			const nextCatalogueItems = await fetchCatalogItems()
 			setCatalogueItems(nextCatalogueItems)
-		} catch (error) {
-			// eslint-disable-next-line no-console
-			console.error(error)
-		} finally {
 			setIsLoading(false)
 		}
-	}
-
-	useEffect(() => {
 		void fetchData()
 	}, [])
 
