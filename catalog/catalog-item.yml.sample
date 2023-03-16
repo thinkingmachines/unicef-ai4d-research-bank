@@ -1,0 +1,139 @@
+# Sample catalog item entry
+
+# id is a unique identifier (use as filename with .yml extension)
+# lowercase characters, no special characters, underscore or spaces, use dash (-) allowed
+id: catalog-item
+# short name of catalog item
+name: 'Sample Catalog Item Entry (required)'
+# description can be as long as you like
+description: 'Description of catalog item (required)'
+# card-type (required) can be 'model' or 'dataset'
+card-type: model
+# organization providing the catalog item (required)
+organization:
+  name: 'Name of your organization'
+  url: 'https://www.example.com'
+
+# date catalog item was added/created (required)
+date-added: '2022-03-02'
+
+# date catalog item was modified after added/created (optional)
+date-modified: '2022-03-20'
+
+# tags which can be associated with your dataset (optional)
+# lowercase characters, no special characters, underscore or spaces, use dash (-) allowed
+tags:
+  - poverty-mapping
+  - timor-leste
+  - sklearn-model
+  - machine-learning
+# country or region to which your catalog item applies (optional)
+# if supplied, must be in the list in folder validation/regions.txt
+country-region: timor-leste
+
+# year or time period to which your catalog applies (optional)
+year-period: 2016
+
+# evaluation metrics (optional) - can either be value and metric, or a link
+# for further discussion, or both.
+evaluation-metrics:
+  - metric:
+      metric-type: rsquared
+      value: 0.59
+  - link:
+      description: 'Additional evaluation metrics discussion'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#evaluate-model-training-using-cross-validation
+
+# links (required) are the URLs to the datasets, model weights, documentation, or github repos
+# the valid types are 'model-weights','dataset-geojson', 'dataset-csv', 'dataset-raw-csv', 'dataset-raw-geojson',
+# 'code-notebook','repository', 'documentation', 'dataset-shapefile', 'dataset-raw-shapefile', 'dataset-tif', 'dataset-raw-tif'
+# at least one link must be provided
+links:
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
+    description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+    type: model-weights
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
+    type: 'dataset-geojson'
+  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-raw-csv'
+
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
+    description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
+    type: 'code-notebook'
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-tl_final_model_training.ipynb
+    description: 'Timor Leste Model Rollout Part 1 (Training Final Single-country Model)'
+    type: 'code-notebook'
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
+    description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
+    type: 'code-notebook'
+
+# data-columns (optional) if your data is tabular format (eg. csv), you can supply the column names here
+data-columns:
+  - name: quadkey
+    type: string
+  - name: shapeName
+    type: string
+  - name: shapeISO
+    type: string
+  - name: shapeID
+    type: string
+  - name: shapeGroup
+    type: string
+  - name: shapeType
+    type: string
+  - name: pop_count
+    type: float
+  - name: 'Predicted Relative Wealth Index'
+    type: float
+  - name: 'Predicted Wealth Category (quintile)'
+    type: string
+  - name: 'Predicted Wealth Category (split-quintile)'
+    type: string
+  - name: geometry
+    type: string
+
+# sample-data (optional) you can supply sample rows of your data
+# if provided, you must also provide the data-columns entry which should
+# match the values in each row in the order specified in the data-columns entry
+sample-data:
+  - [
+      31011220203121,
+      Nitibe,
+      None,
+      TLS-ADM2-3_0_0-B58,
+      TLS,
+      ADM2,
+      102.251936,
+      -0.32614251865998456,
+      E,
+      E,
+      'POLYGON ((124.03564453125 -9.340672181980946, 124.03564453125 -9.318990192397923, 124.0576171875 -9.318990192397923, 124.0576171875 -9.340672181980946, 124.03564453125 -9.340672181980946))'
+    ]
+  - [
+      31011220203123,
+      Nitibe,
+      None,
+      TLS-ADM2-3_0_0-B58,
+      TLS,
+      ADM2,
+      992.492772,
+      0.1447559201393492,
+      C,
+      C,
+      'POLYGON ((124.03564453125 -9.362352822055612, 124.03564453125 -9.340672181980946, 124.0576171875 -9.340672181980946, 124.0576171875 -9.362352822055612, 124.03564453125 -9.362352822055612))'
+    ]
+  - [
+      31011220203130,
+      Nitibe,
+      None,
+      TLS-ADM2-3_0_0-B58,
+      TLS,
+      ADM2,
+      118.8976,
+      -0.31718538830078946,
+      E,
+      E,
+      'POLYGON ((124.0576171875 -9.340672181980946, 124.0576171875 -9.318990192397923, 124.07958984375 -9.318990192397923, 124.07958984375 -9.340672181980946, 124.0576171875 -9.340672181980946))'
+    ]
