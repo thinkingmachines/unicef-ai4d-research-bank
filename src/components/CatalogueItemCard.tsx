@@ -37,7 +37,7 @@ const CatalogueItemCard = ({ catalogueItemData }: CatalogueItemProperties) => {
 	if (dateModified) {
 		dateModifiedSection = (
 			<span className='w-1/2 text-xs text-gray-600'>
-				Date Created: {dateModified}
+				Date Updated: {dateModified}
 			</span>
 		)
 	}
