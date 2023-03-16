@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { AutoComplete, DatePicker, Select, Space } from 'antd'
+import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
 import {
 	fetchCatalogItems,
 	getCountryList,
@@ -47,7 +47,11 @@ const CataloguePage = () => {
 	}, [])
 
 	if (isLoading) {
-		catalogueItemsSection = <span>Loading...</span>
+		catalogueItemsSection = (
+			<div className='mt-3 p-3'>
+				<Skeleton />
+			</div>
+		)
 	}
 
 	if (!isLoading && catalogueItems.length === 0) {
@@ -55,16 +59,25 @@ const CataloguePage = () => {
 	}
 
 	if (!isLoading && catalogueItems.length > 0) {
-		catalogueItemsSection = catalogueItems.map(catalogueItem => (
-			<CatalogueItemCard
-				key={catalogueItem.id}
-				catalogueItemData={catalogueItem}
-			/>
-		))
+		catalogueItemsSection = (
+			<>
+				<span className='text-sm text-gray-500'>
+					{catalogueItems.length} results available
+				</span>
+				<div className='grid grid-cols-1 divide-y divide-gray-100 '>
+					{catalogueItems.map(catalogueItem => (
+						<CatalogueItemCard
+							key={catalogueItem.id}
+							catalogueItemData={catalogueItem}
+						/>
+					))}
+				</div>
+			</>
+		)
 	}
 
 	return (
-		<div className='h-[calc(100vh_-_3rem)] bg-white'>
+		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
 			<div className='relative flex flex-col items-center justify-center py-10 px-10 '>
 				<img
 					src={CatalogueHeroImg}
@@ -76,9 +89,9 @@ const CataloguePage = () => {
 					Search Catalogue
 				</span>
 			</div>
-			<div className='my-8 flex flex-row px-10'>
-				<div className='w-1/3 px-10'>
-					<span className='font-bold text-cloud-burst'>Filters</span>
+			<div className='my-8 flex flex-col px-10 md:flex-row'>
+				<div className='mr-16 w-full rounded-md bg-gray-50 p-6 md:w-1/3'>
+					<span className='font-semibold text-cloud-burst'>FILTERS</span>
 					<Space style={{ width: '100%' }} direction='vertical'>
 						<div className='pt-3'>
 							<span className='font-bold text-cloud-burst'>Country/Region</span>
@@ -121,7 +134,7 @@ const CataloguePage = () => {
 							<Select
 								mode='tags'
 								allowClear
-								style={{ width: '100%' }}
+								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select a tag...'
 								onChange={onTagsChange}
 								options={tagList}
@@ -129,7 +142,7 @@ const CataloguePage = () => {
 						</div>
 					</Space>
 				</div>
-				<div className='flex w-2/3 flex-col'>
+				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
 					<AutoComplete
 						style={{ width: '100%' }}
 						options={[{ value: 'Poverty Mapping for Timor Leste' }]}
