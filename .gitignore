@@ -10,3 +10,4 @@ coverage
 cypress/videos
 .env
 public/api/data/catalog.json
+.venv/
