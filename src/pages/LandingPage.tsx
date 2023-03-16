@@ -53,7 +53,7 @@ const LandingPage = () => {
 					<span className='font-semibold tracking-normal text-cloud-burst'>
 						BROWSE BY TAGS
 					</span>
-					<div className='flex gap-3 py-3'>
+					<div className='flex flex-wrap gap-3 py-3'>
 						{isLoading ? (
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
@@ -65,7 +65,7 @@ const LandingPage = () => {
 					<span className='font-semibold tracking-normal text-cloud-burst'>
 						BROWSE BY COUNTRY/REGION
 					</span>
-					<div className='flex gap-3 py-3 text-cloud-burst'>
+					<div className='flex flex-wrap gap-3 py-3 text-cloud-burst'>
 						{isLoading ? (
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
