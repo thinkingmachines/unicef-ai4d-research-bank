@@ -85,7 +85,7 @@ const CataloguePage = () => {
 					className='absolute z-0 h-full w-full object-cover'
 				/>
 				<div className='absolute z-10 h-full w-full bg-gradient-to-r from-cloud-burst to-transparent' />
-				<span className='z-20 self-start text-3xl text-white'>
+				<span className='z-20 self-start text-3xl font-medium tracking-tighter text-white '>
 					Search Catalogue
 				</span>
 			</div>

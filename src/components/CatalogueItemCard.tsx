@@ -15,7 +15,8 @@ const CatalogueItemCard = ({ catalogueItemData }: CatalogueItemProperties) => {
 		'country-region': countryRegion,
 		'date-added': dateAdded,
 		'date-modified': dateModified,
-		'year-period': yearPeriod
+		'year-period': yearPeriod,
+		'card-type': cardType
 	} = catalogueItemData
 
 	let yearPeriodSection
@@ -56,6 +57,7 @@ const CatalogueItemCard = ({ catalogueItemData }: CatalogueItemProperties) => {
 						Date Created: {dateAdded}
 					</span>
 					{dateModifiedSection}
+					<span className='w-1/2 text-xs text-gray-600'>Type: {cardType}</span>
 				</div>
 			</div>
 		</Link>
