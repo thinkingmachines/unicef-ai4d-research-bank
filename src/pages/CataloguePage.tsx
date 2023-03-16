@@ -1,18 +1,35 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Space } from 'antd'
-import { fetchCatalogItems } from 'api'
+import {
+	fetchCatalogItems,
+	getCountryList,
+	getOrganizationList,
+	getTagList
+} from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 
 const { RangePicker } = DatePicker
-
+interface ValueLabel {
+	label: string | undefined
+	value: string | undefined
+}
 const onCountryRegionChange = () => {}
 const onTagsChange = () => {}
 const onOrganizationChange = () => {}
 
+const makeLabels = (items: (string | undefined)[]): ValueLabel[] =>
+	items
+		.filter(item => item !== undefined)
+		.map(item => ({ label: item, value: item }))
+
 const CataloguePage = () => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
+	const [countryList, setCountryList] = useState<ValueLabel[]>([])
+	const [orgList, setOrgList] = useState<ValueLabel[]>([])
+	const [tagList, setTagList] = useState<ValueLabel[]>([])
 	let catalogueItemsSection
 
 	useEffect(() => {
@@ -20,6 +37,15 @@ const CataloguePage = () => {
 			setIsLoading(true)
 			const nextCatalogueItems = await fetchCatalogItems()
 			setCatalogueItems(nextCatalogueItems)
+			const nextCountryList = await getCountryList()
+			const nextCountryLabels = makeLabels(nextCountryList)
+			setCountryList(nextCountryLabels)
+			const nextOrgList = await getOrganizationList()
+			const nextOrgLabels = makeLabels(nextOrgList)
+			setOrgList(nextOrgLabels)
+			const nextTagList = await getTagList()
+			const nextTagLabels = makeLabels(nextTagList)
+			setTagList(nextTagLabels)
 			setIsLoading(false)
 		}
 		void fetchData()
@@ -60,7 +86,7 @@ const CataloguePage = () => {
 								placeholder='Select a country/region...'
 								defaultValue={[]}
 								onChange={onCountryRegionChange}
-								options={[{ label: 'Timor Leste', value: 'Timor Leste' }]}
+								options={countryList}
 							/>
 						</div>
 
@@ -83,7 +109,7 @@ const CataloguePage = () => {
 								placeholder='Select an organization...'
 								defaultValue={[]}
 								onChange={onOrganizationChange}
-								options={[{ label: 'Timor Leste', value: 'Timor Leste' }]}
+								options={orgList}
 							/>
 						</div>
 
@@ -95,9 +121,7 @@ const CataloguePage = () => {
 								style={{ width: '100%' }}
 								placeholder='Select a tag...'
 								onChange={onTagsChange}
-								options={[
-									{ label: 'poverty-mapping', value: 'poverty-mapping' }
-								]}
+								options={tagList}
 							/>
 						</div>
 					</Space>

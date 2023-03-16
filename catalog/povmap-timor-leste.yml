@@ -3,12 +3,14 @@ name: 'Poverty Mapping Model for Timor Leste'
 description: 'This is a sklearn random forest regressor model  for predicting relative wealth for Timor Leste.  (add more details here later...)'
 card-type: model
 organization:
-  name: 'Thinking Machines Data Sciences Inc'
-  url: 'https://thinkingmachin.es'
-date-added: '2023-03-02'
+  name: 'Unicef East Asia and Pacific Regional Office'
+  url: 'https://www.unicef.org/eap/'
+date-added: '2022-03-02'
 tags:
   - poverty-mapping
   - timor-leste
+  - sklearn-model
+  - machine-learning
 country-region: timor-leste
 year-period: 2016
 evaluation-metrics:
