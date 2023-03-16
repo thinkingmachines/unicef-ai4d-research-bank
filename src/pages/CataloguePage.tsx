@@ -9,20 +9,14 @@ import {
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
+import type { ValueLabel } from 'types/SearchFilters.type'
+import makeLabels from 'utils/Filters.util'
 
 const { RangePicker } = DatePicker
-interface ValueLabel {
-	label: string | undefined
-	value: string | undefined
-}
+
 const onCountryRegionChange = () => {}
 const onTagsChange = () => {}
 const onOrganizationChange = () => {}
-
-const makeLabels = (items: (string | undefined)[]): ValueLabel[] =>
-	items
-		.filter(item => item !== undefined)
-		.map(item => ({ label: item, value: item }))
 
 const CataloguePage = () => {
 	const [isLoading, setIsLoading] = useState(true)
