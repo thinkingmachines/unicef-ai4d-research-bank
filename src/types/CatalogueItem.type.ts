@@ -12,6 +12,8 @@ export interface CatalogueItemType {
 	'used-by'?: UsedByType
 	'evaluation-metrics'?: EvaluationMetricsType[]
 	links: LinkType[]
+	'data-columns'?: DataColumnType[]
+	'sample-data'?: (number | string)[][]
 }
 
 export interface OrganizationType {
@@ -42,5 +44,10 @@ export interface MetricLink {
 export interface LinkType {
 	description: string
 	url: string
+	type: string
+}
+
+export interface DataColumnType {
+	name: string
 	type: string
 }
