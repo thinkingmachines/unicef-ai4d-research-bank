@@ -95,6 +95,11 @@ const CatalogueItemPage = () => {
 		return '-'
 	})
 
+	let yearPeriodTitle
+	if (yearPeriod) {
+		yearPeriodTitle = <span>({yearPeriod})</span>
+	}
+
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
 			<div className='flex min-h-[10rem] flex-col bg-cloud-burst p-10 text-white'>
@@ -107,12 +112,12 @@ const CatalogueItemPage = () => {
 					{organization.name}
 				</a>
 				<span className='text-3xl font-medium tracking-tighter'>
-					{name} ({yearPeriod})
+					{name} {yearPeriodTitle}
 				</span>
 				<div className='mt-2 flex flex-row gap-10 text-sm'>
-					<span>Country/region: {countryRegion}</span>
-					<span>Date created: {dateAdded}</span>
-					{dateModified ? <span>Date updated: {dateModified}</span> : undefined}
+					<span>Country/Region: {countryRegion ?? '-'}</span>
+					<span>Date Created: {dateAdded}</span>
+					{dateModified ? <span>Date Updated: {dateModified}</span> : undefined}
 					<span>Type: {cardType}</span>
 				</div>
 			</div>
@@ -120,19 +125,19 @@ const CatalogueItemPage = () => {
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
 					<section className='mb-5'>
 						<span className='text-sm font-semibold'>SUMMARY</span>
-						<p className='mt-3 text-gray-600'>{description}</p>
+						<p className='mx-5 mt-3 text-gray-600'>{description}</p>
 					</section>
 					<section>
 						<h2 className='mt-5 text-sm font-semibold'>PROPERTIES</h2>
 						<table className='mt-3 mb-5 border-separate border-spacing-x-5 border-spacing-y-2'>
 							<tbody>
 								<tr>
-									<td className='font-medium'>Country/region</td>
-									<td className='text-gray-600'>{countryRegion}</td>
+									<td className='font-medium'>Country/Region</td>
+									<td className='text-gray-600'>{countryRegion ?? '-'}</td>
 								</tr>
 								<tr>
-									<td className='font-medium'>Year/period</td>
-									<td className='text-gray-600'>{yearPeriod}</td>
+									<td className='font-medium'>Year/Period</td>
+									<td className='text-gray-600'>{yearPeriod ?? '-'}</td>
 								</tr>
 								{evaluationMetric !== undefined && (
 									<tr>
