@@ -11,7 +11,7 @@ on:
       - 'catalog/**.yml'
 
 jobs:
-  pre-commit:
+  validate-catalog:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
