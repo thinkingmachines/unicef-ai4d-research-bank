@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import type { ValueLabel } from 'types/SearchFilters.type'
 import makeLabels from 'utils/Filters.util'
+import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
@@ -64,8 +65,16 @@ const CataloguePage = () => {
 
 	return (
 		<div className='h-[calc(100vh_-_3rem)] bg-white'>
-			<div className='bg-cloud-burst py-10 px-10 text-3xl text-white'>
-				Search Catalogue
+			<div className='relative flex flex-col items-center justify-center py-10 px-10 '>
+				<img
+					src={CatalogueHeroImg}
+					alt='BannerImage'
+					className='absolute z-0 h-full w-full object-cover'
+				/>
+				<div className='absolute z-10 h-full w-full bg-gradient-to-r from-cloud-burst to-transparent' />
+				<span className='z-20 self-start text-3xl text-white'>
+					Search Catalogue
+				</span>
 			</div>
 			<div className='my-8 flex flex-row px-10'>
 				<div className='w-1/3 px-10'>
