@@ -11,6 +11,10 @@ The UNICEF AI4D Research Bank is part of Thinking Machines's [overall push for o
 This site itself is hosted on [Github Pages](https://thinkingmachines.github.io/unicef-ai4d-research-bank) and uses
 the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ simplified features
 
+## Contributing Datasets and Models
+
+- Instructions on adding models and datasets are [provided here](catalog-contribution.md).
+
 ## Features
 
 - [Vite](https://vitejs.dev) with [React](https://reactjs.org), [TypeScript](https://www.typescriptlang.org) and [absolute imports](https://github.com/aleclarson/vite-tsconfig-paths).

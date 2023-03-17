@@ -55,19 +55,7 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
-  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
-    type: 'dataset-raw-csv'
-
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
-    description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
-    type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-tl_final_model_training.ipynb
-    description: 'Timor Leste Model Rollout Part 1 (Training Final Single-country Model)'
-    type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
-    description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
-    type: 'code-notebook'
+  
 
 # data-columns (optional) if your data is tabular format (eg. csv), you can supply the column names here
 data-columns:
@@ -85,14 +73,7 @@ data-columns:
     type: string
   - name: pop_count
     type: float
-  - name: 'Predicted Relative Wealth Index'
-    type: float
-  - name: 'Predicted Wealth Category (quintile)'
-    type: string
-  - name: 'Predicted Wealth Category (split-quintile)'
-    type: string
-  - name: geometry
-    type: string
+ 
 
 # sample-data (optional) you can supply sample rows of your data
 # if provided, you must also provide the data-columns entry which should
@@ -105,11 +86,7 @@ sample-data:
       TLS-ADM2-3_0_0-B58,
       TLS,
       ADM2,
-      102.251936,
-      -0.32614251865998456,
-      E,
-      E,
-      'POLYGON ((124.03564453125 -9.340672181980946, 124.03564453125 -9.318990192397923, 124.0576171875 -9.318990192397923, 124.0576171875 -9.340672181980946, 124.03564453125 -9.340672181980946))'
+      102.251936
     ]
   - [
       31011220203123,
@@ -118,12 +95,8 @@ sample-data:
       TLS-ADM2-3_0_0-B58,
       TLS,
       ADM2,
-      992.492772,
-      0.1447559201393492,
-      C,
-      C,
-      'POLYGON ((124.03564453125 -9.362352822055612, 124.03564453125 -9.340672181980946, 124.0576171875 -9.340672181980946, 124.0576171875 -9.362352822055612, 124.03564453125 -9.362352822055612))'
-    ]
+      992.492772
+     ]
   - [
       31011220203130,
       Nitibe,
@@ -131,9 +104,5 @@ sample-data:
       TLS-ADM2-3_0_0-B58,
       TLS,
       ADM2,
-      118.8976,
-      -0.31718538830078946,
-      E,
-      E,
-      'POLYGON ((124.0576171875 -9.340672181980946, 124.0576171875 -9.318990192397923, 124.07958984375 -9.318990192397923, 124.07958984375 -9.340672181980946, 124.0576171875 -9.340672181980946))'
+      118.8976
     ]
