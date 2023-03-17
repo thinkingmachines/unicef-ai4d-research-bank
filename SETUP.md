@@ -27,6 +27,16 @@ pnpm install
 
 - Create `.env.local` based from the `.env.sample` file.
 
+- Install a python virtual environment. You can use [virtualenv](https://virtualenv.pypa.io/en/latest/) for this.
+
+- In your virtual environment, run the following command to install the required python libraries
+
+```bash
+pip install -r requirements.txt
+```
+
+- Make sure to set your virtual environment before running the catalog validation commands
+
 ## Customizations
 
 - Deploy to github pages instead of vercel (see [deploy workflow](.github/workflows/deploy.yml))
