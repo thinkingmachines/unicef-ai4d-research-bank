@@ -10,6 +10,8 @@ describe('Access all resources', () => {
 		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
 	})
 	it('should navigate to the catalog item page on click', () => {
+		// eslint-disable-next-line cypress/no-unnecessary-waiting
+		cy.wait(3000)
 		cy.contains('Poverty Mapping Model for Timor Leste').click()
 		cy.location('pathname').should(
 			'eq',
