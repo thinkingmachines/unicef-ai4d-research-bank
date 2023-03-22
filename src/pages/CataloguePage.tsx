@@ -1,14 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
-import {
-	fetchCatalogItems,
-	getCountryList,
-	getOrganizationList,
-	getTagList
-} from 'api'
+import { getCountryList, getOrganizationList, getTagList } from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
+import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useEffect, useState } from 'react'
-import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import type { ValueLabel } from 'types/SearchFilters.type'
 import makeLabels from 'utils/Filters.util'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
@@ -20,8 +15,9 @@ const onTagsChange = () => {}
 const onOrganizationChange = () => {}
 
 const CataloguePage = () => {
+	const { catalogueItems, isLoading: isCatalogueItemsLoading } =
+		useCatalogueItemContext()
 	const [isLoading, setIsLoading] = useState(true)
-	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
 	const [countryList, setCountryList] = useState<ValueLabel[]>([])
 	const [orgList, setOrgList] = useState<ValueLabel[]>([])
 	const [tagList, setTagList] = useState<ValueLabel[]>([])
@@ -30,8 +26,6 @@ const CataloguePage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-			const nextCatalogueItems = await fetchCatalogItems()
-			setCatalogueItems(nextCatalogueItems)
 			const nextCountryList = await getCountryList()
 			const nextCountryLabels = makeLabels(nextCountryList)
 			setCountryList(nextCountryLabels)
@@ -46,7 +40,7 @@ const CataloguePage = () => {
 		void fetchData()
 	}, [])
 
-	if (isLoading) {
+	if (isLoading || isCatalogueItemsLoading) {
 		catalogueItemsSection = (
 			<div className='mt-3 p-3'>
 				<Skeleton />
