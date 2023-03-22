@@ -1,8 +1,8 @@
 {
-	"name": "vitamin",
+	"name": "unicef-ai4d-research-bank",
 	"license": "MIT",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"scripts": {
 		"build": "vite build",
 		"commit": "cz",
