@@ -30,3 +30,5 @@ jobs:
 
       - name: Validate app
         run: pnpm run-p lint test:e2e:ci
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

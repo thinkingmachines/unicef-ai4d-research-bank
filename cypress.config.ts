@@ -3,6 +3,7 @@ import { defineConfig } from 'cypress'
 export default defineConfig({
 	fileServerFolder: 'dist',
 	fixturesFolder: false,
+	projectId: 'ivvovd',
 	e2e: {
 		chromeWebSecurity: false,
 		// baseUrl: 'https://thinkingmachines.github.io/unicef-ai4d-research-bank/',
