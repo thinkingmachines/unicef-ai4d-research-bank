@@ -2,10 +2,16 @@ import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import HOME_PATH from '../constants'
 
 export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
-	const response = await fetch(`${HOME_PATH}/api/data/catalog.json`)
-	const catalog: CatalogueItemType[] =
-		(await response.json()) as CatalogueItemType[]
-	return catalog
+	try {
+		const response = await fetch(`${HOME_PATH}/api/data/catalog.json`)
+		const catalog: CatalogueItemType[] =
+			(await response.json()) as CatalogueItemType[]
+		return catalog
+	} catch (error) {
+		// eslint-disable-next-line no-console, @typescript-eslint/restrict-template-expressions
+		console.log(`Error: no catalog items found due to error: ${error}`)
+		return []
+	}
 }
 
 export const fetchCatalogItem = async (
@@ -33,6 +39,7 @@ export const getOrganizationList = async (): Promise<
 export const getTagList = async (): Promise<(string | undefined)[]> => {
 	const catalog = await fetchCatalogItems()
 	const tags = catalog.filter(item => 'tags' in item).map(item => item.tags)
+	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	const alltags = tags.flat(1)
 	return [...new Set(alltags)]
 }

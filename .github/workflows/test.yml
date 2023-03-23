@@ -1,0 +1,50 @@
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2.2.4
+        with:
+          version: latest
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'pnpm'
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Setup python
+        run: pip install -r requirements.txt
+
+      - name: Install dependencies
+        run: pnpm i && pnpm cypress install && cp .env.github .env
+
+      - name: Merge catalog entries
+        run: pnpm merge-catalog
+
+      - name: Validate format
+        run: pnpm run-p lint
+
+      - name: Validate unit tests
+        run: pnpm test:ci
+
+      - name: Build prod
+        run: pnpm build
+
+      - name: Validate e2e
+        run: pnpm test:e2e:ci
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

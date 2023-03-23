@@ -15,8 +15,10 @@ const CatalogueItemPage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-			const nextCatalogueItem = await fetchCatalogItem(id)
-			setCatalogueItem(nextCatalogueItem)
+			if (id) {
+				const nextCatalogueItem = await fetchCatalogItem(id)
+				setCatalogueItem(nextCatalogueItem)
+			}
 			setIsLoading(false)
 		}
 		void fetchData()
