@@ -1,0 +1,1 @@
+export CYPRESS_RECORD_KEY="<--add-cypress-record-key-->"
