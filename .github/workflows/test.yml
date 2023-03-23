@@ -23,7 +23,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm i && cp .env.github .env
 
       - name: Merge catalog entries
         run: pnpm merge-catalog
@@ -38,7 +38,7 @@ jobs:
           build: pnpm build
           start: pnpm preview:test
           browser: chrome
-          headless: true
           record: true
+          wait-on: http://localhost:4173/unicef-ai4d-research-bank/
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

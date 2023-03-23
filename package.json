@@ -9,7 +9,7 @@
 		"dev": "vite --open",
 		"prepare": "husky install",
 		"preview": "vite preview",
-		"preview:test": "start-server-and-test preview http://localhost:4173",
+		"preview:test": "start-server-and-test preview http://localhost:4173/unicef-ai4d-research-bank/",
 		"test": "vitest",
 		"test:ci": "vitest run",
 		"test:e2e": "pnpm preview:test 'cypress open'",
