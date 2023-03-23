@@ -5,6 +5,7 @@
 -->
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/wtchnm/Vitamin/blob/main/LICENSE)
+[![Unicef AI4D Research Bank](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/ivvovd&style=flat&logo=cypress)](https://cloud.cypress.io/projects/ivvovd/runs)
 
 The UNICEF AI4D Research Bank is part of Thinking Machines's [overall push for open science through the AI4D](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) (AI for Development) initiative which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.
 
