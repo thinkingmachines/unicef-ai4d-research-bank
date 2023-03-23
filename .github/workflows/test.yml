@@ -23,12 +23,22 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm i && pnpm cypress install
+        run: pnpm i
 
       - name: Merge catalog entries
         run: pnpm merge-catalog
 
-      - name: Validate app
-        run: pnpm run-p lint test:e2e:ci
+      - name: Validate format
+        run: pnpm run-p lint
+
+      - name: Validate e2e
+        uses: cypress-io/github-action@v5.1.0
+        timeout-minutes: 10
+        with:
+          build: pnpm build
+          start: pnpm preview:test
+          browser: chrome
+          headless: true
+          record: true
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
