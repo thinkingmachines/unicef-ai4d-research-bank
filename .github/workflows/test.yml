@@ -23,7 +23,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm i && cp .env.github .env
+        run: pnpm i && pnpm cypress install && cp .env.github .env
 
       - name: Merge catalog entries
         run: pnpm merge-catalog
