@@ -39,6 +39,6 @@ jobs:
           start: pnpm preview:test
           browser: chrome
           record: true
-          wait-on: http://localhost:4173/unicef-ai4d-research-bank/
+          wait-on: http://127.0.0.1:4173/unicef-ai4d-research-bank/
         env:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
