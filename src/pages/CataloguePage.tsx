@@ -1,11 +1,12 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
-import { getCountryList, getOrganizationList, getTagList } from 'api'
+import { getOrganizationList, getTagList } from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
+import { useFilterContext } from 'context/FilterContext'
 import { useEffect, useState } from 'react'
 import type { ValueLabel } from 'types/SearchFilters.type'
-import makeLabels from 'utils/Filters.util'
+import { makeLabels } from 'utils/Filters.util'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
@@ -17,8 +18,8 @@ const onOrganizationChange = () => {}
 const CataloguePage = () => {
 	const { catalogueItems, isLoading: isCatalogueItemsLoading } =
 		useCatalogueItemContext()
+	const { countries } = useFilterContext()
 	const [isLoading, setIsLoading] = useState(true)
-	const [countryList, setCountryList] = useState<ValueLabel[]>([])
 	const [orgList, setOrgList] = useState<ValueLabel[]>([])
 	const [tagList, setTagList] = useState<ValueLabel[]>([])
 	let catalogueItemsSection
@@ -26,9 +27,6 @@ const CataloguePage = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-			const nextCountryList = await getCountryList()
-			const nextCountryLabels = makeLabels(nextCountryList)
-			setCountryList(nextCountryLabels)
 			const nextOrgList = await getOrganizationList()
 			const nextOrgLabels = makeLabels(nextOrgList)
 			setOrgList(nextOrgLabels)
@@ -96,7 +94,7 @@ const CataloguePage = () => {
 								placeholder='Select a country/region...'
 								defaultValue={[]}
 								onChange={onCountryRegionChange}
-								options={countryList}
+								options={countries}
 							/>
 						</div>
 
