@@ -1,12 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
-import { getOrganizationList, getTagList } from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
-import { useEffect, useState } from 'react'
-import type { ValueLabel } from 'types/SearchFilters.type'
-import { makeLabels } from 'utils/Filters.util'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
@@ -16,29 +12,11 @@ const onTagsChange = () => {}
 const onOrganizationChange = () => {}
 
 const CataloguePage = () => {
-	const { catalogueItems, isLoading: isCatalogueItemsLoading } =
-		useCatalogueItemContext()
-	const { countries } = useFilterContext()
-	const [isLoading, setIsLoading] = useState(true)
-	const [orgList, setOrgList] = useState<ValueLabel[]>([])
-	const [tagList, setTagList] = useState<ValueLabel[]>([])
+	const { catalogueItems, isLoading } = useCatalogueItemContext()
+	const { countries, organizations, tags } = useFilterContext()
 	let catalogueItemsSection
 
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true)
-			const nextOrgList = await getOrganizationList()
-			const nextOrgLabels = makeLabels(nextOrgList)
-			setOrgList(nextOrgLabels)
-			const nextTagList = await getTagList()
-			const nextTagLabels = makeLabels(nextTagList)
-			setTagList(nextTagLabels)
-			setIsLoading(false)
-		}
-		void fetchData()
-	}, [])
-
-	if (isLoading || isCatalogueItemsLoading) {
+	if (isLoading) {
 		catalogueItemsSection = (
 			<div className='mt-3 p-3'>
 				<Skeleton />
@@ -117,7 +95,7 @@ const CataloguePage = () => {
 								placeholder='Select an organization...'
 								defaultValue={[]}
 								onChange={onOrganizationChange}
-								options={orgList}
+								options={organizations}
 							/>
 						</div>
 
@@ -129,7 +107,7 @@ const CataloguePage = () => {
 								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select a tag...'
 								onChange={onTagsChange}
-								options={tagList}
+								options={tags}
 							/>
 						</div>
 					</Space>

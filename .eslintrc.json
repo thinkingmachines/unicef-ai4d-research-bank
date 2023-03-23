@@ -158,7 +158,8 @@
 			}
 		],
 		"unicorn/no-nested-ternary": ["error"],
-		"unicorn/prevent-abbreviations": "off"
+		"unicorn/prevent-abbreviations": "off",
+		"unicorn/no-array-reduce": "off"
 	},
 	"settings": {
 		"react": {

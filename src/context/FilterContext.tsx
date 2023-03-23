@@ -1,12 +1,18 @@
 import type { ReactNode } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { FilterOption } from '../types/SearchFilters.type'
-import { getFilterOptions } from '../utils/Filters.util'
+import {
+	getCountryOptions,
+	getOrganizationOptions,
+	getTagsOptions
+} from '../utils/Filters.util'
 import { useCatalogueItemContext } from './CatalogueItemContext'
 
 interface FilterContextType {
 	isFilterOptionsLoading: boolean
 	countries: FilterOption[]
+	organizations: FilterOption[]
+	tags: FilterOption[]
 }
 
 interface Properties {
@@ -19,12 +25,15 @@ export const FilterContext = React.createContext<FilterContextType>(
 
 export const FilterProvider = ({ children }: Properties) => {
 	const { catalogueItems } = useCatalogueItemContext()
+
 	const [isFilterOptionsLoading, setIsFilterOptionsLoading] = useState(true)
 	const [countries, setCountries] = useState<FilterOption[]>([])
+	const [organizations, setOrganizations] = useState<FilterOption[]>([])
+	const [tags, setTags] = useState<FilterOption[]>([])
 
 	const contextObj = useMemo(
-		() => ({ isFilterOptionsLoading, countries }),
-		[isFilterOptionsLoading, countries]
+		() => ({ isFilterOptionsLoading, countries, organizations, tags }),
+		[isFilterOptionsLoading, countries, organizations, tags]
 	)
 
 	useEffect(() => {
@@ -32,8 +41,14 @@ export const FilterProvider = ({ children }: Properties) => {
 
 		setIsFilterOptionsLoading(true)
 
-		const countryOptions = getFilterOptions('country-region', catalogueItems)
+		const countryOptions = getCountryOptions(catalogueItems)
 		setCountries(countryOptions)
+
+		const organizationOptions = getOrganizationOptions(catalogueItems)
+		setOrganizations(organizationOptions)
+
+		const tagOptions = getTagsOptions(catalogueItems)
+		setTags(tagOptions)
 
 		setIsFilterOptionsLoading(false)
 	}, [catalogueItems])
