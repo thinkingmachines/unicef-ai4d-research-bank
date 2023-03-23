@@ -29,7 +29,7 @@ jobs:
         run: pnpm merge-catalog
 
       - name: Validate format
-        run: pnpm run-p lint
+        run: pnpm run-p lint test:ci
 
       - name: Validate e2e
         uses: cypress-io/github-action@v5.1.0
