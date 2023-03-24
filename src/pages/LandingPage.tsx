@@ -1,29 +1,10 @@
 import { Skeleton } from 'antd'
-import { getCountryList, getTagList } from 'api'
-import { useEffect, useState } from 'react'
-import type { ValueLabel } from 'types/SearchFilters.type'
-import makeLabels from 'utils/Filters.util'
+import { useFilterContext } from 'context/FilterContext'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
 const LandingPage = () => {
-	const [isLoading, setIsLoading] = useState(true)
-	const [countryList, setCountryList] = useState<ValueLabel[]>([])
-	const [tagList, setTagList] = useState<ValueLabel[]>([])
-
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true)
-			const nextCountryList = await getCountryList()
-			const nextCountryLabels = makeLabels(nextCountryList)
-			setCountryList(nextCountryLabels)
-			const nextTagList = await getTagList()
-			const nextTagLabels = makeLabels(nextTagList)
-			setTagList(nextTagLabels)
-			setIsLoading(false)
-		}
-		void fetchData()
-	}, [])
+	const { isFilterOptionsLoading, countries, tags } = useFilterContext()
 
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
@@ -54,10 +35,10 @@ const LandingPage = () => {
 						BROWSE BY TAGS
 					</span>
 					<div className='flex flex-wrap gap-3 py-3'>
-						{isLoading ? (
+						{isFilterOptionsLoading ? (
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
-							tagList.map(tag => <Tag key={tag.label}>{tag.label}</Tag>)
+							tags.map(tag => <Tag key={tag.value}>{tag.value}</Tag>)
 						)}
 					</div>
 				</div>
@@ -66,10 +47,12 @@ const LandingPage = () => {
 						BROWSE BY COUNTRY/REGION
 					</span>
 					<div className='flex flex-wrap gap-3 py-3 text-cloud-burst'>
-						{isLoading ? (
+						{isFilterOptionsLoading ? (
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
-							countryList.map(tag => <Tag key={tag.label}>{tag.label}</Tag>)
+							countries.map(country => (
+								<Tag key={country.value}>{country.label}</Tag>
+							))
 						)}
 					</div>
 				</div>

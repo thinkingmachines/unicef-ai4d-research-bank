@@ -1,11 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
-import { getCountryList, getOrganizationList, getTagList } from 'api'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
-import { useEffect, useState } from 'react'
-import type { ValueLabel } from 'types/SearchFilters.type'
-import makeLabels from 'utils/Filters.util'
+import { useFilterContext } from 'context/FilterContext'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
@@ -15,32 +12,11 @@ const onTagsChange = () => {}
 const onOrganizationChange = () => {}
 
 const CataloguePage = () => {
-	const { catalogueItems, isLoading: isCatalogueItemsLoading } =
-		useCatalogueItemContext()
-	const [isLoading, setIsLoading] = useState(true)
-	const [countryList, setCountryList] = useState<ValueLabel[]>([])
-	const [orgList, setOrgList] = useState<ValueLabel[]>([])
-	const [tagList, setTagList] = useState<ValueLabel[]>([])
+	const { catalogueItems, isLoading } = useCatalogueItemContext()
+	const { countries, organizations, tags } = useFilterContext()
 	let catalogueItemsSection
 
-	useEffect(() => {
-		const fetchData = async () => {
-			setIsLoading(true)
-			const nextCountryList = await getCountryList()
-			const nextCountryLabels = makeLabels(nextCountryList)
-			setCountryList(nextCountryLabels)
-			const nextOrgList = await getOrganizationList()
-			const nextOrgLabels = makeLabels(nextOrgList)
-			setOrgList(nextOrgLabels)
-			const nextTagList = await getTagList()
-			const nextTagLabels = makeLabels(nextTagList)
-			setTagList(nextTagLabels)
-			setIsLoading(false)
-		}
-		void fetchData()
-	}, [])
-
-	if (isLoading || isCatalogueItemsLoading) {
+	if (isLoading) {
 		catalogueItemsSection = (
 			<div className='mt-3 p-3'>
 				<Skeleton />
@@ -96,7 +72,7 @@ const CataloguePage = () => {
 								placeholder='Select a country/region...'
 								defaultValue={[]}
 								onChange={onCountryRegionChange}
-								options={countryList}
+								options={countries}
 							/>
 						</div>
 
@@ -119,7 +95,7 @@ const CataloguePage = () => {
 								placeholder='Select an organization...'
 								defaultValue={[]}
 								onChange={onOrganizationChange}
-								options={orgList}
+								options={organizations}
 							/>
 						</div>
 
@@ -131,7 +107,7 @@ const CataloguePage = () => {
 								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select a tag...'
 								onChange={onTagsChange}
-								options={tagList}
+								options={tags}
 							/>
 						</div>
 					</Space>
