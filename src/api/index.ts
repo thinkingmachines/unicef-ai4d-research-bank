@@ -1,6 +1,7 @@
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import HOME_PATH from '../constants'
 
+// eslint-disable-next-line import/prefer-default-export
 export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
 	try {
 		const response = await fetch(`${HOME_PATH}/api/data/catalog.json`)
@@ -12,34 +13,4 @@ export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
 		console.log(`Error: no catalog items found due to error: ${error}`)
 		return []
 	}
-}
-
-export const fetchCatalogItem = async (
-	id: string
-): Promise<CatalogueItemType | undefined> => {
-	const catalog = await fetchCatalogItems()
-	return catalog.find(item => item.id === id)
-}
-
-export const getCountryList = async (): Promise<(string | undefined)[]> => {
-	const catalog = await fetchCatalogItems()
-	const countries = catalog
-		.filter(item => 'country-region' in item)
-		.map(item => item['country-region'])
-	return [...new Set(countries)]
-}
-export const getOrganizationList = async (): Promise<
-	(string | undefined)[]
-> => {
-	const catalog = await fetchCatalogItems()
-	const orgs = catalog.map(item => item.organization.name)
-	return [...new Set(orgs)]
-}
-
-export const getTagList = async (): Promise<(string | undefined)[]> => {
-	const catalog = await fetchCatalogItems()
-	const tags = catalog.filter(item => 'tags' in item).map(item => item.tags)
-	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
-	const alltags = tags.flat(1)
-	return [...new Set(alltags)]
 }
