@@ -1,14 +1,18 @@
 # Sample catalog item entry
 
-# id is a unique identifier (use as filename with .yml extension)
-# lowercase characters, no special characters, underscore or spaces, use dash (-) allowed
-id: catalog-item
+# note: the filename is catalog item's  unique identifier (which should have a .yml file extension)
+# only lowercase characters, no special characters, underscore or spaces.
+# only the dash '-' is allowed in the filename
+
 # short name of catalog item
 name: 'Sample Catalog Item Entry (required)'
+
 # description can be as long as you like
 description: 'Description of catalog item (required)'
+
 # card-type (required) can be 'model' or 'dataset'
 card-type: model
+
 # organization providing the catalog item (required)
 organization:
   name: 'Name of your organization'
@@ -27,6 +31,7 @@ tags:
   - timor-leste
   - sklearn-model
   - machine-learning
+  
 # country or region to which your catalog item applies (optional)
 # if supplied, must be in the list in folder validation/regions.txt
 country-region: timor-leste
