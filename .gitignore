@@ -12,3 +12,4 @@ cypress/videos
 .envrc
 public/api/data/catalog.json
 .venv/
+**/__pycache__/
