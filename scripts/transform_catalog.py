@@ -12,7 +12,7 @@ def transform(filename: str):
     file = Path(filename)
     with open(file) as f:
         item = yaml.safe_load(f)
-        item.id = file.stem
+        item["id"] = file.stem
 
         return item
 

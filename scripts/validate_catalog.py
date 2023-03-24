@@ -80,34 +80,34 @@ def validate_filename(stem):
 
 def validate_yaml(file, fname):
     ok = True
-    stem = Path(fname).name
+    fpath = Path(fname) if type(fname) == str else fname
+    name = fpath.name
     # validate filename
-    ok = ok and validate_filename(stem)
+    ok = ok and validate_filename(fpath.stem)
     item = yaml.safe_load(file)
     # validate required entries
-    ok = ok and has_required_fields(item, stem)
+    ok = ok and has_required_fields(item, name)
     # validate no extra fields
-    ok = ok and has_no_extra_fields(item, stem)
+    ok = ok and has_no_extra_fields(item, name)
     # validate countries
     if "country-region" in item:
-        ok = ok and has_valid_region(item["country-region"], stem)
+        ok = ok and has_valid_region(item["country-region"], name)
 
     return ok
 
 
-def validate_file(file):
-    with open(file) as f:
-        return validate_yaml(f, file)
+def validate_file(fname):
+    with open(fname) as f:
+        return validate_yaml(f, fname)
 
 
 def main():
-    files = glob.glob(f"{CATALOG_DIR}/*.yml")
-    valid = [validate_file(f) for f in files]
+    fnames = glob.glob(f"{CATALOG_DIR}/*.yml")
+    valid = [validate_file(fname) for fname in fnames]
     if all(valid):
-        exit(0)
-    else:
-        exit(1)
+        return 0
+    return 1
 
 
 if __name__ == "__main__":
-    main()
+    exit(main())
