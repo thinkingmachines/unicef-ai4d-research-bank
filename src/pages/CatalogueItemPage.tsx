@@ -1,5 +1,6 @@
 import { Skeleton } from 'antd'
-import { fetchCatalogItem } from 'api'
+import { useCatalogueItemContext } from 'context/CatalogueItemContext'
+
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Tag from '../components/Tag'
@@ -12,19 +13,24 @@ const CatalogueItemPage = () => {
 		CatalogueItemType | undefined
 	>()
 
+	const catalogueItemContext = useCatalogueItemContext()
 	useEffect(() => {
 		const fetchData = async () => {
 			setIsLoading(true)
-			if (id) {
-				const nextCatalogueItem = await fetchCatalogItem(id)
-				setCatalogueItem(nextCatalogueItem)
+			if (id && !catalogueItemContext.isLoading) {
+				const nextCatalogueItem = catalogueItemContext.catalogueItems.find(
+					item => item.id === id
+				)
+				if (nextCatalogueItem) {
+					setCatalogueItem(nextCatalogueItem)
+				}
 			}
 			setIsLoading(false)
 		}
 		void fetchData()
-	}, [id])
+	}, [catalogueItemContext, id])
 
-	if (isLoading) {
+	if (isLoading || catalogueItemContext.isLoading) {
 		return (
 			<div className='h-[calc(100vh_-_3rem)]  bg-white'>
 				<div className='flex h-[11rem] flex-col gap-2 bg-cloud-burst p-10'>
