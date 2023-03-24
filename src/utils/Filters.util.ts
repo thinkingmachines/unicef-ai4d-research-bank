@@ -13,11 +13,15 @@ export const getCountryOptions = (
 
 		const countryObj = acc.find(obj => obj.value === countryRegion)
 		if (countryObj) {
-			countryObj.catalogueIds.push(id)
+			countryObj.catalogueIds.add(id)
 			return acc
 		}
 
-		acc.push({ catalogueIds: [id], label: countryRegion, value: countryRegion })
+		acc.push({
+			catalogueIds: new Set(id),
+			label: countryRegion,
+			value: countryRegion
+		})
 		return acc
 	}, [])
 
@@ -29,12 +33,12 @@ export const getOrganizationOptions = (
 
 		const orgObj = acc.find(obj => obj.value === organization.name)
 		if (orgObj) {
-			orgObj.catalogueIds.push(id)
+			orgObj.catalogueIds.add(id)
 			return acc
 		}
 
 		acc.push({
-			catalogueIds: [id],
+			catalogueIds: new Set(id),
 			label: organization.name,
 			value: organization.name
 		})
@@ -55,9 +59,9 @@ export const getTagsOptions = (
 		for (const tag of tags) {
 			const tagObj = acc.find(obj => obj.value === tag)
 			if (tagObj) {
-				tagObj.catalogueIds.push(id)
+				tagObj.catalogueIds.add(id)
 			} else {
-				acc.push({ catalogueIds: [id], label: tag, value: tag })
+				acc.push({ catalogueIds: new Set(id), label: tag, value: tag })
 			}
 		}
 
