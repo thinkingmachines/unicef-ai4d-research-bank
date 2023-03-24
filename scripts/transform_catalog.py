@@ -3,6 +3,7 @@ import json
 import re
 from pathlib import Path
 
+import gdown.parse_url as gdp
 import yaml
 
 CATALOG_DIR = "./catalog"
@@ -40,15 +41,29 @@ def is_dataset_file(link):
     return False
 
 
+def is_gdrive_url(url):
+    _, is_gdrive_download_link = gdp.parse_url(url, warning=False)
+    return is_gdrive_download_link
+
+
+def transform_gdrive_url(url):
+    gdrive_file_id, _ = gdp.parse_url(url, warning=False)
+    new_url = "https://drive.google.com/uc?id={id}".format(id=gdrive_file_id)
+    return new_url
+
+
 def transform_dataset_file_link(link):
     if "url" not in link:
         return link
     url = link["url"]
-    if not is_github_url(url) or not is_dataset_file(link):
+    if (not is_github_url(url) and not is_gdrive_url(url)) or not is_dataset_file(link):
         return link
+    if is_github_url(url):
+        link["url"] = transform_github_url(url)
+        link["type"] = transform_linktype2raw(link["type"])
+    elif is_gdrive_url(url):
+        link["url"] = transform_gdrive_url(url)
 
-    link["url"] = transform_github_url(url)
-    link["type"] = transform_linktype2raw(link["type"])
     return link
 
 
