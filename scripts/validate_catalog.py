@@ -68,12 +68,12 @@ def has_valid_region(region, fname):
 ALLOWED_CHARS = set(string.ascii_lowercase).union(set(["-"]))
 
 
-def validate_filename(stem):
+def validate_filename(fpath):
     # filename should be lower-case and possibly dash(-)
-    ok = not (set(stem) - ALLOWED_CHARS)
+    ok = not (set(fpath.stem) - ALLOWED_CHARS)
     if not ok:
         print(
-            f"Invalid file {stem}: the filename should only contain lowercase characters and possibly a dash(-)"
+            f"Invalid file {fpath.name}: the name {fpath.stem} should only contain lowercase characters and possibly a dash(-)"
         )
     return ok
 
@@ -83,7 +83,7 @@ def validate_yaml(file, fname):
     fpath = Path(fname) if type(fname) == str else fname
     name = fpath.name
     # validate filename
-    ok = ok and validate_filename(fpath.stem)
+    ok = ok and validate_filename(fpath)
     item = yaml.safe_load(file)
     # validate required entries
     ok = ok and has_required_fields(item, name)
@@ -97,12 +97,22 @@ def validate_yaml(file, fname):
 
 
 def validate_file(fname):
-    with open(fname) as f:
-        return validate_yaml(f, fname)
+    fpath = Path(fname)
+    if fpath.suffix != ".yml":
+        if fpath.name == "catalog-item.yml.sample":
+            with open(fpath) as f:
+                return validate_yaml(f, fpath.name.replace(".sample", ""))
+        else:
+            print(
+                f"Invalid file {fpath.name}: Only catalog items with a .yml file extension are allowed"
+            )
+            return False
+    with open(fpath) as f:
+        return validate_yaml(f, fpath.name)
 
 
 def main():
-    fnames = glob.glob(f"{CATALOG_DIR}/*.yml")
+    fnames = glob.glob(f"{CATALOG_DIR}/*")
     valid = [validate_file(fname) for fname in fnames]
     if all(valid):
         return 0

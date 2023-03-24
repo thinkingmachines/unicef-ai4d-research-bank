@@ -1,4 +1,3 @@
-id: povmap-timor-leste
 name: 'Poverty Mapping Model for Timor Leste'
 description: 'This is a sklearn random forest regressor model  for predicting relative wealth for Timor Leste.  (add more details here later...)'
 card-type: model
