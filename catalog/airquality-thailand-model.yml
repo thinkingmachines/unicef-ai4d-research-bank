@@ -1,0 +1,31 @@
+name: 'Air Quality Model for Thailand'
+description: 'This is a sklearn random forest regressor model  for predicting PM2.5 concentrations in Thailand  (add more details here later...)'
+card-type: model
+organization:
+  name: 'Unicef East Asia and Pacific Regional Office'
+  url: 'https://www.unicef.org/eap/'
+date-added: '2021-03-02'
+tags:
+  - air-quality
+  - thailand
+  - machine-learning
+country-region: thailand
+year-period: 2021
+evaluation-metrics:
+  - link:
+      description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
+      url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+links:
+  - url: https://drive.google.com/file/d/1_cmrGkIivqzMHgDHEx18_oJTc6PB665i/view?usp=share_link
+    description: >
+      2022-05-31-patched-openaq.csv :
+      Table patched from the sub-regression model experiment.
+      Missing MAIAC AOD values were predicted using a model trained using CAM AOD data. 
+      These predictions were appended to the existing AOD data used for training the AOD model. 
+      This patched table was then used to predict PM 2.5 values
+
+    type: dataset-csv
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
+    description: 'UNICEF AI4D Air Quality Github Repository'
+    type: 'repository'
