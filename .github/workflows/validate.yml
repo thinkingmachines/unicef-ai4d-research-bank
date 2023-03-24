@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: 3.9
       - run: pip install -r requirements.txt
-      - run: python scripts/validate-catalog.py
+      - run: python scripts/validate_catalog.py

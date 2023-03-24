@@ -28,13 +28,13 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Validate catalog items
-        run: python scripts/validate-catalog.py
+        run: python scripts/validate_catalog.py
 
       - name: Install dependencies
         run: pnpm i && cp .env.github .env
 
       - name: Merge catalog entries
-        run: pnpm merge-catalog
+        run: python scripts/transform_catalog.py
 
       - name: Build project
         run: pnpm build

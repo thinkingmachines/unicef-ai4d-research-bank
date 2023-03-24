@@ -1,4 +1,5 @@
 import glob
+import string
 from pathlib import Path
 
 import yaml
@@ -10,7 +11,6 @@ with open("./validation/regions.txt") as f:
 
 REQUIRED_FIELDS = set(
     [
-        "id",
         "name",
         "description",
         "card-type",
@@ -65,9 +65,24 @@ def has_valid_region(region, fname):
     return ok
 
 
+ALLOWED_CHARS = set(string.ascii_lowercase).union(set(["-"]))
+
+
+def validate_filename(stem):
+    # filename should be lower-case and possibly dash(-)
+    ok = not (set(stem) - ALLOWED_CHARS)
+    if not ok:
+        print(
+            f"Invalid file {stem}: the filename should only contain lowercase characters and possibly a dash(-)"
+        )
+    return ok
+
+
 def validate_yaml(file, fname):
     ok = True
     stem = Path(fname).name
+    # validate filename
+    ok = ok and validate_filename(stem)
     item = yaml.safe_load(file)
     # validate required entries
     ok = ok and has_required_fields(item, stem)
