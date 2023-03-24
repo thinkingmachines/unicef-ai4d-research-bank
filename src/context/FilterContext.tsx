@@ -24,7 +24,7 @@ export const FilterContext = React.createContext<FilterContextType>(
 )
 
 export const FilterProvider = ({ children }: Properties) => {
-	const { catalogueItems } = useCatalogueItemContext()
+	const { catalogueItems, isLoading } = useCatalogueItemContext()
 
 	const [isFilterOptionsLoading, setIsFilterOptionsLoading] = useState(true)
 	const [countries, setCountries] = useState<FilterOption[]>([])
@@ -37,9 +37,8 @@ export const FilterProvider = ({ children }: Properties) => {
 	)
 
 	useEffect(() => {
-		if (catalogueItems.length === 0) return
-
 		setIsFilterOptionsLoading(true)
+		if (isLoading || catalogueItems.length === 0) return
 
 		const countryOptions = getCountryOptions(catalogueItems)
 		setCountries(countryOptions)
@@ -51,7 +50,7 @@ export const FilterProvider = ({ children }: Properties) => {
 		setTags(tagOptions)
 
 		setIsFilterOptionsLoading(false)
-	}, [catalogueItems])
+	}, [catalogueItems, isLoading])
 
 	return (
 		<FilterContext.Provider value={contextObj}>
