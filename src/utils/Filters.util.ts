@@ -1,5 +1,5 @@
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
-import type { FilterOption } from 'types/SearchFilters.type'
+import type { FilterOption, FiltersType } from 'types/SearchFilters.type'
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
@@ -82,4 +82,25 @@ export const getUnionOfIdsByFilter = (
 	}
 
 	return filteredIds
+}
+
+export const isFiltersEmpty = (filters: FiltersType): boolean => {
+	const { countryFilter, organizationFilter, tagsFilter } = filters
+	return (
+		countryFilter.length === 0 &&
+		organizationFilter.length === 0 &&
+		tagsFilter.length === 0
+	)
+}
+
+export const getIntersectionOfIds = (filteredIdSets: Set<string>[]) => {
+	const nonEmptySets = filteredIdSets.filter(set => set.size > 0)
+
+	if (nonEmptySets.length === 0) {
+		return new Set<string>()
+	}
+
+	return nonEmptySets.reduce(
+		(acc, currentSet) => new Set([...acc].filter(x => currentSet.has(x)))
+	)
 }

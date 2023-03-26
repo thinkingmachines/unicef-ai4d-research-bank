@@ -3,9 +3,11 @@ import React, { useEffect, useMemo, useState } from 'react'
 import type { FilterOption, FiltersType } from '../types/SearchFilters.type'
 import {
 	getCountryOptions,
+	getIntersectionOfIds,
 	getOrganizationOptions,
 	getTagsOptions,
-	getUnionOfIdsByFilter
+	getUnionOfIdsByFilter,
+	isFiltersEmpty
 } from '../utils/Filters.util'
 import { useCatalogueItemContext } from './CatalogueItemContext'
 
@@ -54,64 +56,54 @@ export const FilterProvider = ({ children }: Properties) => {
 	)
 
 	useEffect(() => {
-		setIsFilterOptionsLoading(true)
-		if (isLoading || catalogueItems.length === 0) return
+		const generateFilterOptions = () => {
+			if (isLoading || catalogueItems.length === 0) return
 
-		const countryOptions = getCountryOptions(catalogueItems)
-		setCountries(countryOptions)
+			setIsFilterOptionsLoading(true)
+			const countryOptions = getCountryOptions(catalogueItems)
+			setCountries(countryOptions)
+			const organizationOptions = getOrganizationOptions(catalogueItems)
+			setOrganizations(organizationOptions)
+			const tagOptions = getTagsOptions(catalogueItems)
+			setTags(tagOptions)
+			setIsFilterOptionsLoading(false)
+		}
 
-		const organizationOptions = getOrganizationOptions(catalogueItems)
-		setOrganizations(organizationOptions)
-
-		const tagOptions = getTagsOptions(catalogueItems)
-		setTags(tagOptions)
-
-		setIsFilterOptionsLoading(false)
+		generateFilterOptions()
 	}, [catalogueItems, isLoading])
 
 	useEffect(() => {
-		const { countryFilter, organizationFilter, tagsFilter } = filters
+		const filterCatalogueItems = () => {
+			const { countryFilter, organizationFilter, tagsFilter } = filters
 
-		if (
-			countryFilter.length === 0 &&
-			organizationFilter.length === 0 &&
-			tagsFilter.length === 0
-		) {
-			setFilteredCatalogueItems(catalogueItems)
-			return
+			if (isFiltersEmpty(filters)) {
+				setFilteredCatalogueItems(catalogueItems)
+				return
+			}
+
+			const countryFilteredIds: Set<string> = getUnionOfIdsByFilter(
+				countryFilter,
+				countries
+			)
+			const orgFilteredIds: Set<string> = getUnionOfIdsByFilter(
+				organizationFilter,
+				organizations
+			)
+			const tagFilteredIds: Set<string> = getUnionOfIdsByFilter(
+				tagsFilter,
+				tags
+			)
+
+			const filteredSets = [countryFilteredIds, orgFilteredIds, tagFilteredIds]
+			const filteredIds = getIntersectionOfIds(filteredSets)
+			setFilteredCatalogueItems(
+				catalogueItems.filter(catalogueItem =>
+					filteredIds.has(catalogueItem.id)
+				)
+			)
 		}
 
-		const countryFilteredIds: Set<string> = getUnionOfIdsByFilter(
-			countryFilter,
-			countries
-		)
-
-		const orgFilteredIds: Set<string> = getUnionOfIdsByFilter(
-			organizationFilter,
-			organizations
-		)
-
-		const tagFilteredIds: Set<string> = getUnionOfIdsByFilter(tagsFilter, tags)
-
-		// Get intersection of all filtered ids
-		const nonEmptySets = [
-			countryFilteredIds,
-			orgFilteredIds,
-			tagFilteredIds
-		].filter(set => set.size > 0)
-
-		if (nonEmptySets.length === 0) {
-			setFilteredCatalogueItems(catalogueItems)
-			return
-		}
-
-		const filteredIds = nonEmptySets.reduce(
-			(acc, currentSet) => new Set([...acc].filter(x => currentSet.has(x)))
-		)
-
-		setFilteredCatalogueItems(
-			catalogueItems.filter(catalogueItem => filteredIds.has(catalogueItem.id))
-		)
+		filterCatalogueItems()
 	}, [
 		filters,
 		countries,
