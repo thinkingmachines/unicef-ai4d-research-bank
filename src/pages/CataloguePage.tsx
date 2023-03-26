@@ -7,14 +7,23 @@ import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
-const onCountryRegionChange = () => {}
-const onTagsChange = () => {}
-const onOrganizationChange = () => {}
-
 const CataloguePage = () => {
-	const { catalogueItems, isLoading } = useCatalogueItemContext()
-	const { countries, organizations, tags } = useFilterContext()
+	const { filteredCatalogueItems, isLoading } = useCatalogueItemContext()
+	const { countries, organizations, tags, filters, setFilters } =
+		useFilterContext()
 	let catalogueItemsSection
+
+	const onCountryRegionChange = (value: string[]) => {
+		setFilters(prevFilters => ({ ...prevFilters, countryFilter: value }))
+	}
+
+	const onOrganizationChange = (value: string[]) => {
+		setFilters(prevFilters => ({ ...prevFilters, organizationFilter: value }))
+	}
+
+	const onTagsChange = (value: string[]) => {
+		setFilters(prevFilters => ({ ...prevFilters, tagsFilter: value }))
+	}
 
 	if (isLoading) {
 		catalogueItemsSection = (
@@ -24,18 +33,18 @@ const CataloguePage = () => {
 		)
 	}
 
-	if (!isLoading && catalogueItems.length === 0) {
+	if (!isLoading && filteredCatalogueItems.length === 0) {
 		catalogueItemsSection = <span>No catalogue items available.</span>
 	}
 
-	if (!isLoading && catalogueItems.length > 0) {
+	if (!isLoading && filteredCatalogueItems.length > 0) {
 		catalogueItemsSection = (
 			<>
 				<span className='text-sm text-gray-500'>
-					{catalogueItems.length} results available
+					{filteredCatalogueItems.length} results available
 				</span>
 				<div className='grid grid-cols-1 divide-y divide-gray-100 '>
-					{catalogueItems.map(catalogueItem => (
+					{filteredCatalogueItems.map(catalogueItem => (
 						<CatalogueItemCard
 							key={catalogueItem.id}
 							catalogueItemData={catalogueItem}
@@ -70,7 +79,7 @@ const CataloguePage = () => {
 								allowClear
 								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select a country/region...'
-								defaultValue={[]}
+								defaultValue={filters.countryFilter}
 								onChange={onCountryRegionChange}
 								options={countries}
 							/>
@@ -93,7 +102,7 @@ const CataloguePage = () => {
 								allowClear
 								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select an organization...'
-								defaultValue={[]}
+								defaultValue={filters.organizationFilter}
 								onChange={onOrganizationChange}
 								options={organizations}
 							/>
@@ -106,6 +115,7 @@ const CataloguePage = () => {
 								allowClear
 								style={{ width: '100%', marginTop: '8px' }}
 								placeholder='Select a tag...'
+								defaultValue={filters.tagsFilter}
 								onChange={onTagsChange}
 								options={tags}
 							/>

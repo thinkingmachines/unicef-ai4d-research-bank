@@ -7,6 +7,10 @@ interface CatalogueItemContextType {
 	catalogueItems: CatalogueItemType[]
 	setCatalogueItems: React.Dispatch<React.SetStateAction<CatalogueItemType[]>>
 	isLoading: boolean
+	filteredCatalogueItems: CatalogueItemType[]
+	setFilteredCatalogueItems: React.Dispatch<
+		React.SetStateAction<CatalogueItemType[]>
+	>
 }
 
 interface Props {
@@ -19,14 +23,25 @@ export const CatalogueItemContext =
 export const CatalogueItemProvider = ({ children }: Props) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
+	const [filteredCatalogueItems, setFilteredCatalogueItems] = useState<
+		CatalogueItemType[]
+	>([])
 
 	const contextObj = useMemo(
 		() => ({
 			isLoading,
 			catalogueItems,
-			setCatalogueItems
+			setCatalogueItems,
+			filteredCatalogueItems,
+			setFilteredCatalogueItems
 		}),
-		[isLoading, catalogueItems, setCatalogueItems]
+		[
+			isLoading,
+			catalogueItems,
+			setCatalogueItems,
+			filteredCatalogueItems,
+			setFilteredCatalogueItems
+		]
 	)
 
 	useEffect(() => {
@@ -34,6 +49,7 @@ export const CatalogueItemProvider = ({ children }: Props) => {
 			setIsLoading(true)
 			const allCatalogueItems = await fetchCatalogItems()
 			setCatalogueItems(allCatalogueItems)
+			setFilteredCatalogueItems(allCatalogueItems)
 			setIsLoading(false)
 		}
 		void fetchAllCatalogueItems()
