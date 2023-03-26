@@ -113,58 +113,6 @@ export const FilterProvider = ({ children }: Properties) => {
 		setFilteredCatalogueItems
 	])
 
-	useEffect(() => {
-		const { countryFilter, organizationFilter, tagsFilter } = filters
-
-		if (
-			countryFilter.length === 0 &&
-			organizationFilter.length === 0 &&
-			tagsFilter.length === 0
-		) {
-			setFilteredCatalogueItems(catalogueItems)
-			return
-		}
-
-		const countryFilteredIds: Set<string> = getUnionOfIdsByFilter(
-			countryFilter,
-			countries
-		)
-
-		const orgFilteredIds: Set<string> = getUnionOfIdsByFilter(
-			organizationFilter,
-			organizations
-		)
-
-		const tagFilteredIds: Set<string> = getUnionOfIdsByFilter(tagsFilter, tags)
-
-		// Get intersection of all filtered ids
-		const nonEmptySets = [
-			countryFilteredIds,
-			orgFilteredIds,
-			tagFilteredIds
-		].filter(set => set.size > 0)
-
-		if (nonEmptySets.length === 0) {
-			setFilteredCatalogueItems(catalogueItems)
-			return
-		}
-
-		const filteredIds = nonEmptySets.reduce(
-			(acc, currentSet) => new Set([...acc].filter(x => currentSet.has(x)))
-		)
-
-		setFilteredCatalogueItems(
-			catalogueItems.filter(catalogueItem => filteredIds.has(catalogueItem.id))
-		)
-	}, [
-		filters,
-		countries,
-		organizations,
-		tags,
-		catalogueItems,
-		setFilteredCatalogueItems
-	])
-
 	return (
 		<FilterContext.Provider value={contextObj}>
 			{children}
