@@ -1,5 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable unicorn/no-null */
+
+import dayjs from 'dayjs'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
-import type { FilterOption, FiltersType } from 'types/SearchFilters.type'
+import type {
+	DateFilterType,
+	FilterOption,
+	FiltersType
+} from 'types/SearchFilters.type'
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
@@ -84,17 +93,22 @@ export const getUnionOfIdsByFilter = (
 	return filteredIds
 }
 
-export const isFiltersEmpty = (filters: FiltersType): boolean => {
-	const { countryFilter, organizationFilter, tagsFilter } = filters
-	return (
-		countryFilter.length === 0 &&
-		organizationFilter.length === 0 &&
-		tagsFilter.length === 0
-	)
-}
+const isFilterEmpty = (filter: DateFilterType | string[] | null) =>
+	filter === null || filter.length === 0
 
-export const getIntersectionOfIds = (filteredIdSets: Set<string>[]) => {
-	const nonEmptySets = filteredIdSets.filter(set => set.size > 0)
+export const isFiltersEmpty = (filters: FiltersType): boolean =>
+	Object.values(filters).every((value: DateFilterType | string[] | null) =>
+		isFilterEmpty(value)
+	)
+
+export const getIntersectionOfIds = (
+	filteredIdSets: Record<keyof FiltersType, Set<string>>,
+	filters: FiltersType
+) => {
+	// Filter sets for filters where there is no value
+	const nonEmptySets = Object.entries(filteredIdSets)
+		.filter(([key]) => !isFilterEmpty(filters[key as keyof FiltersType]))
+		.map(([_, value]) => value)
 
 	if (nonEmptySets.length === 0) {
 		return new Set<string>()
@@ -103,4 +117,28 @@ export const getIntersectionOfIds = (filteredIdSets: Set<string>[]) => {
 	return nonEmptySets.reduce(
 		(acc, currentSet) => new Set([...acc].filter(x => currentSet.has(x)))
 	)
+}
+
+export const getCatalogueIdsByDate = (
+	dateFilter: DateFilterType,
+	field: keyof CatalogueItemType,
+	catalogueItems: CatalogueItemType[]
+) => {
+	let dateFilteredIds = new Set<string>()
+
+	if (!dateFilter) return dateFilteredIds
+
+	const filteredItems = catalogueItems.filter(item => {
+		if (!item[field]) {
+			return false
+		}
+
+		const currentDate = dayjs(item[field] as string)
+
+		// Inclusive of start and end dates
+		return currentDate.isBetween(dateFilter[0], dateFilter[1], null, '[]')
+	})
+
+	dateFilteredIds = new Set(filteredItems.map(item => item.id))
+	return dateFilteredIds
 }
