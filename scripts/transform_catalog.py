@@ -42,8 +42,8 @@ def is_dataset_file(link):
 
 
 def is_gdrive_url(url):
-    _, is_gdrive_download_link = gdp.parse_url(url, warning=False)
-    return is_gdrive_download_link
+    is_gdrive, _ = gdp.parse_url(url, warning=False)
+    return is_gdrive
 
 
 def transform_gdrive_url(url):
@@ -63,6 +63,7 @@ def transform_dataset_file_link(link):
         link["type"] = transform_linktype2raw(link["type"])
     elif is_gdrive_url(url):
         link["url"] = transform_gdrive_url(url)
+        link["type"] = transform_linktype2raw(link["type"])
 
     return link
 
