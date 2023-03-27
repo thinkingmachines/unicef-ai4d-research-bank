@@ -6,5 +6,11 @@ export interface ValueLabel {
 export interface FilterOption {
 	label: string
 	value: string
-	catalogueIds: Set<string>
+	catalogueIds: string[]
+}
+
+export interface FiltersType {
+	countryFilter: string[]
+	organizationFilter: string[]
+	tagsFilter: string[]
 }

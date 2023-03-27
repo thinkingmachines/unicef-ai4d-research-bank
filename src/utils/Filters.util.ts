@@ -1,5 +1,5 @@
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
-import type { FilterOption } from 'types/SearchFilters.type'
+import type { FilterOption, FiltersType } from 'types/SearchFilters.type'
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
@@ -13,12 +13,12 @@ export const getCountryOptions = (
 
 		const countryObj = acc.find(obj => obj.value === countryRegion)
 		if (countryObj) {
-			countryObj.catalogueIds.add(id)
+			countryObj.catalogueIds.push(id)
 			return acc
 		}
 
 		acc.push({
-			catalogueIds: new Set(id),
+			catalogueIds: [id],
 			label: countryRegion,
 			value: countryRegion
 		})
@@ -33,12 +33,12 @@ export const getOrganizationOptions = (
 
 		const orgObj = acc.find(obj => obj.value === organization.name)
 		if (orgObj) {
-			orgObj.catalogueIds.add(id)
+			orgObj.catalogueIds.push(id)
 			return acc
 		}
 
 		acc.push({
-			catalogueIds: new Set(id),
+			catalogueIds: [id],
 			label: organization.name,
 			value: organization.name
 		})
@@ -59,11 +59,48 @@ export const getTagsOptions = (
 		for (const tag of tags) {
 			const tagObj = acc.find(obj => obj.value === tag)
 			if (tagObj) {
-				tagObj.catalogueIds.add(id)
+				tagObj.catalogueIds.push(id)
 			} else {
-				acc.push({ catalogueIds: new Set(id), label: tag, value: tag })
+				acc.push({ catalogueIds: [id], label: tag, value: tag })
 			}
 		}
 
 		return acc
 	}, [])
+
+export const getUnionOfIdsByFilter = (
+	selectedFilters: string[],
+	filterOptions: FilterOption[]
+): Set<string> => {
+	let filteredIds = new Set<string>()
+
+	for (const filter of selectedFilters) {
+		const filterObj = filterOptions.find(option => option.value === filter)
+		if (filterObj) {
+			filteredIds = new Set([...filteredIds, ...filterObj.catalogueIds])
+		}
+	}
+
+	return filteredIds
+}
+
+export const isFiltersEmpty = (filters: FiltersType): boolean => {
+	const { countryFilter, organizationFilter, tagsFilter } = filters
+	return (
+		countryFilter.length === 0 &&
+		organizationFilter.length === 0 &&
+		tagsFilter.length === 0
+	)
+}
+
+export const getIntersectionOfIds = (filteredIdSets: Set<string>[]) => {
+	const nonEmptySets = filteredIdSets.filter(set => set.size > 0)
+
+	if (nonEmptySets.length === 0) {
+		return new Set<string>()
+	}
+
+	return nonEmptySets.reduce(
+		(acc, currentSet) => new Set([...acc].filter(x => currentSet.has(x)))
+	)
+}
