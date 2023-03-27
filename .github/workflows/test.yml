@@ -33,7 +33,7 @@ jobs:
         run: pnpm i && pnpm cypress install && cp .env.github .env
 
       - name: Merge catalog entries
-        run: pnpm merge-catalog
+        run: python scripts/transform_catalog.py
 
       - name: Validate format
         run: pnpm run-p lint

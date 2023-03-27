@@ -1,4 +1,3 @@
-id: povmap-timor-leste
 name: 'Poverty Mapping Model for Timor Leste'
 description: 'This is a sklearn random forest regressor model  for predicting relative wealth for Timor Leste.  (add more details here later...)'
 card-type: model
@@ -27,9 +26,9 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
-  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
-    type: 'dataset-raw-csv'
+    type: 'dataset-csv'
 
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
     description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
