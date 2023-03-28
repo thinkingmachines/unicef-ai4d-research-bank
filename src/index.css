@@ -43,6 +43,15 @@
 		--tw-ring-color: transparent;
 	}
 
+	input[type='search'] {
+		border-color: #e5e7eb;
+		border-radius: 8px;
+	}
+
+	svg {
+		vertical-align: initial;
+	}
+
 	html {
 		letter-spacing: -0.025em;
 	}
