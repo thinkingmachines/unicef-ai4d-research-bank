@@ -19,6 +19,7 @@ export interface FiltersType {
 	tagsFilter: string[]
 	dateCreatedFilter: DateFilterType
 	dateUpdatedFilter: DateFilterType
+	searchValue: string
 }
 
 export type DateFilterType = RangeValue<Dayjs>

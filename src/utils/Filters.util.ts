@@ -93,12 +93,12 @@ export const getUnionOfIdsByFilter = (
 	return filteredIds
 }
 
-const isFilterEmpty = (filter: DateFilterType | string[] | null) =>
+const isFilterEmpty = (filter: DateFilterType | string[] | string | null) =>
 	filter === null || filter.length === 0
 
 export const isFiltersEmpty = (filters: FiltersType): boolean =>
-	Object.values(filters).every((value: DateFilterType | string[] | null) =>
-		isFilterEmpty(value)
+	Object.values(filters).every(
+		(value: DateFilterType | string[] | string | null) => isFilterEmpty(value)
 	)
 
 export const getIntersectionOfIds = (
@@ -141,4 +141,14 @@ export const getCatalogueIdsByDate = (
 
 	dateFilteredIds = new Set(filteredItems.map(item => item.id))
 	return dateFilteredIds
+}
+
+export const getCatalogueIdSuggestions = (
+	searchValue: string,
+	catalogueItems: CatalogueItemType[]
+) => {
+	const options = catalogueItems.filter(item =>
+		item.name.toLowerCase().includes(searchValue.toLowerCase())
+	)
+	return new Set(options.map(option => option.id))
 }

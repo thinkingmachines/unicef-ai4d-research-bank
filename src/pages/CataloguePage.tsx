@@ -9,8 +9,7 @@ import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
-	const { filteredCatalogueItems, isLoading, setFilteredCatalogueItems } =
-		useCatalogueItemContext()
+	const { filteredCatalogueItems, isLoading } = useCatalogueItemContext()
 	const { countries, organizations, tags, filters, setFilters } =
 		useFilterContext()
 	let catalogueItemsSection
@@ -35,11 +34,8 @@ const CataloguePage = () => {
 		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
 	}
 
-	const onSearchBtnClick = (input: string) => {
-		const suggestedCatalogueItems = filteredCatalogueItems.filter(item =>
-			item.name.toLowerCase().includes(input.toLowerCase())
-		)
-		setFilteredCatalogueItems(suggestedCatalogueItems)
+	const onSearchBtnClick = (searchValue: string) => {
+		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
 	}
 
 	if (isLoading) {
