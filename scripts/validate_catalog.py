@@ -3,10 +3,12 @@ import string
 from contextlib import closing
 from pathlib import Path
 
+import hxl
 import requests
 import yaml
+from hxl.input import HXLTagsNotFoundException
 
-from utils import get_session
+from utils import get_session, is_gdrive_url, transform_dataset_file_link
 
 CATALOG_DIR = "./catalog"
 
@@ -106,6 +108,19 @@ def has_valid_organization(organization, fname):
     return validate_url(organization["url"], fname)
 
 
+def validate_csv_hxl(url, fname):
+    if not is_gdrive_url(url):
+        try:
+            data = hxl.data(url)
+            hxl.validation.validate(data)
+        except Exception as e:
+            print(
+                f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}"
+            )
+            return False
+    return True
+
+
 def validate_link(link, i, fname):
     ok = []
     if not set(link.keys()).issuperset(["description", "url", "type"]):
@@ -119,6 +134,10 @@ def validate_link(link, i, fname):
 
     if "url" in link:
         ok.append(validate_url(link["url"], fname))
+        if "csv" in link["type"]:
+            # transform github and gstorage urls
+            newlink = transform_dataset_file_link(link)
+            ok.append(validate_csv_hxl(newlink["url"], fname))
     return all(ok)
 
 
