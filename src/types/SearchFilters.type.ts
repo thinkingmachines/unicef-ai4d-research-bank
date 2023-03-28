@@ -27,4 +27,5 @@ export type DateFilterType = RangeValue<Dayjs>
 export interface SearchOptionsType {
 	value: string
 	data: CatalogueItemType
+	label: JSX.Element
 }

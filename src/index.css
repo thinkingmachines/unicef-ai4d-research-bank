@@ -43,6 +43,7 @@
 		--tw-ring-color: transparent;
 	}
 
+	/* TODO: Fix ant design styling for search button and input */
 	input[type='search'] {
 		border-color: #e5e7eb;
 		border-radius: 8px;

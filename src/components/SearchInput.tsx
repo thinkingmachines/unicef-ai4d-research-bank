@@ -26,7 +26,20 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 			.filter(item =>
 				item.name.toLowerCase().includes(searchValue.toLowerCase())
 			)
-			.map(item => ({ value: item.name, data: item }))
+			.map(item => ({
+				value: item.name,
+				data: item,
+				label: (
+					<div className='flex flex-col py-1'>
+						<span className='text-xs text-gray-600'>
+							{item.organization.name}
+						</span>
+						<span className='text-base font-semibold text-cloud-burst'>
+							{item.name} ({item['year-period']})
+						</span>
+					</div>
+				)
+			}))
 
 		setSearchOptions(options)
 		setSearchInput(searchValue)
