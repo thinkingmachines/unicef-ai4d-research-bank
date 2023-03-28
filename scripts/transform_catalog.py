@@ -6,6 +6,8 @@ from pathlib import Path
 import gdown.parse_url as gdp
 import yaml
 
+from utils import is_gdrive_url
+
 CATALOG_DIR = "./catalog"
 OUTPUT_PATH = "./public/api/data/catalog.json"
 
@@ -39,11 +41,6 @@ def is_dataset_file(link):
     if "type" in link:
         return link["type"] in ["dataset-geojson", "dataset-csv"]
     return False
-
-
-def is_gdrive_url(url):
-    is_gdrive, _ = gdp.parse_url(url, warning=False)
-    return is_gdrive
 
 
 def transform_gdrive_url(url):
