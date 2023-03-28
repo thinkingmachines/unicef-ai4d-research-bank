@@ -7,8 +7,13 @@ import Tag from '../components/Tag'
 
 const LandingPage = () => {
 	const navigate = useNavigate()
-	const { isFilterOptionsLoading, countries, tags, setFilters } =
-		useFilterContext()
+	const {
+		isFilterOptionsLoading,
+		countries,
+		tags,
+		setFilters,
+		setIsFiltersLoading
+	} = useFilterContext()
 
 	const onSearchBtnClick = (searchValue: string) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
@@ -27,6 +32,7 @@ const LandingPage = () => {
 	}
 
 	const onCountryClick = (countryValue: string) => {
+		setIsFiltersLoading(true)
 		setFilters({
 			...defaultFilters,
 			countryFilter: [countryValue]
@@ -35,6 +41,7 @@ const LandingPage = () => {
 	}
 
 	const onTagClick = (tagValue: string) => {
+		setIsFiltersLoading(true)
 		setFilters({ ...defaultFilters, tagsFilter: [tagValue] })
 		navigate('catalogue')
 	}

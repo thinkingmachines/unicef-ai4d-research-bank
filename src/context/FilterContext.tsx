@@ -25,6 +25,8 @@ interface FilterContextType {
 	tags: FilterOption[]
 	filters: FiltersType
 	setFilters: React.Dispatch<React.SetStateAction<FiltersType>>
+	isFiltersLoading: boolean
+	setIsFiltersLoading: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 interface Properties {
@@ -54,6 +56,7 @@ export const FilterProvider = ({ children }: Properties) => {
 	const [organizations, setOrganizations] = useState<FilterOption[]>([])
 	const [tags, setTags] = useState<FilterOption[]>([])
 	const [filters, setFilters] = useState<FiltersType>(defaultFilters)
+	const [isFiltersLoading, setIsFiltersLoading] = useState(false)
 
 	useEffect(() => {
 		const generateFilterOptions = () => {
@@ -74,6 +77,7 @@ export const FilterProvider = ({ children }: Properties) => {
 
 	useEffect(() => {
 		const filterCatalogueItems = () => {
+			setIsFiltersLoading(true)
 			const {
 				countryFilter,
 				organizationFilter,
@@ -85,6 +89,7 @@ export const FilterProvider = ({ children }: Properties) => {
 
 			if (isFiltersEmpty(filters) && searchValue.length === 0) {
 				setFilteredCatalogueItems(catalogueItems)
+				setIsFiltersLoading(false)
 				return
 			}
 
@@ -130,6 +135,7 @@ export const FilterProvider = ({ children }: Properties) => {
 					filteredIds.has(catalogueItem.id)
 				)
 			)
+			setIsFiltersLoading(false)
 		}
 
 		filterCatalogueItems()
@@ -149,9 +155,19 @@ export const FilterProvider = ({ children }: Properties) => {
 			organizations,
 			tags,
 			filters,
-			setFilters
+			setFilters,
+			isFiltersLoading,
+			setIsFiltersLoading
 		}),
-		[isFilterOptionsLoading, countries, organizations, tags, filters]
+		[
+			isFilterOptionsLoading,
+			countries,
+			organizations,
+			tags,
+			filters,
+			isFiltersLoading,
+			setIsFiltersLoading
+		]
 	)
 
 	return (
