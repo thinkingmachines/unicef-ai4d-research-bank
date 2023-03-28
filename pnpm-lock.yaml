@@ -27,6 +27,7 @@ specifiers:
   css-mediaquery: 0.1.2
   cypress: 10.11.0
   cz-conventional-changelog: 3.3.0
+  dayjs: ^1.11.7
   eslint: 8.35.0
   eslint-config-airbnb: 19.0.4
   eslint-config-airbnb-base: 15.0.0
@@ -48,6 +49,7 @@ specifiers:
   postcss: 8.4.21
   prettier: 2.8.4
   prettier-plugin-tailwindcss: 0.2.4
+  rc-picker: ^3.3.4
   react: 18.2.0
   react-dom: 18.2.0
   react-router-dom: 6.8.2
@@ -69,6 +71,8 @@ specifiers:
 dependencies:
   '@tanstack/react-query': 4.26.0_biqbaboplfbrettd7655fr4n2y
   antd: 5.3.1_biqbaboplfbrettd7655fr4n2y
+  dayjs: 1.11.7
+  rc-picker: 3.3.4_mlnkrlbros4rghcauwy625gk7y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-router-dom: 6.8.2_biqbaboplfbrettd7655fr4n2y
@@ -3841,7 +3845,7 @@ packages:
       '@rc-component/trigger': 1.5.5_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
       copy-to-clipboard: 3.3.3
-      dayjs: 1.11.5
+      dayjs: 1.11.7
       qrcode.react: 3.1.0_react@18.2.0
       rc-cascader: 3.9.1_biqbaboplfbrettd7655fr4n2y
       rc-checkbox: 2.3.2_biqbaboplfbrettd7655fr4n2y
@@ -3858,7 +3862,7 @@ packages:
       rc-motion: 2.6.3_biqbaboplfbrettd7655fr4n2y
       rc-notification: 5.0.3_biqbaboplfbrettd7655fr4n2y
       rc-pagination: 3.3.0_biqbaboplfbrettd7655fr4n2y
-      rc-picker: 3.3.3_cgitjz73zezuu2blrtaxijn4d4
+      rc-picker: 3.3.4_mlnkrlbros4rghcauwy625gk7y
       rc-progress: 3.4.1_biqbaboplfbrettd7655fr4n2y
       rc-rate: 2.10.0_biqbaboplfbrettd7655fr4n2y
       rc-resize-observer: 1.3.1_biqbaboplfbrettd7655fr4n2y
@@ -5022,7 +5026,7 @@ packages:
       cli-table3: 0.6.2
       commander: 5.1.0
       common-tags: 1.8.2
-      dayjs: 1.11.5
+      dayjs: 1.11.7
       debug: 4.3.4_supports-color@8.1.1
       enquirer: 2.3.6
       eventemitter2: 6.4.7
@@ -5099,10 +5103,10 @@ packages:
       whatwg-url: 11.0.0
     dev: true
 
-  /dayjs/1.11.5:
+  /dayjs/1.11.7:
     resolution:
       {
-        integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==
+        integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
       }
 
   /debug/3.2.7:
@@ -10015,10 +10019,10 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-picker/3.3.3_cgitjz73zezuu2blrtaxijn4d4:
+  /rc-picker/3.3.4_mlnkrlbros4rghcauwy625gk7y:
     resolution:
       {
-        integrity: sha512-UkTWL/446z7dVbIVwbHXD4GGsZ+raJAXnSmWy78r6V8gHy8WqFwlTNQZnIe1UR/YIJWGiSxTo7UWZGTtUBRlKw==
+        integrity: sha512-y7muUVAXqcacXXgLERCC9klEClZybOjWrcVZ54glxO5y+UO2MZmBk+ysWhhVHQ0l2nNtY+wj19gk1xnv+5eCxg==
       }
     engines: { node: '>=8.x' }
     peerDependencies:
@@ -10038,7 +10042,7 @@ packages:
       '@babel/runtime': 7.20.13
       '@rc-component/trigger': 1.5.5_biqbaboplfbrettd7655fr4n2y
       classnames: 2.3.2
-      dayjs: 1.11.5
+      dayjs: 1.11.7
       rc-util: 5.28.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0

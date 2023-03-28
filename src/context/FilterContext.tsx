@@ -1,7 +1,11 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+import dayjs from 'dayjs'
+import isBetween from 'dayjs/plugin/isBetween'
 import type { ReactNode } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { FilterOption, FiltersType } from '../types/SearchFilters.type'
 import {
+	getCatalogueIdsByDate,
 	getCountryOptions,
 	getIntersectionOfIds,
 	getOrganizationOptions,
@@ -10,6 +14,8 @@ import {
 	isFiltersEmpty
 } from '../utils/Filters.util'
 import { useCatalogueItemContext } from './CatalogueItemContext'
+
+dayjs.extend(isBetween)
 
 interface FilterContextType {
 	isFilterOptionsLoading: boolean
@@ -27,7 +33,11 @@ interface Properties {
 const defaultFilters = {
 	countryFilter: [],
 	organizationFilter: [],
-	tagsFilter: []
+	tagsFilter: [],
+	// eslint-disable-next-line unicorn/no-null
+	dateCreatedFilter: null,
+	// eslint-disable-next-line unicorn/no-null
+	dateUpdatedFilter: null
 }
 
 export const FilterContext = React.createContext<FilterContextType>(
@@ -74,7 +84,13 @@ export const FilterProvider = ({ children }: Properties) => {
 
 	useEffect(() => {
 		const filterCatalogueItems = () => {
-			const { countryFilter, organizationFilter, tagsFilter } = filters
+			const {
+				countryFilter,
+				organizationFilter,
+				tagsFilter,
+				dateCreatedFilter,
+				dateUpdatedFilter
+			} = filters
 
 			if (isFiltersEmpty(filters)) {
 				setFilteredCatalogueItems(catalogueItems)
@@ -93,9 +109,25 @@ export const FilterProvider = ({ children }: Properties) => {
 				tagsFilter,
 				tags
 			)
+			const dateCreatedFilteredIds: Set<string> = getCatalogueIdsByDate(
+				dateCreatedFilter,
+				'date-added',
+				catalogueItems
+			)
+			const dateUpdatedFilteredIds: Set<string> = getCatalogueIdsByDate(
+				dateUpdatedFilter,
+				'date-modified',
+				catalogueItems
+			)
 
-			const filteredSets = [countryFilteredIds, orgFilteredIds, tagFilteredIds]
-			const filteredIds = getIntersectionOfIds(filteredSets)
+			const filteredSets: Record<keyof FiltersType, Set<string>> = {
+				countryFilter: countryFilteredIds,
+				organizationFilter: orgFilteredIds,
+				tagsFilter: tagFilteredIds,
+				dateCreatedFilter: dateCreatedFilteredIds,
+				dateUpdatedFilter: dateUpdatedFilteredIds
+			}
+			const filteredIds = getIntersectionOfIds(filteredSets, filters)
 			setFilteredCatalogueItems(
 				catalogueItems.filter(catalogueItem =>
 					filteredIds.has(catalogueItem.id)

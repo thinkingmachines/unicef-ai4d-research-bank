@@ -3,6 +3,7 @@ import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
+import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
@@ -23,6 +24,14 @@ const CataloguePage = () => {
 
 	const onTagsChange = (value: string[]) => {
 		setFilters(prevFilters => ({ ...prevFilters, tagsFilter: value }))
+	}
+
+	const onDateCreatedChange = (dates: DateFilterType) => {
+		setFilters(prevFilters => ({ ...prevFilters, dateCreatedFilter: dates }))
+	}
+
+	const onDateUpdatedChange = (dates: DateFilterType) => {
+		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
 	}
 
 	if (isLoading) {
@@ -87,12 +96,20 @@ const CataloguePage = () => {
 
 						<div className='pt-3'>
 							<span className='font-bold text-cloud-burst'>Date Created</span>
-							<RangePicker style={{ width: '100%', marginTop: '8px' }} />
+							<RangePicker
+								style={{ width: '100%', marginTop: '8px' }}
+								onChange={onDateCreatedChange}
+								defaultValue={filters.dateCreatedFilter}
+							/>
 						</div>
 
 						<div className='pt-3'>
 							<span className='font-bold text-cloud-burst'>Date Updated</span>
-							<RangePicker style={{ width: '100%', marginTop: '8px' }} />
+							<RangePicker
+								style={{ width: '100%', marginTop: '8px' }}
+								onChange={onDateUpdatedChange}
+								defaultValue={filters.dateUpdatedFilter}
+							/>
 						</div>
 
 						<div className='pt-3'>
