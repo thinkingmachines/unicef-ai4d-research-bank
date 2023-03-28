@@ -1,29 +1,16 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { AutoComplete, DatePicker, Input, Select, Skeleton, Space } from 'antd'
+import { DatePicker, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
+import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
-import { useSearchContext } from 'context/SearchContext'
-import { useNavigate } from 'react-router-dom'
-import type {
-	DateFilterType,
-	SearchOptionsType
-} from 'types/SearchFilters.type'
+import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
-	const navigate = useNavigate()
-	const { searchInput, setSearchInput, searchOptions, setSearchOptions } =
-		useSearchContext()
-
-	const {
-		catalogueItems,
-		filteredCatalogueItems,
-		isLoading,
-		setFilteredCatalogueItems
-	} = useCatalogueItemContext()
+	const { filteredCatalogueItems, isLoading, setFilteredCatalogueItems } =
+		useCatalogueItemContext()
 	const { countries, organizations, tags, filters, setFilters } =
 		useFilterContext()
 	let catalogueItemsSection
@@ -49,34 +36,10 @@ const CataloguePage = () => {
 	}
 
 	const onSearchBtnClick = (input: string) => {
-		if (input.length === 0) {
-			setFilteredCatalogueItems(catalogueItems)
-			return
-		}
-
-		const suggestedCatalogueItems = catalogueItems.filter(item =>
+		const suggestedCatalogueItems = filteredCatalogueItems.filter(item =>
 			item.name.toLowerCase().includes(input.toLowerCase())
 		)
-
 		setFilteredCatalogueItems(suggestedCatalogueItems)
-	}
-
-	const onSearch = (input: string) => {
-		if (input.length === 0) {
-			setSearchOptions([])
-			return
-		}
-
-		const options = catalogueItems
-			.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
-			.map(item => ({ value: item.name, data: item }))
-
-		setSearchOptions(options)
-		setSearchInput(input)
-	}
-
-	const onSelect = (_: string, option: SearchOptionsType) => {
-		navigate(`${option.data.id}`)
 	}
 
 	if (isLoading) {
@@ -185,18 +148,7 @@ const CataloguePage = () => {
 					</Space>
 				</div>
 				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
-					<AutoComplete
-						options={searchOptions}
-						onSearch={onSearch}
-						onSelect={onSelect}
-						defaultValue={searchInput}
-					>
-						<Input.Search
-							size='large'
-							placeholder='Search for a dataset or a model'
-							onSearch={onSearchBtnClick}
-						/>
-					</AutoComplete>
+					<SearchInput onSearchBtnClick={onSearchBtnClick} path='' />
 					<div className='mt-3 text-cloud-burst'>{catalogueItemsSection}</div>
 				</div>
 			</div>

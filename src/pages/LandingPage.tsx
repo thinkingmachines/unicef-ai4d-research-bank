@@ -1,35 +1,15 @@
-import { AutoComplete, Input, Skeleton } from 'antd'
-import { useCatalogueItemContext } from 'context/CatalogueItemContext'
+import { Skeleton } from 'antd'
+import SearchInput from 'components/SearchInput'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
-import type { SearchOptionsType } from 'types/SearchFilters.type'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
 const LandingPage = () => {
 	const navigate = useNavigate()
-	const { catalogueItems } = useCatalogueItemContext()
-	const { setSearchInput, searchOptions, setSearchOptions } = useSearchContext()
+	const { setSearchInput } = useSearchContext()
 	const { isFilterOptionsLoading, countries, tags } = useFilterContext()
-
-	const onSearch = (input: string) => {
-		if (input.length === 0) {
-			setSearchOptions([])
-			return
-		}
-
-		const options = catalogueItems
-			.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
-			.map(item => ({ value: item.name, data: item }))
-
-		setSearchOptions(options)
-		setSearchInput(input)
-	}
-
-	const onSelect = (_: string, option: SearchOptionsType) => {
-		navigate(`catalogue/${option.data.id}`)
-	}
 
 	const onSearchBtnClick = (input: string) => {
 		setSearchInput(input)
@@ -53,18 +33,7 @@ const LandingPage = () => {
 						Browse our catalogue of models and datasets to gain access to code,
 						documentation, and pre-processed datasets that fit to your needs
 					</span>
-					<AutoComplete
-						options={searchOptions}
-						onSearch={onSearch}
-						onSelect={onSelect}
-						style={{ width: '70%' }}
-					>
-						<Input.Search
-							size='large'
-							placeholder='Search for a dataset or a model'
-							onSearch={onSearchBtnClick}
-						/>
-					</AutoComplete>
+					<SearchInput onSearchBtnClick={onSearchBtnClick} path='catalogue/' />
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
