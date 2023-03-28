@@ -4,6 +4,7 @@ import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
@@ -16,8 +17,13 @@ interface SearchOptionsType {
 }
 
 const CataloguePage = () => {
-	const { catalogueItems, filteredCatalogueItems, isLoading } =
-		useCatalogueItemContext()
+	const navigate = useNavigate()
+	const {
+		catalogueItems,
+		filteredCatalogueItems,
+		isLoading,
+		setFilteredCatalogueItems
+	} = useCatalogueItemContext()
 	const { countries, organizations, tags, filters, setFilters } =
 		useFilterContext()
 	let catalogueItemsSection
@@ -44,15 +50,36 @@ const CataloguePage = () => {
 		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
 	}
 
+	const onSearchBtnClick = (input: string) => {
+		if (input.length === 0) return
+
+		const suggestedCatalogueItems = catalogueItems.filter(item =>
+			item.name.toLowerCase().includes(input.toLowerCase())
+		)
+
+		const options = suggestedCatalogueItems.map(item => ({
+			value: item.name,
+			data: item
+		}))
+		setSearchOptions(options)
+
+		setFilteredCatalogueItems(suggestedCatalogueItems)
+	}
+
 	const onSearch = (input: string) => {
 		if (input.length === 0) {
 			setSearchOptions([])
+			return
 		}
 
 		const options = catalogueItems
 			.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
 			.map(item => ({ value: item.name, data: item }))
 		setSearchOptions(options)
+	}
+
+	const onSelect = (_: string, option: SearchOptionsType) => {
+		navigate(`${option.data.id}`)
 	}
 
 	if (isLoading) {
@@ -162,13 +189,14 @@ const CataloguePage = () => {
 				</div>
 				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
 					<AutoComplete
-						style={{ width: '100%' }}
 						options={searchOptions}
 						onSearch={onSearch}
+						onSelect={onSelect}
 					>
 						<Input.Search
 							size='large'
 							placeholder='Search for a dataset or a model'
+							onSearch={onSearchBtnClick}
 						/>
 					</AutoComplete>
 					<div className='mt-3 text-cloud-burst'>{catalogueItemsSection}</div>
