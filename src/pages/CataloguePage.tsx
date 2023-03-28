@@ -3,21 +3,21 @@ import { AutoComplete, DatePicker, Input, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
-import { useState } from 'react'
+import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
-import type { CatalogueItemType } from 'types/CatalogueItem.type'
-import type { DateFilterType } from 'types/SearchFilters.type'
+import type {
+	DateFilterType,
+	SearchOptionsType
+} from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
-interface SearchOptionsType {
-	value: string
-	data: CatalogueItemType
-}
-
 const CataloguePage = () => {
 	const navigate = useNavigate()
+	const { searchInput, setSearchInput, searchOptions, setSearchOptions } =
+		useSearchContext()
+
 	const {
 		catalogueItems,
 		filteredCatalogueItems,
@@ -27,8 +27,6 @@ const CataloguePage = () => {
 	const { countries, organizations, tags, filters, setFilters } =
 		useFilterContext()
 	let catalogueItemsSection
-
-	const [searchOptions, setSearchOptions] = useState<SearchOptionsType[]>([])
 
 	const onCountryRegionChange = (value: string[]) => {
 		setFilters(prevFilters => ({ ...prevFilters, countryFilter: value }))
@@ -51,17 +49,14 @@ const CataloguePage = () => {
 	}
 
 	const onSearchBtnClick = (input: string) => {
-		if (input.length === 0) return
+		if (input.length === 0) {
+			setFilteredCatalogueItems(catalogueItems)
+			return
+		}
 
 		const suggestedCatalogueItems = catalogueItems.filter(item =>
 			item.name.toLowerCase().includes(input.toLowerCase())
 		)
-
-		const options = suggestedCatalogueItems.map(item => ({
-			value: item.name,
-			data: item
-		}))
-		setSearchOptions(options)
 
 		setFilteredCatalogueItems(suggestedCatalogueItems)
 	}
@@ -75,7 +70,9 @@ const CataloguePage = () => {
 		const options = catalogueItems
 			.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
 			.map(item => ({ value: item.name, data: item }))
+
 		setSearchOptions(options)
+		setSearchInput(input)
 	}
 
 	const onSelect = (_: string, option: SearchOptionsType) => {
@@ -192,6 +189,7 @@ const CataloguePage = () => {
 						options={searchOptions}
 						onSearch={onSearch}
 						onSelect={onSelect}
+						defaultValue={searchInput}
 					>
 						<Input.Search
 							size='large'
