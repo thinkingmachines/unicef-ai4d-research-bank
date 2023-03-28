@@ -1,18 +1,28 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
+import { AutoComplete, DatePicker, Input, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
+import { useState } from 'react'
+import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
+interface SearchOptionsType {
+	value: string
+	data: CatalogueItemType
+}
+
 const CataloguePage = () => {
-	const { filteredCatalogueItems, isLoading } = useCatalogueItemContext()
+	const { catalogueItems, filteredCatalogueItems, isLoading } =
+		useCatalogueItemContext()
 	const { countries, organizations, tags, filters, setFilters } =
 		useFilterContext()
 	let catalogueItemsSection
+
+	const [searchOptions, setSearchOptions] = useState<SearchOptionsType[]>([])
 
 	const onCountryRegionChange = (value: string[]) => {
 		setFilters(prevFilters => ({ ...prevFilters, countryFilter: value }))
@@ -32,6 +42,17 @@ const CataloguePage = () => {
 
 	const onDateUpdatedChange = (dates: DateFilterType) => {
 		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
+	}
+
+	const onSearch = (input: string) => {
+		if (input.length === 0) {
+			setSearchOptions([])
+		}
+
+		const options = catalogueItems
+			.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
+			.map(item => ({ value: item.name, data: item }))
+		setSearchOptions(options)
 	}
 
 	if (isLoading) {
@@ -142,12 +163,14 @@ const CataloguePage = () => {
 				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
 					<AutoComplete
 						style={{ width: '100%' }}
-						options={[{ value: 'Poverty Mapping for Timor Leste' }]}
-						placeholder='Search for a dataset or a model'
-						filterOption={(inputValue, option) =>
-							option!.value.toUpperCase().includes(inputValue.toUpperCase())
-						}
-					/>
+						options={searchOptions}
+						onSearch={onSearch}
+					>
+						<Input.Search
+							size='large'
+							placeholder='Search for a dataset or a model'
+						/>
+					</AutoComplete>
 					<div className='mt-3 text-cloud-burst'>{catalogueItemsSection}</div>
 				</div>
 			</div>
