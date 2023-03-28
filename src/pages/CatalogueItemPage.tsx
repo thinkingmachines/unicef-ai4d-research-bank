@@ -1,13 +1,28 @@
 import { Skeleton } from 'antd'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
+import { useFilterContext } from 'context/FilterContext'
 
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Tag from '../components/Tag'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
+const defaultFilters = {
+	countryFilter: [],
+	organizationFilter: [],
+	tagsFilter: [],
+	// eslint-disable-next-line unicorn/no-null
+	dateCreatedFilter: null,
+	// eslint-disable-next-line unicorn/no-null
+	dateUpdatedFilter: null,
+	searchValue: ''
+}
+
 const CatalogueItemPage = () => {
 	const { id } = useParams()
+	const { setFilters } = useFilterContext()
+	const navigate = useNavigate()
+
 	const [isLoading, setIsLoading] = useState(true)
 	const [catalogueItem, setCatalogueItem] = useState<
 		CatalogueItemType | undefined
@@ -29,6 +44,14 @@ const CatalogueItemPage = () => {
 		}
 		void fetchData()
 	}, [catalogueItemContext, id])
+
+	const onTagClick = (value: string) => {
+		setFilters({
+			...defaultFilters,
+			tagsFilter: [value]
+		})
+		navigate('../')
+	}
 
 	if (isLoading || catalogueItemContext.isLoading) {
 		return (
@@ -188,7 +211,9 @@ const CatalogueItemPage = () => {
 						<span className='text-sm font-semibold'>TAGS</span>
 						<div className='flex flex-wrap gap-3 py-3'>
 							{tags?.map(tag => (
-								<Tag key={tag}>{tag}</Tag>
+								<Tag key={tag} value={tag} onFilterClick={onTagClick}>
+									{tag}
+								</Tag>
 							))}
 						</div>
 					</div>
