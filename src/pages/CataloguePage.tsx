@@ -99,6 +99,7 @@ const CataloguePage = () => {
 							<RangePicker
 								style={{ width: '100%', marginTop: '8px' }}
 								onChange={onDateCreatedChange}
+								defaultValue={filters.dateCreatedFilter}
 							/>
 						</div>
 
@@ -107,6 +108,7 @@ const CataloguePage = () => {
 							<RangePicker
 								style={{ width: '100%', marginTop: '8px' }}
 								onChange={onDateUpdatedChange}
+								defaultValue={filters.dateUpdatedFilter}
 							/>
 						</div>
 
