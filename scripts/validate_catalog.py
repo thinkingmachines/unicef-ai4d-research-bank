@@ -136,8 +136,12 @@ def validate_link(link, i, fname):
         ok.append(validate_url(link["url"], fname))
         if "csv" in link["type"]:
             # transform github and gstorage urls
-            newlink = transform_dataset_file_link(link)
-            ok.append(validate_csv_hxl(newlink["url"], fname))
+            if (
+                "skip-hxl-tag-validation" not in link
+                or not link["skip-hxl-tag-validation"]
+            ):
+                newlink = transform_dataset_file_link(link)
+                ok.append(validate_csv_hxl(newlink["url"], fname))
     return all(ok)
 
 
