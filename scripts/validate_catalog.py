@@ -113,6 +113,11 @@ def validate_csv_hxl(url, fname):
         try:
             data = hxl.data(url)
             hxl.validation.validate(data)
+        except HXLTagsNotFoundException as e:
+            print(
+                f"Invalid file {fname}: CSV link {url} is missing required HXL Tags. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+            )
+
         except Exception as e:
             print(
                 f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}"
