@@ -1,5 +1,7 @@
 import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
-import { Skeleton } from 'antd'
+import { Skeleton, Tabs } from 'antd'
+import CatalogueItemData from 'components/CatalogueItemData'
+import CatalogueItemOverview from 'components/CatalogueItemOverview'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import dayjs from 'dayjs'
@@ -80,58 +82,37 @@ const CatalogueItemPage = () => {
 
 	const {
 		name,
-		description,
 		organization,
 		'date-added': dateAdded,
 		'date-modified': dateModified,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		'evaluation-metrics': evaluationMetric,
 		'card-type': cardType,
-		links,
 		tags
 	} = catalogueItem
-
-	const evaluationMetricSection = evaluationMetric?.map(evalItem => {
-		const { metric, link } = evalItem
-		// Metric and link can be undefined so there is a need to check if it exists
-		const metricItem = metric && (
-			<>
-				{metric['metric-type']} ({metric.value})
-			</>
-		)
-		const linkItem = link && (
-			<a
-				href={link.url}
-				target='_blank'
-				rel='noreferrer'
-				className='hover:underline'
-			>
-				{link.description}
-			</a>
-		)
-		if (metric && link) {
-			return (
-				<div className='' key={metric['metric-type']}>
-					{metricItem}
-					<br />
-					{linkItem}
-				</div>
-			)
-		}
-		if (metric) {
-			return <div key={metric['metric-type']}>{metricItem}</div>
-		}
-		if (link) {
-			return <div key={link.url}>{linkItem}</div>
-		}
-		return '-'
-	})
 
 	let yearPeriodTitle
 	if (yearPeriod) {
 		yearPeriodTitle = <span>({yearPeriod})</span>
 	}
+
+	const tabItems = [
+		{
+			key: '1',
+			label: 'Overview',
+			children: <CatalogueItemOverview catalogueItem={catalogueItem} />
+		},
+		{
+			key: '2',
+			label: 'Data',
+			children: <CatalogueItemData catalogueItem={catalogueItem} />
+		},
+		{
+			key: '3',
+			label: 'Related Links',
+			children: '<List of related links>'
+		}
+	]
 
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
@@ -156,63 +137,12 @@ const CatalogueItemPage = () => {
 			</div>
 			<div className='flex flex-col md:flex-row'>
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
-					<section className='mb-5'>
-						<span className='text-sm font-semibold'>Overview</span>
-						<p className='mx-5 mt-3 text-gray-600'>{description}</p>
-					</section>
-					<section>
-						<h2 className='mt-5 text-sm font-semibold'>Properties</h2>
-						<table className='mt-3 mb-5 border-separate border-spacing-x-5 border-spacing-y-2'>
-							<tbody>
-								<tr>
-									<td className='font-medium'>Country/Region</td>
-									<td className='text-gray-600'>{countryRegion ?? '-'}</td>
-								</tr>
-								<tr>
-									<td className='font-medium'>Year/Period</td>
-									<td className='text-gray-600'>{yearPeriod ?? '-'}</td>
-								</tr>
-								{evaluationMetric !== undefined && (
-									<tr>
-										<td className='align-top font-medium'>Evaluation Metric</td>
-										<td>
-											<div className='flex flex-col gap-3 text-gray-600'>
-												{evaluationMetricSection}
-											</div>
-										</td>
-									</tr>
-								)}
-							</tbody>
-						</table>
-					</section>
-					<section>
-						<h2 className='mt-5 mb-3 text-sm font-semibold'>Data</h2>
-						<div className='mb-5 grid-cols-1 divide-y divide-gray-100'>
-							{links.map(link => (
-								<div
-									key={link.url}
-									className='align-center flex flex-col rounded p-5'
-								>
-									<span className='text-xs text-gray-600'>{link.type}</span>
-									<a
-										href={link.url}
-										key={`${link.description}`}
-										target='_blank'
-										rel='noreferrer'
-										className='w-full hover:underline'
-									>
-										{link.description}
-									</a>
-								</div>
-							))}
-						</div>
-					</section>
+					<Tabs defaultActiveKey='1' items={tabItems} />
 				</div>
 				<div className='flex w-full flex-col gap-5 p-10 text-cloud-burst md:w-1/3'>
 					<div className='rounded bg-gray-50 p-6'>
-						<span className='font-semibold'>Details</span>
 						<div className='flex flex-col gap-5'>
-							<div className='align-center mt-5 flex flex-row gap-3'>
+							<div className='align-center flex flex-row gap-3'>
 								<EnvironmentOutlined
 									style={{
 										color: '#6b7280',
