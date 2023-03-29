@@ -147,6 +147,10 @@ def validate_link(link, i, fname):
             ):
                 newlink = transform_dataset_file_link(link)
                 ok.append(validate_csv_hxl(newlink["url"], fname))
+            else:
+                print(
+                    f"Warning for file {fname}: HXL tag validation skipped for the CSV link {link['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+                )
     return all(ok)
 
 
