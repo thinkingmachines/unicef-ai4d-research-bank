@@ -1,9 +1,11 @@
+import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
 import { Skeleton } from 'antd'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
-
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import formatString from 'utils/String.util'
 import Tag from '../components/Tag'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
@@ -155,11 +157,11 @@ const CatalogueItemPage = () => {
 			<div className='flex flex-col md:flex-row'>
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
 					<section className='mb-5'>
-						<span className='text-sm font-semibold'>SUMMARY</span>
+						<span className='text-sm font-semibold'>Overview</span>
 						<p className='mx-5 mt-3 text-gray-600'>{description}</p>
 					</section>
 					<section>
-						<h2 className='mt-5 text-sm font-semibold'>PROPERTIES</h2>
+						<h2 className='mt-5 text-sm font-semibold'>Properties</h2>
 						<table className='mt-3 mb-5 border-separate border-spacing-x-5 border-spacing-y-2'>
 							<tbody>
 								<tr>
@@ -184,7 +186,7 @@ const CatalogueItemPage = () => {
 						</table>
 					</section>
 					<section>
-						<h2 className='mt-5 mb-3 text-sm font-semibold'>DATA</h2>
+						<h2 className='mt-5 mb-3 text-sm font-semibold'>Data</h2>
 						<div className='mb-5 grid-cols-1 divide-y divide-gray-100'>
 							{links.map(link => (
 								<div
@@ -206,9 +208,73 @@ const CatalogueItemPage = () => {
 						</div>
 					</section>
 				</div>
-				<div className='flex w-full flex-col p-10 text-cloud-burst md:w-1/3 '>
+				<div className='flex w-full flex-col gap-5 p-10 text-cloud-burst md:w-1/3'>
+					<div className='rounded bg-gray-50 p-6'>
+						<span className='font-semibold'>Details</span>
+						<div className='flex flex-col gap-5'>
+							<div className='align-center mt-5 flex flex-row gap-3'>
+								<EnvironmentOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										COUNTRY / REGION
+									</span>
+									<span className='font-medium'>
+										{countryRegion ? formatString(countryRegion) : '-'}
+									</span>
+								</div>
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<CalendarOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										YEAR / PERIOD
+									</span>
+									<span className='font-medium'>{yearPeriod ?? '-'}</span>
+								</div>
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<CalendarOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										DATE CREATED
+									</span>
+									<span className='font-medium'>
+										{dayjs(dateAdded).format('MMM DD, YYYY')}
+									</span>
+								</div>
+							</div>
+							{dateModified ? (
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										DATE UPDATED
+									</span>
+									<span className='font-medium'>
+										{dayjs(dateModified).format('MMM DD, YYYY')}
+									</span>
+								</div>
+							) : undefined}
+						</div>
+					</div>
 					<div className='rounded bg-gray-50 p-5'>
-						<span className='text-sm font-semibold'>TAGS</span>
+						<span className='text-sm font-semibold'>Tags</span>
 						<div className='flex flex-wrap gap-3 py-3'>
 							{tags?.map(tag => (
 								<Tag key={tag} value={tag} onFilterClick={onTagClick}>

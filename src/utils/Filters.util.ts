@@ -9,6 +9,7 @@ import type {
 	FilterOption,
 	FiltersType
 } from 'types/SearchFilters.type'
+import formatString from './String.util'
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
@@ -29,9 +30,7 @@ export const getCountryOptions = (
 
 			acc.push({
 				catalogueIds: [id],
-				label: countryRegion
-					.replace('-', ' ')
-					.replace(/\b\w/g, l => l.toUpperCase()),
+				label: formatString(countryRegion),
 				value: countryRegion
 			})
 			return acc
