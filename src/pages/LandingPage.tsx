@@ -7,12 +7,43 @@ import Tag from '../components/Tag'
 
 const LandingPage = () => {
 	const navigate = useNavigate()
-	const { isFilterOptionsLoading, countries, tags, setFilters } =
-		useFilterContext()
+	const {
+		isFilterOptionsLoading,
+		countries,
+		tags,
+		setFilters,
+		setIsFiltersLoading
+	} = useFilterContext()
 
 	const onSearchBtnClick = (searchValue: string) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
-		navigate(`catalogue`)
+		navigate('catalogue')
+	}
+
+	const defaultFilters = {
+		countryFilter: [],
+		organizationFilter: [],
+		tagsFilter: [],
+		// eslint-disable-next-line unicorn/no-null
+		dateCreatedFilter: null,
+		// eslint-disable-next-line unicorn/no-null
+		dateUpdatedFilter: null,
+		searchValue: ''
+	}
+
+	const onCountryClick = (countryValue: string) => {
+		setIsFiltersLoading(true)
+		setFilters({
+			...defaultFilters,
+			countryFilter: [countryValue]
+		})
+		navigate('catalogue')
+	}
+
+	const onTagClick = (tagValue: string) => {
+		setIsFiltersLoading(true)
+		setFilters({ ...defaultFilters, tagsFilter: [tagValue] })
+		navigate('catalogue')
 	}
 
 	return (
@@ -49,7 +80,15 @@ const LandingPage = () => {
 						{isFilterOptionsLoading ? (
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
-							tags.map(tag => <Tag key={tag.value}>{tag.value}</Tag>)
+							tags.map(tag => (
+								<Tag
+									key={tag.value}
+									onFilterClick={onTagClick}
+									value={tag.value}
+								>
+									{tag.value}
+								</Tag>
+							))
 						)}
 					</div>
 				</div>
@@ -62,7 +101,13 @@ const LandingPage = () => {
 							<Skeleton.Button active size='small' shape='default' />
 						) : (
 							countries.map(country => (
-								<Tag key={country.value}>{country.label}</Tag>
+								<Tag
+									key={country.value}
+									onFilterClick={() => onCountryClick(country.value)}
+									value={country.value}
+								>
+									{country.label}
+								</Tag>
 							))
 						)}
 					</div>

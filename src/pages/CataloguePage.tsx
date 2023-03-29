@@ -9,9 +9,17 @@ import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
-	const { filteredCatalogueItems, isLoading } = useCatalogueItemContext()
-	const { countries, organizations, tags, filters, setFilters } =
-		useFilterContext()
+	const { filteredCatalogueItems, isLoading: isCatalogueItemsLoading } =
+		useCatalogueItemContext()
+	const {
+		countries,
+		organizations,
+		tags,
+		filters,
+		setFilters,
+		isFiltersLoading
+	} = useFilterContext()
+	const isLoading = isCatalogueItemsLoading || isFiltersLoading
 	let catalogueItemsSection
 
 	const onCountryRegionChange = (value: string[]) => {

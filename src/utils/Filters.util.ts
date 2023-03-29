@@ -13,69 +13,77 @@ import type {
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
 ): FilterOption[] =>
-	catalogueItems.reduce<FilterOption[]>((acc, item) => {
-		const { 'country-region': countryRegion, id } = item
+	catalogueItems
+		.reduce<FilterOption[]>((acc, item) => {
+			const { 'country-region': countryRegion, id } = item
 
-		if (!countryRegion) {
+			if (!countryRegion) {
+				return acc
+			}
+
+			const countryObj = acc.find(obj => obj.value === countryRegion)
+			if (countryObj) {
+				countryObj.catalogueIds.push(id)
+				return acc
+			}
+
+			acc.push({
+				catalogueIds: [id],
+				label: countryRegion
+					.replace('-', ' ')
+					.replace(/\b\w/g, l => l.toUpperCase()),
+				value: countryRegion
+			})
 			return acc
-		}
-
-		const countryObj = acc.find(obj => obj.value === countryRegion)
-		if (countryObj) {
-			countryObj.catalogueIds.push(id)
-			return acc
-		}
-
-		acc.push({
-			catalogueIds: [id],
-			label: countryRegion,
-			value: countryRegion
-		})
-		return acc
-	}, [])
+		}, [])
+		.sort((a, b) => a.value.localeCompare(b.value))
 
 export const getOrganizationOptions = (
 	catalogueItems: CatalogueItemType[]
 ): FilterOption[] =>
-	catalogueItems.reduce<FilterOption[]>((acc, item) => {
-		const { organization, id } = item
+	catalogueItems
+		.reduce<FilterOption[]>((acc, item) => {
+			const { organization, id } = item
 
-		const orgObj = acc.find(obj => obj.value === organization.name)
-		if (orgObj) {
-			orgObj.catalogueIds.push(id)
+			const orgObj = acc.find(obj => obj.value === organization.name)
+			if (orgObj) {
+				orgObj.catalogueIds.push(id)
+				return acc
+			}
+
+			acc.push({
+				catalogueIds: [id],
+				label: organization.name,
+				value: organization.name
+			})
+
 			return acc
-		}
-
-		acc.push({
-			catalogueIds: [id],
-			label: organization.name,
-			value: organization.name
-		})
-
-		return acc
-	}, [])
+		}, [])
+		.sort((a, b) => a.value.localeCompare(b.value))
 
 export const getTagsOptions = (
 	catalogueItems: CatalogueItemType[]
 ): FilterOption[] =>
-	catalogueItems.reduce<FilterOption[]>((acc, item) => {
-		const { tags, id } = item
+	catalogueItems
+		.reduce<FilterOption[]>((acc, item) => {
+			const { tags, id } = item
 
-		if (!tags) {
-			return acc
-		}
-
-		for (const tag of tags) {
-			const tagObj = acc.find(obj => obj.value === tag)
-			if (tagObj) {
-				tagObj.catalogueIds.push(id)
-			} else {
-				acc.push({ catalogueIds: [id], label: tag, value: tag })
+			if (!tags) {
+				return acc
 			}
-		}
 
-		return acc
-	}, [])
+			for (const tag of tags) {
+				const tagObj = acc.find(obj => obj.value === tag)
+				if (tagObj) {
+					tagObj.catalogueIds.push(id)
+				} else {
+					acc.push({ catalogueIds: [id], label: tag, value: tag })
+				}
+			}
+
+			return acc
+		}, [])
+		.sort((a, b) => a.value.localeCompare(b.value))
 
 export const getUnionOfIdsByFilter = (
 	selectedFilters: string[],
