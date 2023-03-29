@@ -5141,7 +5141,7 @@ packages:
   /dayjs@1.11.7:
     resolution:
       {
-        integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==
+        integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==
       }
 
   /debug@3.2.7(supports-color@8.1.1):
@@ -9962,7 +9962,7 @@ packages:
   /rc-picker@3.3.4(dayjs@1.11.7)(react-dom@18.2.0)(react@18.2.0):
     resolution:
       {
-        integrity: sha512-y7muUVAXqcacXXgLERCC9klEClZybOjWrcVZ54glxO5y+UO2MZmBk+ysWhhVHQ0l2nNtY+wj19gk1xnv+5eCxg==
+        integrity: sha512-UkTWL/446z7dVbIVwbHXD4GGsZ+raJAXnSmWy78r6V8gHy8WqFwlTNQZnIe1UR/YIJWGiSxTo7UWZGTtUBRlKw==
       }
     engines: { node: '>=8.x' }
     peerDependencies:
