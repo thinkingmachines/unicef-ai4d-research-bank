@@ -31,5 +31,9 @@
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
-	}
+	},
+	"python.testing.pytestArgs": ["tests"],
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true,
+	"python.analysis.extraPaths": ["./scripts"]
 }
