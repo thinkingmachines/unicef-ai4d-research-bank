@@ -1,6 +1,7 @@
 import Header from 'components/Header'
 import { CatalogueItemProvider } from 'context/CatalogueItemContext'
 import { FilterProvider } from 'context/FilterContext'
+import { SearchProvider } from 'context/SearchContext'
 import { CatalogueItemPage, CataloguePage, LandingPage } from 'pages'
 import LoadCatalog from 'pages/LoadCatalog'
 import type { ReactElement } from 'react'
@@ -13,17 +14,19 @@ export default function App(): ReactElement {
 			<Header />
 			<CatalogueItemProvider>
 				<FilterProvider>
-					<Routes>
-						<Route path={`${HOME_PATH}/`} element={<LandingPage />} />
-						<Route
-							path={`${HOME_PATH}/loadcatalog`}
-							element={<LoadCatalog />}
-						/>
-						<Route path={`${HOME_PATH}/catalogue`}>
-							<Route index element={<CataloguePage />} />
-							<Route path=':id' element={<CatalogueItemPage />} />
-						</Route>
-					</Routes>
+					<SearchProvider>
+						<Routes>
+							<Route path={`${HOME_PATH}/`} element={<LandingPage />} />
+							<Route
+								path={`${HOME_PATH}/loadcatalog`}
+								element={<LoadCatalog />}
+							/>
+							<Route path={`${HOME_PATH}/catalogue`}>
+								<Route index element={<CataloguePage />} />
+								<Route path=':id' element={<CatalogueItemPage />} />
+							</Route>
+						</Routes>
+					</SearchProvider>
 				</FilterProvider>
 			</CatalogueItemProvider>
 		</BrowserRouter>

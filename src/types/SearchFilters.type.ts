@@ -1,5 +1,6 @@
 import type { Dayjs } from 'dayjs'
 import type { RangeValue } from 'rc-picker/lib/interface'
+import type { CatalogueItemType } from './CatalogueItem.type'
 
 export interface ValueLabel {
 	label: string | undefined
@@ -18,6 +19,13 @@ export interface FiltersType {
 	tagsFilter: string[]
 	dateCreatedFilter: DateFilterType
 	dateUpdatedFilter: DateFilterType
+	searchValue: string
 }
 
 export type DateFilterType = RangeValue<Dayjs>
+
+export interface SearchOptionsType {
+	value: string
+	data: CatalogueItemType
+	label: JSX.Element
+}

@@ -1,6 +1,6 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { AutoComplete, DatePicker, Select, Skeleton, Space } from 'antd'
+import { DatePicker, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
+import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import type { DateFilterType } from 'types/SearchFilters.type'
@@ -32,6 +32,10 @@ const CataloguePage = () => {
 
 	const onDateUpdatedChange = (dates: DateFilterType) => {
 		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
+	}
+
+	const onSearchBtnClick = (searchValue: string) => {
+		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
 	}
 
 	if (isLoading) {
@@ -140,14 +144,7 @@ const CataloguePage = () => {
 					</Space>
 				</div>
 				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
-					<AutoComplete
-						style={{ width: '100%' }}
-						options={[{ value: 'Poverty Mapping for Timor Leste' }]}
-						placeholder='Search for a dataset or a model'
-						filterOption={(inputValue, option) =>
-							option!.value.toUpperCase().includes(inputValue.toUpperCase())
-						}
-					/>
+					<SearchInput onSearchBtnClick={onSearchBtnClick} path='' />
 					<div className='mt-3 text-cloud-burst'>{catalogueItemsSection}</div>
 				</div>
 			</div>

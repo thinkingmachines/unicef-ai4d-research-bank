@@ -1,10 +1,19 @@
 import { Skeleton } from 'antd'
+import SearchInput from 'components/SearchInput'
 import { useFilterContext } from 'context/FilterContext'
+import { useNavigate } from 'react-router-dom'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
 const LandingPage = () => {
-	const { isFilterOptionsLoading, countries, tags } = useFilterContext()
+	const navigate = useNavigate()
+	const { isFilterOptionsLoading, countries, tags, setFilters } =
+		useFilterContext()
+
+	const onSearchBtnClick = (searchValue: string) => {
+		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
+		navigate(`catalogue`)
+	}
 
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
@@ -23,10 +32,12 @@ const LandingPage = () => {
 						Browse our catalogue of models and datasets to gain access to code,
 						documentation, and pre-processed datasets that fit to your needs
 					</span>
-					<input
-						className='mt-5 w-3/5 rounded-md px-3 py-2 tracking-tight text-cloud-burst'
-						placeholder='Search for a dataset or a model'
-					/>
+					<div className='my-5 w-2/3 rounded-md bg-white'>
+						<SearchInput
+							onSearchBtnClick={onSearchBtnClick}
+							path='catalogue/'
+						/>
+					</div>
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>

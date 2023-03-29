@@ -6,6 +6,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import type { FilterOption, FiltersType } from '../types/SearchFilters.type'
 import {
 	getCatalogueIdsByDate,
+	getCatalogueIdSuggestions,
 	getCountryOptions,
 	getIntersectionOfIds,
 	getOrganizationOptions,
@@ -37,7 +38,8 @@ const defaultFilters = {
 	// eslint-disable-next-line unicorn/no-null
 	dateCreatedFilter: null,
 	// eslint-disable-next-line unicorn/no-null
-	dateUpdatedFilter: null
+	dateUpdatedFilter: null,
+	searchValue: ''
 }
 
 export const FilterContext = React.createContext<FilterContextType>(
@@ -52,18 +54,6 @@ export const FilterProvider = ({ children }: Properties) => {
 	const [organizations, setOrganizations] = useState<FilterOption[]>([])
 	const [tags, setTags] = useState<FilterOption[]>([])
 	const [filters, setFilters] = useState<FiltersType>(defaultFilters)
-
-	const contextObj = useMemo(
-		() => ({
-			isFilterOptionsLoading,
-			countries,
-			organizations,
-			tags,
-			filters,
-			setFilters
-		}),
-		[isFilterOptionsLoading, countries, organizations, tags, filters]
-	)
 
 	useEffect(() => {
 		const generateFilterOptions = () => {
@@ -89,10 +79,11 @@ export const FilterProvider = ({ children }: Properties) => {
 				organizationFilter,
 				tagsFilter,
 				dateCreatedFilter,
-				dateUpdatedFilter
+				dateUpdatedFilter,
+				searchValue
 			} = filters
 
-			if (isFiltersEmpty(filters)) {
+			if (isFiltersEmpty(filters) && searchValue.length === 0) {
 				setFilteredCatalogueItems(catalogueItems)
 				return
 			}
@@ -119,14 +110,20 @@ export const FilterProvider = ({ children }: Properties) => {
 				'date-modified',
 				catalogueItems
 			)
+			const searchSuggestionIds: Set<string> = getCatalogueIdSuggestions(
+				searchValue,
+				catalogueItems
+			)
 
 			const filteredSets: Record<keyof FiltersType, Set<string>> = {
 				countryFilter: countryFilteredIds,
 				organizationFilter: orgFilteredIds,
 				tagsFilter: tagFilteredIds,
 				dateCreatedFilter: dateCreatedFilteredIds,
-				dateUpdatedFilter: dateUpdatedFilteredIds
+				dateUpdatedFilter: dateUpdatedFilteredIds,
+				searchValue: searchSuggestionIds
 			}
+
 			const filteredIds = getIntersectionOfIds(filteredSets, filters)
 			setFilteredCatalogueItems(
 				catalogueItems.filter(catalogueItem =>
@@ -138,12 +135,24 @@ export const FilterProvider = ({ children }: Properties) => {
 		filterCatalogueItems()
 	}, [
 		filters,
+		catalogueItems,
 		countries,
 		organizations,
-		tags,
-		catalogueItems,
-		setFilteredCatalogueItems
+		setFilteredCatalogueItems,
+		tags
 	])
+
+	const contextObj = useMemo(
+		() => ({
+			isFilterOptionsLoading,
+			countries,
+			organizations,
+			tags,
+			filters,
+			setFilters
+		}),
+		[isFilterOptionsLoading, countries, organizations, tags, filters]
+	)
 
 	return (
 		<FilterContext.Provider value={contextObj}>
