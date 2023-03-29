@@ -1,3 +1,4 @@
+import csv
 import re
 import sys
 import textwrap
@@ -11,6 +12,7 @@ from gdown.download import (
     indent,
 )
 from gdown.parse_url import parse_url
+from hxl.input import AbstractInput
 
 GITHUB_URL_PAT = r"https:\/\/github.com\/(\S+)\/blob(\/\S+)"
 RAW_GH_LINK_REPL = r"https://raw.githubusercontent.com/\1\2"
@@ -123,7 +125,7 @@ def get_gdown_response(
         url_origin = url
     else:
         # not a gdrive url
-        return None
+        return None, None
 
     while True:
         try:
@@ -135,7 +137,7 @@ def get_gdown_response(
                 file=sys.stderr,
             )
             print(e, file=sys.stderr)
-            return None
+            return None, None
 
         if "Content-Disposition" in res.headers:
             # This is the file
@@ -154,6 +156,22 @@ def get_gdown_response(
                 file=sys.stderr,
             )
             print("\n\t", url_origin, "\n", file=sys.stderr)
-            return None
+            return None, None
 
-    return res
+    return res, sess
+
+
+class CSVResponseInput(AbstractInput):
+    def __init__(self, resp, sess, input_options=None):
+        super().__init__(input_options)
+        self.sess = sess
+        self.resp = resp
+        self._reader = csv.reader(
+            resp.iter_content(chunk_size=8192, decode_unicode=True)
+        )
+
+    def __exit__(self, value, type, traceback):
+        self.sess.close()
+
+    def __iter__(self):
+        return self._reader

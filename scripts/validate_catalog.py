@@ -8,7 +8,13 @@ import requests
 import yaml
 from hxl.input import HXLTagsNotFoundException
 
-from utils import get_session, is_gdrive_url, transform_dataset_file_link
+from utils import (
+    CSVResponseInput,
+    get_gdown_response,
+    get_session,
+    is_gdrive_url,
+    transform_dataset_file_link,
+)
 
 CATALOG_DIR = "./catalog"
 
@@ -109,20 +115,26 @@ def has_valid_organization(organization, fname):
 
 
 def validate_csv_hxl(url, fname):
-    if not is_gdrive_url(url):
-        try:
-            data = hxl.data(url)
-            hxl.validation.validate(data)
-        except HXLTagsNotFoundException as e:
-            print(
-                f"Invalid file {fname}: CSV link {url} is missing required HXL Tags. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
-            )
-
-        except Exception as e:
-            print(
-                f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}"
-            )
+    if is_gdrive_url(url):
+        resp, sess = get_gdown_response(url)
+        if resp is None:
+            print(f"Invalid file {fname}: Could not access link with url {url}")
             return False
+        source = CSVResponseInput(resp, sess)
+    else:
+        source = url
+    try:
+        data = hxl.data(source)
+        hxl.validation.validate(data)
+    except HXLTagsNotFoundException as e:
+        print(
+            f"Invalid file {fname}: CSV link {url} is missing required HXL Tags. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+        )
+
+    except Exception as e:
+        print(f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}")
+        return False
+
     return True
 
 
