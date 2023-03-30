@@ -4,7 +4,6 @@ export const formatString = (str: string) =>
 export const getFileFormat = (str: string, separator: string) => {
 	const index = str.lastIndexOf(separator)
 
-	// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 	if (index === -1) {
 		return ''
 	}
