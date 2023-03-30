@@ -166,9 +166,7 @@ class CSVResponseInput(AbstractInput):
         super().__init__(input_options)
         self.sess = sess
         self.resp = resp
-        self._reader = csv.reader(
-            resp.iter_content(chunk_size=8192, decode_unicode=True)
-        )
+        self._reader = csv.reader(resp.iter_lines(chunk_size=8192, decode_unicode=True))
 
     def __exit__(self, value, type, traceback):
         self.sess.close()
