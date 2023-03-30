@@ -18,6 +18,13 @@ def transform_links(links):
     return new_links
 
 
+# TODO:
+# FOR CSVs: grab 1st 11 rows contents and extract columns
+# if CSV has hxl tags, skip row,
+# create pandas dataframe from 1st 10 rows
+#
+
+
 def transform(filename: str):
     file = Path(filename)
     with open(file) as f:
