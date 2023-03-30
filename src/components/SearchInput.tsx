@@ -95,6 +95,7 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 	const onSelect = (title: string, option: SearchOptionsType) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue: title }))
 		setSearchInput(title)
+		setSearchOptions([option])
 		navigate(`${path}${option.data.id}`)
 	}
 
