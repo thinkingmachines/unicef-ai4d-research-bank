@@ -15,8 +15,8 @@ export default function App(): ReactElement {
 			<ConfigProvider
 				theme={{
 					token: {
-						colorPrimary: '#24295C',
-						colorLinkHover: '#24295C'
+						colorPrimary: '#24295c',
+						colorPrimaryBg: '#d3d4de'
 					}
 				}}
 			>
