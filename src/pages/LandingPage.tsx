@@ -6,6 +6,17 @@ import { useNavigate } from 'react-router-dom'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
+const defaultFilters = {
+	countryFilter: [],
+	organizationFilter: [],
+	tagsFilter: [],
+	// eslint-disable-next-line unicorn/no-null
+	dateCreatedFilter: null,
+	// eslint-disable-next-line unicorn/no-null
+	dateUpdatedFilter: null,
+	searchValue: ''
+}
+
 const LandingPage = () => {
 	const navigate = useNavigate()
 	const { setSearchInput } = useSearchContext()
@@ -24,7 +35,7 @@ const LandingPage = () => {
 			| React.KeyboardEvent<HTMLInputElement>
 			| React.MouseEvent<HTMLElement, MouseEvent> // eslint-disable-line @typescript-eslint/no-unnecessary-type-arguments
 	) => {
-		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
+		setFilters({ ...defaultFilters, searchValue })
 
 		if (event?.type === 'click' && event.currentTarget.localName === 'input') {
 			setSearchInput('')
@@ -32,17 +43,6 @@ const LandingPage = () => {
 		}
 
 		navigate('catalogue')
-	}
-
-	const defaultFilters = {
-		countryFilter: [],
-		organizationFilter: [],
-		tagsFilter: [],
-		// eslint-disable-next-line unicorn/no-null
-		dateCreatedFilter: null,
-		// eslint-disable-next-line unicorn/no-null
-		dateUpdatedFilter: null,
-		searchValue: ''
 	}
 
 	const onCountryClick = (countryValue: string) => {
