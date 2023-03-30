@@ -130,6 +130,7 @@ def validate_csv_hxl(url, fname):
         print(
             f"Invalid file {fname}: CSV link {url} is missing required HXL Tags. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
         )
+        return False
 
     except Exception as e:
         print(f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}")
