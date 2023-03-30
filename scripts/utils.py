@@ -4,6 +4,7 @@ import sys
 import textwrap
 
 import gdown.parse_url as gdp
+import pandas as pd
 import requests
 from gdown.download import (
     CHUNK_SIZE,
@@ -173,3 +174,28 @@ class CSVResponseInput(AbstractInput):
 
     def __iter__(self):
         return self._reader
+
+
+REMAP_TYPES = {
+    "object": "string",
+    "int64": "integer",
+    "bool": "boolean",
+}
+
+
+def rename_types(dtype):
+    if dtype in REMAP_TYPES:
+        return REMAP_TYPES[dtype]
+    return dtype
+
+
+def extract_column_names_and_types(df: pd.DataFrame) -> dict:
+    """
+    Extracts the names of the columns from a pandas dataframe along with their data types.
+    """
+    columns = df.columns
+    column_types = df.dtypes
+    column_info = {}
+    for i, column in enumerate(columns):
+        column_info[column] = rename_types(str(column_types[i]))
+    return column_info
