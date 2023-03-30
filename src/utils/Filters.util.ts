@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable unicorn/no-null */
 
 import dayjs from 'dayjs'

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import type { ReactNode } from 'react'
