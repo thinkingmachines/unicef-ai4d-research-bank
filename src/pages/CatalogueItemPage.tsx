@@ -11,6 +11,7 @@ import CatalogueItemLinks from 'components/CatalogueItemLinks'
 import CatalogueItemOverview from 'components/CatalogueItemOverview'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
+import { useSearchContext } from 'context/SearchContext'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -29,7 +30,8 @@ const defaultFilters = {
 
 const CatalogueItemPage = () => {
 	const { id } = useParams()
-	const { setFilters } = useFilterContext()
+	const { setSearchInput } = useSearchContext()
+	const { setFilters, setIsFiltersLoading } = useFilterContext()
 	const navigate = useNavigate()
 
 	const [isLoading, setIsLoading] = useState(true)
@@ -55,6 +57,8 @@ const CatalogueItemPage = () => {
 	}, [catalogueItemContext, id])
 
 	const onTagClick = (value: string) => {
+		setIsFiltersLoading(true)
+		setSearchInput('')
 		setFilters({
 			...defaultFilters,
 			tagsFilter: [value]

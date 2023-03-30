@@ -56,6 +56,7 @@ const LandingPage = () => {
 
 	const onTagClick = (tagValue: string) => {
 		setIsFiltersLoading(true)
+		setSearchInput('')
 		setFilters({ ...defaultFilters, tagsFilter: [tagValue] })
 		navigate('catalogue')
 	}
