@@ -63,7 +63,7 @@ const LandingPage = () => {
 						Browse our catalogue of models and datasets to gain access to code,
 						documentation, and pre-processed datasets that fit to your needs
 					</span>
-					<div className='my-5 w-2/3 rounded-md bg-white'>
+					<div className='my-5 flex w-2/3 flex-row'>
 						<SearchInput
 							onSearchBtnClick={onSearchBtnClick}
 							path='catalogue/'

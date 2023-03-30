@@ -1,5 +1,9 @@
-import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
-import { AutoComplete, Input } from 'antd'
+import {
+	CalendarOutlined,
+	EnvironmentOutlined,
+	SearchOutlined
+} from '@ant-design/icons'
+import { AutoComplete, Button, Input } from 'antd'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
@@ -90,12 +94,17 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 			onSearch={onSearch}
 			onSelect={onSelect}
 			defaultValue={searchInput}
-			style={{ width: inputWidth }}
+			style={{ width: inputWidth, letterSpacing: '-0.025em' }}
 		>
 			<Input.Search
 				size='large'
 				placeholder='Search for a dataset or a model'
 				onSearch={onSearchBtnClick}
+				enterButton={
+					<Button style={{ backgroundColor: 'white' }} size='large'>
+						<SearchOutlined color='#24295c' />
+					</Button>
+				}
 			/>
 		</AutoComplete>
 	)

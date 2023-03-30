@@ -16,7 +16,8 @@ export default function App(): ReactElement {
 				theme={{
 					token: {
 						colorPrimary: '#24295c',
-						colorPrimaryBg: '#d3d4de'
+						colorPrimaryBg: '#d3d4de',
+						lineHeightLG: 1.39
 					}
 				}}
 			>
