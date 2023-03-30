@@ -1,4 +1,10 @@
-import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
+/* eslint-disable unicorn/no-null */
+import {
+	CalendarOutlined,
+	EnvironmentOutlined,
+	TagsOutlined,
+	TeamOutlined
+} from '@ant-design/icons'
 import { Skeleton, Tabs } from 'antd'
 import CatalogueItemData from 'components/CatalogueItemData'
 import CatalogueItemLinks from 'components/CatalogueItemLinks'
@@ -16,9 +22,7 @@ const defaultFilters = {
 	countryFilter: [],
 	organizationFilter: [],
 	tagsFilter: [],
-	// eslint-disable-next-line unicorn/no-null
 	dateCreatedFilter: null,
-	// eslint-disable-next-line unicorn/no-null
 	dateUpdatedFilter: null,
 	searchValue: ''
 }
@@ -88,7 +92,6 @@ const CatalogueItemPage = () => {
 		'date-modified': dateModified,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		'card-type': cardType,
 		tags
 	} = catalogueItem
 
@@ -130,10 +133,16 @@ const CatalogueItemPage = () => {
 					{name} {yearPeriodTitle}
 				</span>
 				<div className='mt-2 flex flex-row gap-10 text-sm'>
-					<span>Country/Region: {countryRegion ?? '-'}</span>
-					<span>Date Created: {dateAdded}</span>
-					{dateModified ? <span>Date Updated: {dateModified}</span> : undefined}
-					<span>Type: {cardType}</span>
+					<span>
+						<EnvironmentOutlined />{' '}
+						{countryRegion
+							? `Country/Region: ${formatString(countryRegion)}`
+							: '-'}
+					</span>
+					<span>
+						<CalendarOutlined />{' '}
+						{yearPeriod ? `Year/Period: ${yearPeriod}` : '-'}
+					</span>
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
@@ -155,7 +164,7 @@ const CatalogueItemPage = () => {
 									<span className='text-xs font-medium text-gray-500'>
 										COUNTRY / REGION
 									</span>
-									<span className='font-medium'>
+									<span className='text-sm font-medium'>
 										{countryRegion ? formatString(countryRegion) : '-'}
 									</span>
 								</div>
@@ -172,7 +181,31 @@ const CatalogueItemPage = () => {
 									<span className='text-xs font-medium text-gray-500'>
 										YEAR / PERIOD
 									</span>
-									<span className='font-medium'>{yearPeriod ?? '-'}</span>
+									<span className='text-sm font-medium'>
+										{yearPeriod ?? '-'}
+									</span>
+								</div>
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<TeamOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										ORGANIZATION
+									</span>
+									<a
+										href={organization.url}
+										target='_blank'
+										rel='noreferrer'
+										className='text-sm font-medium hover:underline'
+									>
+										{organization.name}
+									</a>
 								</div>
 							</div>
 							<div className='align-center flex flex-row gap-3'>
@@ -187,7 +220,7 @@ const CatalogueItemPage = () => {
 									<span className='text-xs font-medium text-gray-500'>
 										DATE CREATED
 									</span>
-									<span className='font-medium'>
+									<span className='text-sm font-medium'>
 										{dayjs(dateAdded).format('MMM DD, YYYY')}
 									</span>
 								</div>
@@ -197,7 +230,7 @@ const CatalogueItemPage = () => {
 									<span className='text-xs font-medium text-gray-500'>
 										DATE UPDATED
 									</span>
-									<span className='font-medium'>
+									<span className='text-sm font-medium'>
 										{dayjs(dateModified).format('MMM DD, YYYY')}
 									</span>
 								</div>
@@ -205,7 +238,10 @@ const CatalogueItemPage = () => {
 						</div>
 					</div>
 					<div className='rounded bg-gray-50 p-5'>
-						<span className='text-sm font-semibold'>Tags</span>
+						<span className='text-sm font-semibold'>
+							<TagsOutlined style={{ marginRight: '8px' }} />
+							Tags
+						</span>
 						<div className='flex flex-wrap gap-3 py-3'>
 							{tags?.map(tag => (
 								<Tag key={tag} value={tag} onFilterClick={onTagClick}>
