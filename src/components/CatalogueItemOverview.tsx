@@ -66,7 +66,7 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 			<p className='mb-5 text-gray-600'>{description}</p>
 			{evaluationMetric !== undefined && (
 				<div className='flex flex-col'>
-					<span className='font-semibold text-gray-600'>Evaluation Metric</span>
+					<span className='font-semibold text-gray-700'>Evaluation Metric</span>
 					<div className='grid-cols-1 gap-5 divide-y divide-gray-200 text-gray-600'>
 						{evaluationMetricSection}
 					</div>
