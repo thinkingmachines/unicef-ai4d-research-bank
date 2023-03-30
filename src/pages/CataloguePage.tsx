@@ -3,12 +3,14 @@ import CatalogueItemCard from 'components/CatalogueItemCard'
 import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
+import { useSearchContext } from 'context/SearchContext'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
 
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
+	const { setSearchInput } = useSearchContext()
 	const { filteredCatalogueItems, isLoading: isCatalogueItemsLoading } =
 		useCatalogueItemContext()
 	const {
@@ -42,8 +44,18 @@ const CataloguePage = () => {
 		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
 	}
 
-	const onSearchBtnClick = (searchValue: string) => {
+	const onSearchBtnClick = (
+		searchValue: string,
+		event?:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.KeyboardEvent<HTMLInputElement>
+			| React.MouseEvent<HTMLElement, MouseEvent> // eslint-disable-line @typescript-eslint/no-unnecessary-type-arguments
+	) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
+
+		if (event?.type === 'click' && event.currentTarget.localName === 'input') {
+			setSearchInput('')
+		}
 	}
 
 	if (isLoading) {

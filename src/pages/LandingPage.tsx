@@ -1,12 +1,14 @@
 import { Skeleton } from 'antd'
 import SearchInput from 'components/SearchInput'
 import { useFilterContext } from 'context/FilterContext'
+import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
 const LandingPage = () => {
 	const navigate = useNavigate()
+	const { setSearchInput } = useSearchContext()
 	const {
 		isFilterOptionsLoading,
 		countries,
@@ -24,8 +26,10 @@ const LandingPage = () => {
 	) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
 
-		if (event?.type === 'click' && event.currentTarget.localName === 'input')
+		if (event?.type === 'click' && event.currentTarget.localName === 'input') {
+			setSearchInput('')
 			return
+		}
 
 		navigate('catalogue')
 	}
