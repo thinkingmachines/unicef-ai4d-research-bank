@@ -50,6 +50,12 @@
 			}
 		],
 		"no-void": "off",
+		"no-param-reassign": [
+			2,
+			{
+				"props": false
+			}
+		],
 
 		"@typescript-eslint/padding-line-between-statements": "off",
 		"@typescript-eslint/prefer-enum-initializers": "off",

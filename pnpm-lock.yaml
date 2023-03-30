@@ -4,6 +4,9 @@ overrides:
   headers-polyfill: 3.1.2
 
 dependencies:
+  '@ant-design/icons':
+    specifier: ^5.0.1
+    version: 5.0.1(react-dom@18.2.0)(react@18.2.0)
   '@tanstack/react-query':
     specifier: 4.26.0
     version: 4.26.0(react-dom@18.2.0)(react@18.2.0)
@@ -4147,6 +4150,7 @@ packages:
         integrity: sha512-49vKpMqcZYsJjwotvt4+h/BCjJVnhGwcLpDt5xkcaOG3eLrG/HUYLagrihYsQ+qrIBgIzX1Rw7a6L8I/ZA1Atg==
       }
     engines: { node: ^10 || ^12 || >=14 }
+    hasBin: true
     peerDependencies:
       postcss: ^8.1.0
     dependencies:
@@ -5779,6 +5783,7 @@ packages:
       {
         integrity: sha512-HHVXLSlVUhMSmyW4ZzEuvjpwqamgmlfkutD53cYXLikh4pt/modINRcCIApJ84czDxM4GZInwUrromsDdTImTA==
       }
+    hasBin: true
     peerDependencies:
       eslint: '>=7.0.0'
     dependencies:
@@ -8655,6 +8660,7 @@ packages:
         integrity: sha512-oqMvUXm1bMbwvGpoXAQVz8vXXQyQyx52HBDg3EDOK+dFXkQHssgkXEG4LfMwwZyr2Qt18I/w04XPaY4BkFTkzA==
       }
     engines: { node: '>=14' }
+    hasBin: true
     requiresBuild: true
     peerDependencies:
       typescript: '>= 4.4.x <= 4.9.x'
@@ -11442,6 +11448,7 @@ packages:
         integrity: sha512-U44lELgLZhbAD/xy/vncZ2Pq8sh2TnpiPvo38Ifg9+zeioR+LAkHu0i6YORIOxFafZoVg0xqQwex6e6F25S5XA==
       }
     engines: { node: '>= 12' }
+    hasBin: true
     peerDependencies:
       stylelint: '>= 11.x < 15'
     dependencies:
@@ -11614,6 +11621,7 @@ packages:
         integrity: sha512-B6DLqJzc21x7wntlH/GsZwEXTBttVSl1FtCzC8WP4oBc/NKef7kaax5jeihkkCEWc831/5NDJ9gRNDK6NEioQQ==
       }
     engines: { node: '>=12.13.0' }
+    hasBin: true
     peerDependencies:
       postcss: ^8.0.9
     dependencies:
@@ -11850,6 +11858,7 @@ packages:
       {
         integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
       }
+    hasBin: true
     peerDependencies:
       '@swc/core': '>=1.2.50'
       '@swc/wasm': '>=1.2.50'
@@ -11884,6 +11893,7 @@ packages:
         integrity: sha512-H3DWlwKpow+GpVLm/2cpmok72pwRr1YFROV3YzAmvzfGFiC1zEM/mc9b7+1XnrxuXtEbhJ7xUSIqjPFbedp7aQ==
       }
     engines: { node: ^14.13.1 || ^16 || >=18, pnpm: ^7.18.0 }
+    hasBin: true
     peerDependencies:
       typescript: ^4.3.5
     peerDependenciesMeta:
@@ -12152,6 +12162,7 @@ packages:
       {
         integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==
       }
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -12165,6 +12176,7 @@ packages:
       {
         integrity: sha512-/xsqn21EGVdXI3EXSum1Yckj3ZVZugqyOZQ/CxYPBD/R+ko9NSUScf8tFF4dOKY+2pvSSJA/S+5B8s4Zr4kyvg==
       }
+    hasBin: true
     peerDependencies:
       browserslist: '>= 4.21.0'
     dependencies:
@@ -12332,6 +12344,7 @@ packages:
         integrity: sha512-3knk/HsbSTKEin43zHu7jTwYWv81f8kgAL99G5NWBcA1LKvtvcVAC4JjBH1arBunO9kQka+1oGbrMKOjk4ZrBg==
       }
     engines: { node: ^14.18.0 || >=16.0.0 }
+    hasBin: true
     peerDependencies:
       '@types/node': '>= 14'
       less: '*'
@@ -12368,6 +12381,7 @@ packages:
         integrity: sha512-ydK9IGbAvoY8wkg29DQ4ivcVviCaUi3ivuPKfZEVddMTenFHUfB8EEDXQV8+RasEk1ACFLgMUqAaDuQ/Nk+mQA==
       }
     engines: { node: '>=v14.16.0' }
+    hasBin: true
     peerDependencies:
       '@edge-runtime/vm': '*'
       '@vitest/browser': '*'

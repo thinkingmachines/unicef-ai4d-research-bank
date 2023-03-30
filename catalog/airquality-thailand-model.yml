@@ -29,3 +29,11 @@ links:
   - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
     description: 'UNICEF AI4D Air Quality Github Repository'
     type: 'repository'
+
+  - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+    description: 'Modelling of Daily PM2.5 in Thailand using Machine Learning on Remote Sensing Datasets'
+    type: research-paper
+
+  - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+    description: 'Limitations of using the model'
+    type: limitations

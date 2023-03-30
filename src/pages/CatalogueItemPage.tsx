@@ -1,9 +1,20 @@
-import { Skeleton } from 'antd'
+/* eslint-disable unicorn/no-null */
+import {
+	CalendarOutlined,
+	EnvironmentOutlined,
+	TagsOutlined,
+	TeamOutlined
+} from '@ant-design/icons'
+import { Skeleton, Tabs } from 'antd'
+import CatalogueItemData from 'components/CatalogueItemData'
+import CatalogueItemLinks from 'components/CatalogueItemLinks'
+import CatalogueItemOverview from 'components/CatalogueItemOverview'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
-
+import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { formatString } from 'utils/String.util'
 import Tag from '../components/Tag'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
@@ -11,9 +22,7 @@ const defaultFilters = {
 	countryFilter: [],
 	organizationFilter: [],
 	tagsFilter: [],
-	// eslint-disable-next-line unicorn/no-null
 	dateCreatedFilter: null,
-	// eslint-disable-next-line unicorn/no-null
 	dateUpdatedFilter: null,
 	searchValue: ''
 }
@@ -78,58 +87,36 @@ const CatalogueItemPage = () => {
 
 	const {
 		name,
-		description,
 		organization,
 		'date-added': dateAdded,
 		'date-modified': dateModified,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		'evaluation-metrics': evaluationMetric,
-		'card-type': cardType,
-		links,
 		tags
 	} = catalogueItem
-
-	const evaluationMetricSection = evaluationMetric?.map(evalItem => {
-		const { metric, link } = evalItem
-		// Metric and link can be undefined so there is a need to check if it exists
-		const metricItem = metric && (
-			<>
-				{metric['metric-type']} ({metric.value})
-			</>
-		)
-		const linkItem = link && (
-			<a
-				href={link.url}
-				target='_blank'
-				rel='noreferrer'
-				className='hover:underline'
-			>
-				{link.description}
-			</a>
-		)
-		if (metric && link) {
-			return (
-				<div className='' key={metric['metric-type']}>
-					{metricItem}
-					<br />
-					{linkItem}
-				</div>
-			)
-		}
-		if (metric) {
-			return <div key={metric['metric-type']}>{metricItem}</div>
-		}
-		if (link) {
-			return <div key={link.url}>{linkItem}</div>
-		}
-		return '-'
-	})
 
 	let yearPeriodTitle
 	if (yearPeriod) {
 		yearPeriodTitle = <span>({yearPeriod})</span>
 	}
+
+	const tabItems = [
+		{
+			key: '1',
+			label: 'Overview',
+			children: <CatalogueItemOverview catalogueItem={catalogueItem} />
+		},
+		{
+			key: '2',
+			label: 'Data',
+			children: <CatalogueItemData catalogueItem={catalogueItem} />
+		},
+		{
+			key: '3',
+			label: 'Related Links',
+			children: <CatalogueItemLinks catalogueItem={catalogueItem} />
+		}
+	]
 
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
@@ -146,69 +133,115 @@ const CatalogueItemPage = () => {
 					{name} {yearPeriodTitle}
 				</span>
 				<div className='mt-2 flex flex-row gap-10 text-sm'>
-					<span>Country/Region: {countryRegion ?? '-'}</span>
-					<span>Date Created: {dateAdded}</span>
-					{dateModified ? <span>Date Updated: {dateModified}</span> : undefined}
-					<span>Type: {cardType}</span>
+					<span>
+						<EnvironmentOutlined />{' '}
+						{countryRegion
+							? `Country/Region: ${formatString(countryRegion)}`
+							: '-'}
+					</span>
+					<span>
+						<CalendarOutlined />{' '}
+						{yearPeriod ? `Year/Period: ${yearPeriod}` : '-'}
+					</span>
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
-					<section className='mb-5'>
-						<span className='text-sm font-semibold'>SUMMARY</span>
-						<p className='mx-5 mt-3 text-gray-600'>{description}</p>
-					</section>
-					<section>
-						<h2 className='mt-5 text-sm font-semibold'>PROPERTIES</h2>
-						<table className='mt-3 mb-5 border-separate border-spacing-x-5 border-spacing-y-2'>
-							<tbody>
-								<tr>
-									<td className='font-medium'>Country/Region</td>
-									<td className='text-gray-600'>{countryRegion ?? '-'}</td>
-								</tr>
-								<tr>
-									<td className='font-medium'>Year/Period</td>
-									<td className='text-gray-600'>{yearPeriod ?? '-'}</td>
-								</tr>
-								{evaluationMetric !== undefined && (
-									<tr>
-										<td className='align-top font-medium'>Evaluation Metric</td>
-										<td>
-											<div className='flex flex-col gap-3 text-gray-600'>
-												{evaluationMetricSection}
-											</div>
-										</td>
-									</tr>
-								)}
-							</tbody>
-						</table>
-					</section>
-					<section>
-						<h2 className='mt-5 mb-3 text-sm font-semibold'>DATA</h2>
-						<div className='mb-5 grid-cols-1 divide-y divide-gray-100'>
-							{links.map(link => (
-								<div
-									key={link.url}
-									className='align-center flex flex-col rounded p-5'
-								>
-									<span className='text-xs text-gray-600'>{link.type}</span>
+					<Tabs defaultActiveKey='1' items={tabItems} />
+				</div>
+				<div className='flex w-full flex-col gap-5 p-10 text-cloud-burst md:w-1/3'>
+					<div className='rounded bg-gray-50 p-6'>
+						<div className='flex flex-col gap-5'>
+							<div className='align-center flex flex-row gap-3'>
+								<EnvironmentOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										COUNTRY / REGION
+									</span>
+									<span className='text-sm font-medium'>
+										{countryRegion ? formatString(countryRegion) : '-'}
+									</span>
+								</div>
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<CalendarOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										YEAR / PERIOD
+									</span>
+									<span className='text-sm font-medium'>
+										{yearPeriod ?? '-'}
+									</span>
+								</div>
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<TeamOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										ORGANIZATION
+									</span>
 									<a
-										href={link.url}
-										key={`${link.description}`}
+										href={organization.url}
 										target='_blank'
 										rel='noreferrer'
-										className='w-full hover:underline'
+										className='text-sm font-medium hover:underline'
 									>
-										{link.description}
+										{organization.name}
 									</a>
 								</div>
-							))}
+							</div>
+							<div className='align-center flex flex-row gap-3'>
+								<CalendarOutlined
+									style={{
+										color: '#6b7280',
+										fontSize: '24px',
+										margin: 'auto 0'
+									}}
+								/>
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										DATE CREATED
+									</span>
+									<span className='text-sm font-medium'>
+										{dayjs(dateAdded).format('MMM DD, YYYY')}
+									</span>
+								</div>
+							</div>
+							{dateModified ? (
+								<div className='flex flex-col'>
+									<span className='text-xs font-medium text-gray-500'>
+										DATE UPDATED
+									</span>
+									<span className='text-sm font-medium'>
+										{dayjs(dateModified).format('MMM DD, YYYY')}
+									</span>
+								</div>
+							) : undefined}
 						</div>
-					</section>
-				</div>
-				<div className='flex w-full flex-col p-10 text-cloud-burst md:w-1/3 '>
+					</div>
 					<div className='rounded bg-gray-50 p-5'>
-						<span className='text-sm font-semibold'>TAGS</span>
+						<span className='text-sm font-semibold'>
+							<TagsOutlined style={{ marginRight: '8px' }} />
+							Tags
+						</span>
 						<div className='flex flex-wrap gap-3 py-3'>
 							{tags?.map(tag => (
 								<Tag key={tag} value={tag} onFilterClick={onTagClick}>
