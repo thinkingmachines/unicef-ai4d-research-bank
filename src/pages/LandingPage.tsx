@@ -15,8 +15,18 @@ const LandingPage = () => {
 		setIsFiltersLoading
 	} = useFilterContext()
 
-	const onSearchBtnClick = (searchValue: string) => {
+	const onSearchBtnClick = (
+		searchValue: string,
+		event?:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.KeyboardEvent<HTMLInputElement>
+			| React.MouseEvent<HTMLElement, MouseEvent> // eslint-disable-line @typescript-eslint/no-unnecessary-type-arguments
+	) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue }))
+
+		if (event?.type === 'click' && event.currentTarget.localName === 'input')
+			return
+
 		navigate('catalogue')
 	}
 
