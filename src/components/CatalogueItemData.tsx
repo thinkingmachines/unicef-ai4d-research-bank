@@ -23,8 +23,8 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 	let trainingDatasetSection
 	if (trainingDatasets.length > 0) {
 		trainingDatasetSection = (
-			<div className='mt-3 flex flex-col gap-3'>
-				<span className='mb-3 font-semibold text-gray-700'>
+			<div className='flex flex-col gap-2'>
+				<span className='mb-1 font-semibold text-gray-700'>
 					Training Dataset
 				</span>
 				{trainingDatasets.map(dataset => (
@@ -62,8 +62,8 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 	let rawDatasetsSection
 	if (datasets.length > 0) {
 		rawDatasetsSection = (
-			<div className='mt-3 flex flex-col gap-3'>
-				<span className='mb-3 font-semibold text-gray-700'>
+			<div className='flex flex-col gap-2'>
+				<span className='mb-1 font-semibold text-gray-700'>
 					Results Datasets
 				</span>
 				{datasets.map(dataset => (

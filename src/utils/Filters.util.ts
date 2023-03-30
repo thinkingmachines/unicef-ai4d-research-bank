@@ -9,7 +9,7 @@ import type {
 	FilterOption,
 	FiltersType
 } from 'types/SearchFilters.type'
-import formatString from './String.util'
+import { formatString } from './String.util'
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]

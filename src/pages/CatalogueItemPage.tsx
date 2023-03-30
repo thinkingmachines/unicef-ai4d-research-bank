@@ -1,13 +1,14 @@
 import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
 import { Skeleton, Tabs } from 'antd'
 import CatalogueItemData from 'components/CatalogueItemData'
+import CatalogueItemLinks from 'components/CatalogueItemLinks'
 import CatalogueItemOverview from 'components/CatalogueItemOverview'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import formatString from 'utils/String.util'
+import { formatString } from 'utils/String.util'
 import Tag from '../components/Tag'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
@@ -110,7 +111,7 @@ const CatalogueItemPage = () => {
 		{
 			key: '3',
 			label: 'Related Links',
-			children: '<List of related links>'
+			children: <CatalogueItemLinks catalogueItem={catalogueItem} />
 		}
 	]
 
