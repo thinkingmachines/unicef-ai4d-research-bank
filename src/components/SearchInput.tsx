@@ -1,13 +1,24 @@
-import { CalendarOutlined, EnvironmentOutlined } from '@ant-design/icons'
-import { AutoComplete, Input } from 'antd'
+import {
+	CalendarOutlined,
+	EnvironmentOutlined,
+	SearchOutlined
+} from '@ant-design/icons'
+import { AutoComplete, Button, Input } from 'antd'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
+import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
 import type { SearchOptionsType } from 'types/SearchFilters.type'
 import { formatString } from 'utils/String.util'
 
 interface Props {
-	onSearchBtnClick: (searchValue: string) => void
+	onSearchBtnClick: (
+		searchValue: string,
+		event?:
+			| React.ChangeEvent<HTMLInputElement>
+			| React.KeyboardEvent<HTMLInputElement>
+			| React.MouseEvent<HTMLElement, MouseEvent> // eslint-disable-line @typescript-eslint/no-unnecessary-type-arguments
+	) => void
 	path: string
 	inputWidth?: string
 }
@@ -19,9 +30,10 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 	const { filteredCatalogueItems } = useCatalogueItemContext()
 	const { searchInput, setSearchInput, searchOptions, setSearchOptions } =
 		useSearchContext()
+	const { setFilters } = useFilterContext()
 
 	const onSearch = (searchValue: string) => {
-		if (searchValue.length === 0) {
+		if (searchValue.length < 3) {
 			setSearchOptions([])
 			return
 		}
@@ -80,7 +92,9 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 		setSearchInput(searchValue)
 	}
 
-	const onSelect = (_: string, option: SearchOptionsType) => {
+	const onSelect = (title: string, option: SearchOptionsType) => {
+		setFilters(prevFilters => ({ ...prevFilters, searchValue: title }))
+		setSearchInput(title)
 		navigate(`${path}${option.data.id}`)
 	}
 
@@ -90,12 +104,18 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 			onSearch={onSearch}
 			onSelect={onSelect}
 			defaultValue={searchInput}
-			style={{ width: inputWidth }}
+			style={{ width: inputWidth, letterSpacing: '-0.025em' }}
 		>
 			<Input.Search
 				size='large'
 				placeholder='Search for a dataset or a model'
 				onSearch={onSearchBtnClick}
+				allowClear
+				enterButton={
+					<Button style={{ backgroundColor: 'white' }} size='large'>
+						<SearchOutlined color='#24295c' />
+					</Button>
+				}
 			/>
 		</AutoComplete>
 	)
