@@ -27,7 +27,7 @@ const MAX_OPTIONS = 10
 
 const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 	const navigate = useNavigate()
-	const { filteredCatalogueItems } = useCatalogueItemContext()
+	const { catalogueItems } = useCatalogueItemContext()
 	const { searchInput, setSearchInput, searchOptions, setSearchOptions } =
 		useSearchContext()
 	const { setFilters } = useFilterContext()
@@ -38,7 +38,7 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 			return
 		}
 
-		const options = filteredCatalogueItems
+		const options = catalogueItems
 			.filter(item =>
 				item.name.toLowerCase().includes(searchValue.toLowerCase())
 			)
@@ -95,6 +95,7 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 	const onSelect = (title: string, option: SearchOptionsType) => {
 		setFilters(prevFilters => ({ ...prevFilters, searchValue: title }))
 		setSearchInput(title)
+		setSearchOptions([option])
 		navigate(`${path}${option.data.id}`)
 	}
 

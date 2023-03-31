@@ -17,6 +17,7 @@ export default function App(): ReactElement {
 					token: {
 						colorPrimary: '#24295c',
 						colorPrimaryBg: '#d3d4de',
+						colorLinkHover: '#24295c',
 						lineHeightLG: 1.39
 					}
 				}}
