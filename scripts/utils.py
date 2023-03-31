@@ -43,7 +43,12 @@ def transform_linktype2raw(linktype):
 
 def is_dataset_file(link):
     if "type" in link:
-        return link["type"] in ["dataset-geojson", "dataset-csv"]
+        return link["type"] in [
+            "dataset-geojson",
+            "dataset-csv",
+            "training-dataset-geojson",
+            "training-dataset-csv",
+        ]
     return False
 
 
@@ -53,8 +58,8 @@ def transform_gdrive_url(url):
     return new_url
 
 
-def transform_dataset_file_link(link):
-    if "skip-hxl-tag-validation" in link:
+def transform_dataset_file_link(link, pop_skip_tag=True):
+    if pop_skip_tag and "skip-hxl-tag-validation" in link:
         link.pop("skip-hxl-tag-validation")
     if "url" not in link:
         return link

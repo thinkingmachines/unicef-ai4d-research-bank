@@ -158,7 +158,7 @@ def validate_link(link, i, fname):
                 "skip-hxl-tag-validation" not in link
                 or not link["skip-hxl-tag-validation"]
             ):
-                newlink = transform_dataset_file_link(link)
+                newlink = transform_dataset_file_link(link, pop_skip_tag=False)
                 ok.append(validate_csv_hxl(newlink["url"], fname))
             else:
                 print(

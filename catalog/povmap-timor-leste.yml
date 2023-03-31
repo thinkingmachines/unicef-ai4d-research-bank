@@ -40,6 +40,7 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
     description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
     type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
     description: 'Training dataset for Poverty Mapping Model on Timor Leste'
     type: 'training-dataset-csv'
+    skip-hxl-tag-validation: true
