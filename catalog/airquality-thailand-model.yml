@@ -25,6 +25,7 @@ links:
       This patched table was then used to predict PM 2.5 values
 
     type: dataset-csv
+    skip-hxl-tag-validation: true
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
     description: 'UNICEF AI4D Air Quality Github Repository'

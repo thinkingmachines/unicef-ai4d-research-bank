@@ -1,8 +1,20 @@
 import glob
 import string
+from contextlib import closing
 from pathlib import Path
 
+import hxl
+import requests
 import yaml
+from hxl.input import HXLTagsNotFoundException
+
+from utils import (
+    CSVResponseInput,
+    get_gdown_response,
+    get_session,
+    is_gdrive_url,
+    transform_dataset_file_link,
+)
 
 CATALOG_DIR = "./catalog"
 
@@ -78,22 +90,109 @@ def validate_filename(fpath):
     return ok
 
 
+def validate_url(url, fname):
+    r = requests.get(url)
+    if r.status_code != 200:
+        with closing(get_session(proxy=None)) as sess:
+            r = sess.get(url)
+            if r.status_code != 200:
+                print(
+                    f"Invalid file {fname}: Link not available for {url}, reason: {r.reason}"
+                )
+                return False
+
+    return True
+
+
+def has_valid_organization(organization, fname):
+    if not set(organization.keys()).issuperset(["name", "url"]):
+        if "name" not in organization:
+            print(f"Invalid file {fname}: Organization name is missing")
+        else:
+            print(f"Invalid file {fname}: Organization url is missing")
+        return False
+    return validate_url(organization["url"], fname)
+
+
+def validate_csv_hxl(url, fname):
+    if is_gdrive_url(url):
+        resp, sess = get_gdown_response(url)
+        if resp is None:
+            print(f"Invalid file {fname}: Could not access link with url {url}")
+            return False
+        source = CSVResponseInput(resp, sess)
+    else:
+        source = url
+    try:
+        data = hxl.data(source)
+        hxl.validation.validate(data)
+    except HXLTagsNotFoundException as e:
+        print(
+            f"Invalid file {fname}: CSV link {url} is missing required HXL Tags. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+        )
+        return False
+
+    except Exception as e:
+        print(f"Invalid file {fname}: CSV link {url} does not have valid HXL Tags: {e}")
+        return False
+
+    return True
+
+
+def validate_link(link, i, fname):
+    ok = []
+    if not set(link.keys()).issuperset(["description", "url", "type"]):
+        if "description" not in link:
+            print(f"Invalid file {fname}: No description found for link [{i}]")
+        if "url" not in link:
+            print(f"Invalid file {fname}: No url found for link[{i}]")
+        if "type" not in link:
+            print(f"Invalid file {fname}: No type found for link[{i}]")
+        ok.append(False)
+
+    if "url" in link:
+        ok.append(validate_url(link["url"], fname))
+        if "csv" in link["type"]:
+            # transform github and gstorage urls
+            if (
+                "skip-hxl-tag-validation" not in link
+                or not link["skip-hxl-tag-validation"]
+            ):
+                newlink = transform_dataset_file_link(link, pop_skip_tag=False)
+                ok.append(validate_csv_hxl(newlink["url"], fname))
+            else:
+                print(
+                    f"Warning for file {fname}: HXL tag validation skipped for the CSV link {link['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+                )
+    return all(ok)
+
+
+def has_valid_links(links, fname):
+    ok = []
+    for i, link in enumerate(links):
+        ok.append(validate_link(link, i, fname))
+    return all(ok)
+
+
 def validate_yaml(file, fname):
-    ok = True
+    ok = []
     fpath = Path(fname) if type(fname) == str else fname
     name = fpath.name
     # validate filename
-    ok = ok and validate_filename(fpath)
+    ok.append(validate_filename(fpath))
     item = yaml.safe_load(file)
     # validate required entries
-    ok = ok and has_required_fields(item, name)
+    ok.append(has_required_fields(item, name))
     # validate no extra fields
-    ok = ok and has_no_extra_fields(item, name)
+    ok.append(has_no_extra_fields(item, name))
     # validate countries
     if "country-region" in item:
-        ok = ok and has_valid_region(item["country-region"], name)
-
-    return ok
+        ok.append(has_valid_region(item["country-region"], name))
+    if "organization" in item:
+        ok.append(has_valid_organization(item["organization"], name))
+    if "links" in item:
+        ok.append(has_valid_links(item["links"], name))
+    return all(ok)
 
 
 def validate_file(fname):

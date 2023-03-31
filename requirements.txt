@@ -1,2 +1,8 @@
 pyyaml
 gdown
+libhxl
+pytest
+pytest-mock
+pytest-xdist
+pytest-cov
+pandas
