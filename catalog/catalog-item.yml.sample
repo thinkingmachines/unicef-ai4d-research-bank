@@ -54,12 +54,12 @@ evaluation-metrics:
 # 'code-notebook','repository', 'documentation', 'dataset-shapefile', 'dataset-raw-shapefile', 'dataset-tif', 'dataset-raw-tif'
 # at least one link must be provided
 links:
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
     # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present 
     skip-hxl-tag-validation: false 
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
   

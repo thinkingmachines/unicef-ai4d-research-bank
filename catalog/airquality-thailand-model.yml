@@ -16,7 +16,7 @@ evaluation-metrics:
       description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
       url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
 links:
-  - url: https://drive.google.com/file/d/1_cmrGkIivqzMHgDHEx18_oJTc6PB665i/view?usp=share_link
+  - url: https://drive.google.com/file/d/1kxScRmolAA5hSd6Ig1ly85WQJ_Z6NmGc/view?usp=share_link
     description: >
       2022-05-31-patched-openaq.csv :
       Table patched from the sub-regression model experiment.
@@ -25,7 +25,6 @@ links:
       This patched table was then used to predict PM 2.5 values
 
     type: dataset-csv
-    skip-hxl-tag-validation: true
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
     description: 'UNICEF AI4D Air Quality Github Repository'
