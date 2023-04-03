@@ -1,10 +1,10 @@
-name: "Air Quality Model for Thailand"
-description: "This is a sklearn random forest regressor model  for predicting PM2.5 concentrations in Thailand  (add more details here later...)"
+name: 'Air Quality Model for Thailand'
+description: 'This is a sklearn random forest regressor model  for predicting PM2.5 concentrations in Thailand  (add more details here later...)'
 card-type: model
 organization:
-  name: "Unicef East Asia and Pacific Regional Office"
-  url: "https://www.unicef.org/eap/"
-date-added: "2021-03-02"
+  name: 'Unicef East Asia and Pacific Regional Office'
+  url: 'https://www.unicef.org/eap/'
+date-added: '2021-03-02'
 tags:
   - air-quality
   - thailand
@@ -13,7 +13,7 @@ country-region: thailand
 year-period: 2021
 evaluation-metrics:
   - link:
-      description: "Manuscript - see Section 3.3 Evaluation and Metrics"
+      description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
       url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
 links:
   - url: https://drive.google.com/file/d/1kxScRmolAA5hSd6Ig1ly85WQJ_Z6NmGc/view?usp=share_link
@@ -25,16 +25,15 @@ links:
       This patched table was then used to predict PM 2.5 values
 
     type: dataset-csv
-    skip-hxl-tag-validation: true
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
-    description: "UNICEF AI4D Air Quality Github Repository"
-    type: "repository"
+    description: 'UNICEF AI4D Air Quality Github Repository'
+    type: 'repository'
 
   - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
-    description: "Modelling of Daily PM2.5 in Thailand using Machine Learning on Remote Sensing Datasets"
+    description: 'Modelling of Daily PM2.5 in Thailand using Machine Learning on Remote Sensing Datasets'
     type: research-paper
 
   - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
-    description: "Limitations of using the model"
+    description: 'Limitations of using the model'
     type: limitations

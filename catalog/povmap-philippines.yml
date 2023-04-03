@@ -30,7 +30,7 @@ evaluation-metrics:
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html#evaluate-model-training-using-cross-validation
 
 links:
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl
     description: 'Philippines Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
@@ -38,7 +38,7 @@ links:
     type: 'dataset-geojson'
     skip-hxl-tag-validation: true
 
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/2023_02-21-ph_final_model_training.ipynb
+  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/2023_02-21-ph_final_model_training.ipynb
     description: 'Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
     type: 'code-notebook'
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
