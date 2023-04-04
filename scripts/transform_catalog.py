@@ -13,7 +13,7 @@ OUTPUT_PATH = "./public/api/data/catalog.json"
 def transform_links(links):
     new_links = []
     for link in links:
-        new_link = transform_dataset_file_link(link)
+        new_link = transform_dataset_file_link(link, use_gstorage=True)
         new_links.append(new_link)
     return new_links
 

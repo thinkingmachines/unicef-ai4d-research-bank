@@ -1,4 +1,5 @@
 import csv
+import os
 import re
 import sys
 import textwrap
@@ -26,6 +27,9 @@ def is_github_url(url):
 DATASET_LINK_TYPE_PAT = r"dataset-(\S+)"
 DATASET_RAW_LINK_TYPE_REPL = r"dataset-raw-\1"
 
+# load GSTORAGE_API_KEY from env
+GSTORAGE_API_KEY = os.environ.get("GSTORAGE_API_KEY", None)
+
 
 def transform_github_url(url):
     raw_link = re.sub(GITHUB_URL_PAT, RAW_GH_LINK_REPL, url)
@@ -52,13 +56,16 @@ def is_dataset_file(link):
     return False
 
 
-def transform_gdrive_url(url):
+def transform_gdrive_url(url, use_gstorage=False):
     gdrive_file_id, _ = gdp.parse_url(url, warning=False)
-    new_url = "https://drive.google.com/uc?id={id}".format(id=gdrive_file_id)
+    if use_gstorage and GSTORAGE_API_KEY:
+        new_url = f"https://www.googleapis.com/drive/v3/files/{gdrive_file_id}?alt=media&key={GSTORAGE_API_KEY}"
+    else:
+        new_url = f"https://drive.google.com/uc?id={gdrive_file_id}"
     return new_url
 
 
-def transform_dataset_file_link(link, pop_skip_tag=True):
+def transform_dataset_file_link(link, pop_skip_tag=True, use_gstorage=False):
     if pop_skip_tag and "skip-hxl-tag-validation" in link:
         link.pop("skip-hxl-tag-validation")
     if "url" not in link:
@@ -70,7 +77,7 @@ def transform_dataset_file_link(link, pop_skip_tag=True):
         link["url"] = transform_github_url(url)
         link["type"] = transform_linktype2raw(link["type"])
     elif is_gdrive_url(url):
-        link["url"] = transform_gdrive_url(url)
+        link["url"] = transform_gdrive_url(url, use_gstorage=use_gstorage)
         link["type"] = transform_linktype2raw(link["type"])
 
     return link
@@ -127,7 +134,7 @@ def get_gdown_response(
 
     if gdrive_file_id:
         # overwrite the url with fuzzy match of a file id
-        url = "https://drive.google.com/uc?id={id}".format(id=gdrive_file_id)
+        url = f"https://drive.google.com/uc?id={gdrive_file_id}"
         url_origin = url
     else:
         # not a gdrive url
