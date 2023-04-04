@@ -12,7 +12,7 @@ const onCopyToClipboard = async (text: string) => {
 }
 
 const CatalogueItemData = ({ catalogueItem }: Props) => {
-	const { links } = catalogueItem
+	const { links, 'data-columns': dataColumns } = catalogueItem
 
 	const trainingDatasets = links.filter(link =>
 		link.type.includes('training-dataset')
@@ -102,10 +102,38 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 		)
 	}
 
+	let dataColumnsSection
+	if (dataColumns) {
+		dataColumnsSection = (
+			<div className='flex flex-col'>
+				<span className='mb-1 font-semibold text-gray-700'>Data Schema</span>
+				<table className='border-collapse'>
+					<thead>
+						<tr className=''>
+							<td className='p-2 font-semibold text-cloud-burst'>
+								Column Name
+							</td>
+							<td className='p-2 font-semibold text-cloud-burst'>Type</td>
+						</tr>
+					</thead>
+					<tbody>
+						{dataColumns.map(column => (
+							<tr key={column.name} className='even:bg-gray-100'>
+								<td className='p-2 font-medium'>{column.name}</td>
+								<td className='p-2'>{column.type.toUpperCase()}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		)
+	}
+
 	return (
 		<div className='mb-5 flex flex-col gap-6'>
 			{trainingDatasetSection}
 			{rawDatasetsSection}
+			{dataColumnsSection}
 		</div>
 	)
 }
