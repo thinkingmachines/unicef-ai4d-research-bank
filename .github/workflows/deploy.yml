@@ -3,7 +3,7 @@ name: Deploy-GH-Pages
 on:
   push:
     branches: [main]
-
+# TODO: Add GSTORAGE_API_KEY to env in transform catalog
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,6 +35,8 @@ jobs:
 
       - name: Merge catalog entries
         run: python scripts/transform_catalog.py
+        env:
+          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
       - name: Build project
         run: pnpm build

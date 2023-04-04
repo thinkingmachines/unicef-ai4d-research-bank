@@ -34,6 +34,8 @@ jobs:
 
       - name: Merge catalog entries
         run: python scripts/transform_catalog.py
+        env:
+          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
       - name: Validate format
         run: pnpm run-p lint
