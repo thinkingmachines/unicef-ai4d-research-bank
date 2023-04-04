@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-handler-names */
+/* eslint-disable react/no-array-index-key */
 import { CopyOutlined } from '@ant-design/icons'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import { getFileFormat } from 'utils/String.util'
@@ -12,7 +13,11 @@ const onCopyToClipboard = async (text: string) => {
 }
 
 const CatalogueItemData = ({ catalogueItem }: Props) => {
-	const { links, 'data-columns': dataColumns } = catalogueItem
+	const {
+		links,
+		'data-columns': dataColumns,
+		'sample-data': sampleData
+	} = catalogueItem
 
 	const trainingDatasets = links.filter(link =>
 		link.type.includes('training-dataset')
@@ -109,7 +114,7 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 				<span className='mb-1 font-semibold text-gray-700'>Data Schema</span>
 				<table className='border-collapse'>
 					<thead>
-						<tr className=''>
+						<tr className='bg-gray-300'>
 							<td className='p-2 font-semibold text-cloud-burst'>
 								Column Name
 							</td>
@@ -129,11 +134,57 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 		)
 	}
 
+	let dataPreviewSection
+	if (sampleData) {
+		dataPreviewSection = (
+			<div className='flex flex-col'>
+				<span className='mb-1 font-semibold text-gray-700'>Data Preview</span>
+				<table className='block table-auto border-collapse overflow-x-scroll'>
+					{dataColumns ? (
+						<thead>
+							<tr className='bg-gray-300'>
+								<td className='px-2 py-1' />
+								{dataColumns.map(column => (
+									<td
+										key={column.name}
+										className='min-w-[100px] max-w-[500px] py-1 px-2 font-semibold text-cloud-burst'
+									>
+										{column.name}
+									</td>
+								))}
+							</tr>
+						</thead>
+					) : undefined}
+					<tbody>
+						{sampleData.map((row, rowIndex) => (
+							<tr key={rowIndex} className='even:bg-gray-100'>
+								<td className='px-2 py-1 font-semibold text-cloud-burst'>
+									{rowIndex}
+								</td>
+								{row.map((field, fieldIndex) => (
+									<td
+										className='px-2 py-1 font-medium'
+										key={`${field}-${fieldIndex}`}
+									>
+										<div className='max-h-[100px] min-w-[100px] max-w-[500px] overflow-y-scroll '>
+											{field}
+										</div>
+									</td>
+								))}
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+		)
+	}
+
 	return (
 		<div className='mb-5 flex flex-col gap-6'>
 			{trainingDatasetSection}
 			{rawDatasetsSection}
 			{dataColumnsSection}
+			{dataPreviewSection}
 		</div>
 	)
 }
