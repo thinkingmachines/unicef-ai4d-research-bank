@@ -3,7 +3,6 @@ name: Deploy-GH-Pages
 on:
   push:
     branches: [main]
-# TODO: Add GSTORAGE_API_KEY to env in transform catalog
 jobs:
   build:
     runs-on: ubuntu-latest
