@@ -138,10 +138,23 @@ export const getCatalogueIdsByYear = (
 			return false
 		}
 
-		// TODO: Handle multiple years
-		const currentYear = dayjs(`${item['year-period']}-01-01`)
+		const years = item['year-period'].toString().split('-')
 
-		return currentYear.isBetween(yearFilter[0], yearFilter[1], null, '[]')
+		for (const year of years) {
+			const currentDate = dayjs(`${year}-01-01`)
+			if (
+				currentDate.isBetween(
+					`${yearFilter[0]?.year()}-01-01`,
+					`${yearFilter[1]?.year()}-01-01`,
+					null,
+					'[]'
+				)
+			) {
+				return true
+			}
+		}
+
+		return false
 	})
 
 	yearFilteredIds = new Set(filteredItems.map(item => item.id))
