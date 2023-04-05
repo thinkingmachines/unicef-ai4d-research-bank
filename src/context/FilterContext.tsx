@@ -4,8 +4,8 @@ import type { ReactNode } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { FilterOption, FiltersType } from '../types/SearchFilters.type'
 import {
-	getCatalogueIdsByDate,
 	getCatalogueIdSuggestions,
+	getCatalogueIdsByYear,
 	getCountryOptions,
 	getIntersectionOfIds,
 	getOrganizationOptions,
@@ -37,9 +37,7 @@ const defaultFilters = {
 	organizationFilter: [],
 	tagsFilter: [],
 	// eslint-disable-next-line unicorn/no-null
-	dateCreatedFilter: null,
-	// eslint-disable-next-line unicorn/no-null
-	dateUpdatedFilter: null,
+	yearFilter: null,
 	searchValue: ''
 }
 
@@ -81,8 +79,7 @@ export const FilterProvider = ({ children }: Properties) => {
 				countryFilter,
 				organizationFilter,
 				tagsFilter,
-				dateCreatedFilter,
-				dateUpdatedFilter,
+				yearFilter,
 				searchValue
 			} = filters
 
@@ -104,14 +101,8 @@ export const FilterProvider = ({ children }: Properties) => {
 				tagsFilter,
 				tags
 			)
-			const dateCreatedFilteredIds: Set<string> = getCatalogueIdsByDate(
-				dateCreatedFilter,
-				'date-added',
-				catalogueItems
-			)
-			const dateUpdatedFilteredIds: Set<string> = getCatalogueIdsByDate(
-				dateUpdatedFilter,
-				'date-modified',
+			const yearFilteredIds: Set<string> = getCatalogueIdsByYear(
+				yearFilter,
 				catalogueItems
 			)
 			const searchSuggestionIds: Set<string> = getCatalogueIdSuggestions(
@@ -123,8 +114,7 @@ export const FilterProvider = ({ children }: Properties) => {
 				countryFilter: countryFilteredIds,
 				organizationFilter: orgFilteredIds,
 				tagsFilter: tagFilteredIds,
-				dateCreatedFilter: dateCreatedFilteredIds,
-				dateUpdatedFilter: dateUpdatedFilteredIds,
+				yearFilter: yearFilteredIds,
 				searchValue: searchSuggestionIds
 			}
 

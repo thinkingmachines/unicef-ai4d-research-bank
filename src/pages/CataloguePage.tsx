@@ -36,12 +36,8 @@ const CataloguePage = () => {
 		setFilters(prevFilters => ({ ...prevFilters, tagsFilter: value }))
 	}
 
-	const onDateCreatedChange = (dates: DateFilterType) => {
-		setFilters(prevFilters => ({ ...prevFilters, dateCreatedFilter: dates }))
-	}
-
-	const onDateUpdatedChange = (dates: DateFilterType) => {
-		setFilters(prevFilters => ({ ...prevFilters, dateUpdatedFilter: dates }))
+	const onYearChange = (years: DateFilterType) => {
+		setFilters(prevFilters => ({ ...prevFilters, yearFilter: years }))
 	}
 
 	const onSearchBtnClick = (
@@ -121,20 +117,12 @@ const CataloguePage = () => {
 						</div>
 
 						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Date Created</span>
+							<span className='font-bold text-cloud-burst'>Year</span>
 							<RangePicker
 								style={{ width: '100%', marginTop: '8px' }}
-								onChange={onDateCreatedChange}
-								defaultValue={filters.dateCreatedFilter}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Date Updated</span>
-							<RangePicker
-								style={{ width: '100%', marginTop: '8px' }}
-								onChange={onDateUpdatedChange}
-								defaultValue={filters.dateUpdatedFilter}
+								onChange={onYearChange}
+								defaultValue={filters.yearFilter}
+								picker='year'
 							/>
 						</div>
 

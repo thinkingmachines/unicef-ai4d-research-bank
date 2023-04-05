@@ -23,8 +23,7 @@ const defaultFilters = {
 	countryFilter: [],
 	organizationFilter: [],
 	tagsFilter: [],
-	dateCreatedFilter: null,
-	dateUpdatedFilter: null,
+	yearFilter: null,
 	searchValue: ''
 }
 
