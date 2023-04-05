@@ -125,28 +125,43 @@ export const getIntersectionOfIds = (
 	)
 }
 
-export const getCatalogueIdsByDate = (
-	dateFilter: DateFilterType,
-	field: keyof CatalogueItemType,
+export const getCatalogueIdsByYear = (
+	yearFilter: DateFilterType,
 	catalogueItems: CatalogueItemType[]
 ) => {
-	let dateFilteredIds = new Set<string>()
+	let yearFilteredIds = new Set<string>()
 
-	if (!dateFilter) return dateFilteredIds
+	if (!yearFilter) return yearFilteredIds
 
 	const filteredItems = catalogueItems.filter(item => {
-		if (!item[field]) {
-			return false
+		if (!item['year-period']) return false
+
+		const years = item['year-period'].toString().split('-')
+
+		for (const year of years) {
+			const currentDate = dayjs(`${year}-01-01`)
+			const startYear = yearFilter[0]?.year()
+			const endYear = yearFilter[1]?.year()
+
+			if (!startYear || !endYear) return false
+
+			if (
+				currentDate.isBetween(
+					`${startYear}-01-01`,
+					`${endYear}-01-01`,
+					null,
+					'[]'
+				)
+			) {
+				return true
+			}
 		}
 
-		const currentDate = dayjs(item[field] as string)
-
-		// Inclusive of start and end dates
-		return currentDate.isBetween(dateFilter[0], dateFilter[1], null, '[]')
+		return false
 	})
 
-	dateFilteredIds = new Set(filteredItems.map(item => item.id))
-	return dateFilteredIds
+	yearFilteredIds = new Set(filteredItems.map(item => item.id))
+	return yearFilteredIds
 }
 
 export const getCatalogueIdSuggestions = (

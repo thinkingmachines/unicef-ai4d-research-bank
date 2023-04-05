@@ -11,9 +11,7 @@ const defaultFilters = {
 	organizationFilter: [],
 	tagsFilter: [],
 	// eslint-disable-next-line unicorn/no-null
-	dateCreatedFilter: null,
-	// eslint-disable-next-line unicorn/no-null
-	dateUpdatedFilter: null,
+	yearFilter: null,
 	searchValue: ''
 }
 

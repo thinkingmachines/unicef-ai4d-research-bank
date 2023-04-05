@@ -17,8 +17,7 @@ export interface FiltersType {
 	countryFilter: string[]
 	organizationFilter: string[]
 	tagsFilter: string[]
-	dateCreatedFilter: DateFilterType
-	dateUpdatedFilter: DateFilterType
+	yearFilter: DateFilterType
 	searchValue: string
 }
 
