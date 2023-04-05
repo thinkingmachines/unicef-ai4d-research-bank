@@ -134,18 +134,21 @@ export const getCatalogueIdsByYear = (
 	if (!yearFilter) return yearFilteredIds
 
 	const filteredItems = catalogueItems.filter(item => {
-		if (!item['year-period']) {
-			return false
-		}
+		if (!item['year-period']) return false
 
 		const years = item['year-period'].toString().split('-')
 
 		for (const year of years) {
 			const currentDate = dayjs(`${year}-01-01`)
+			const startYear = yearFilter[0]?.year()
+			const endYear = yearFilter[1]?.year()
+
+			if (!startYear || !endYear) return false
+
 			if (
 				currentDate.isBetween(
-					`${yearFilter[0]?.year()}-01-01`,
-					`${yearFilter[1]?.year()}-01-01`,
+					`${startYear}-01-01`,
+					`${endYear}-01-01`,
 					null,
 					'[]'
 				)
