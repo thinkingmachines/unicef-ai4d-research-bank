@@ -192,6 +192,9 @@ def validate_yaml(file, fname):
         ok.append(has_valid_organization(item["organization"], name))
     if "links" in item:
         ok.append(has_valid_links(item["links"], name))
+    if "sample-data" in item and "data-columns" not in item:
+        ok.append(False)
+        print(f"Invalid file {fname}: Sample data is missing `data-columns`")
     return all(ok)
 
 
