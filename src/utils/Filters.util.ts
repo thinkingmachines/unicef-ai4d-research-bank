@@ -130,6 +130,20 @@ export const getIntersectionOfIds = (
 	)
 }
 
+const getYearsFromPeriod = (yearPeriod: string): number[] => {
+	const [startYear, endYear] = yearPeriod
+		.toString()
+		.split('-')
+		.map(year => parseInt(year))
+
+	if (!endYear) {
+		return [startYear]
+	}
+
+	const length = endYear - startYear + 1
+	return Array.from({ length }, (_, index) => startYear + index)
+}
+
 export const getCatalogueIdsByYear = (
 	yearFilter: DateFilterType,
 	catalogueItems: CatalogueItemType[]
@@ -141,7 +155,7 @@ export const getCatalogueIdsByYear = (
 	const filteredItems = catalogueItems.filter(item => {
 		if (!item['year-period']) return false
 
-		const years = item['year-period'].toString().split('-')
+		const years = getYearsFromPeriod(item['year-period'])
 
 		for (const year of years) {
 			const currentDate = dayjs(`${year}-01-01`)
