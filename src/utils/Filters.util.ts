@@ -134,7 +134,7 @@ const getYearsFromPeriod = (yearPeriod: string): number[] => {
 	const [startYear, endYear] = yearPeriod
 		.toString()
 		.split('-')
-		.map(year => parseInt(year))
+		.map(year => Number.parseInt(year, 10))
 
 	if (!endYear) {
 		return [startYear]
