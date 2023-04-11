@@ -2,6 +2,8 @@
 /* eslint-disable unicorn/no-null */
 
 import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import type {
 	DateFilterType,
@@ -9,6 +11,9 @@ import type {
 	FiltersType
 } from 'types/SearchFilters.type'
 import { formatString } from './String.util'
+
+dayjs.extend(isSameOrAfter)
+dayjs.extend(isSameOrBefore)
 
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
@@ -125,6 +130,20 @@ export const getIntersectionOfIds = (
 	)
 }
 
+const getYearsFromPeriod = (yearPeriod: string): number[] => {
+	const [startYear, endYear] = yearPeriod
+		.toString()
+		.split('-')
+		.map(year => Number.parseInt(year, 10))
+
+	if (!endYear) {
+		return [startYear]
+	}
+
+	const length = endYear - startYear + 1
+	return Array.from({ length }, (_, index) => startYear + index)
+}
+
 export const getCatalogueIdsByYear = (
 	yearFilter: DateFilterType,
 	catalogueItems: CatalogueItemType[]
@@ -136,16 +155,34 @@ export const getCatalogueIdsByYear = (
 	const filteredItems = catalogueItems.filter(item => {
 		if (!item['year-period']) return false
 
-		const years = item['year-period'].toString().split('-')
+		const years = getYearsFromPeriod(item['year-period'])
 
 		for (const year of years) {
 			const currentDate = dayjs(`${year}-01-01`)
 			const startYear = yearFilter[0]?.year()
 			const endYear = yearFilter[1]?.year()
 
-			if (!startYear || !endYear) return false
+			if (!startYear && !endYear) return false
 
 			if (
+				startYear &&
+				!endYear &&
+				currentDate.isSameOrAfter(`${startYear}-01-01`, 'year')
+			) {
+				return true
+			}
+
+			if (
+				endYear &&
+				!startYear &&
+				currentDate.isSameOrBefore(`${endYear}-01-01`, 'year')
+			) {
+				return true
+			}
+
+			if (
+				startYear &&
+				endYear &&
 				currentDate.isBetween(
 					`${startYear}-01-01`,
 					`${endYear}-01-01`,

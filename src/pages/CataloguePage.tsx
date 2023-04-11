@@ -123,6 +123,7 @@ const CataloguePage = () => {
 								onChange={onYearChange}
 								defaultValue={filters.yearFilter}
 								picker='year'
+								allowEmpty={[true, true]}
 							/>
 						</div>
 
