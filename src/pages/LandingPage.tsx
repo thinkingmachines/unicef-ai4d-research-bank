@@ -1,5 +1,10 @@
 import { Skeleton } from 'antd'
+import AirQualityThailandImage from 'assets/featured/airquality-thailand-model.png'
+import PovMapPhilippines from 'assets/featured/povmap-philippines.png'
+import PovMapTimorLeste from 'assets/featured/povmap-timor-leste-rollout-dataset.png'
+import FeaturedItemCard from 'components/FeaturedItemCard'
 import SearchInput from 'components/SearchInput'
+import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
@@ -15,6 +20,12 @@ const defaultFilters = {
 	searchValue: ''
 }
 
+const featuredItems = [
+	{ id: 'airquality-thailand-model', image: AirQualityThailandImage },
+	{ id: 'povmap-philippines', image: PovMapPhilippines },
+	{ id: 'povmap-timor-leste-rollout-dataset', image: PovMapTimorLeste }
+]
+
 const LandingPage = () => {
 	const navigate = useNavigate()
 	const { setSearchInput } = useSearchContext()
@@ -25,6 +36,7 @@ const LandingPage = () => {
 		setFilters,
 		setIsFiltersLoading
 	} = useFilterContext()
+	const { catalogueItems } = useCatalogueItemContext()
 
 	const onSearchBtnClick = (
 		searchValue: string,
@@ -82,6 +94,20 @@ const LandingPage = () => {
 							path='catalogue/'
 						/>
 					</div>
+				</div>
+			</div>
+			<div className='flex flex-col p-10'>
+				<span className='font-semibold tracking-normal text-cloud-burst'>
+					FEATURED DATASETS
+				</span>
+				<div className='mt-3 grid auto-rows-min grid-cols-3 gap-10'>
+					{catalogueItems
+						.filter(catalogueItem =>
+							featuredItems.map(item => item.id).includes(catalogueItem.id)
+						)
+						.map(catalogueItem => (
+							<FeaturedItemCard key={catalogueItem.id} item={catalogueItem} />
+						))}
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
