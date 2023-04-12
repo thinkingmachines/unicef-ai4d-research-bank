@@ -138,7 +138,7 @@ def transform(filename: str):
 
 def main():
     files = glob.glob(f"{CATALOG_DIR}/*.yml")
-    items = [transform(f) for f in files if f != "sample-catalog-item.yml"]
+    items = [transform(f) for f in files if not f.endswith("sample-catalog-item.yml")]
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(items, f)
 
