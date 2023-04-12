@@ -202,16 +202,15 @@ def rename_types(dtype):
     return dtype
 
 
-def extract_column_names_and_types(df: pd.DataFrame) -> dict:
+def extract_column_metadata(df: pd.DataFrame) -> dict:
     """
     Extracts the names of the columns from a pandas dataframe along with their data types.
     """
-    columns = df.columns
     column_types = df.dtypes
-    column_info = {}
-    for i, column in enumerate(columns):
-        column_info[column] = rename_types(str(column_types[i]))
-    return column_info
+    column_names = list(df.columns.values)
+    return column_names, [
+        rename_types(str(column_type)) for column_type in column_types
+    ]
 
 
 def is_hxltagged(input):

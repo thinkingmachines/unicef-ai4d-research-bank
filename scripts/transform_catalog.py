@@ -1,5 +1,6 @@
 import csv
 import glob
+import io
 import json
 import sys
 from pathlib import Path
@@ -9,7 +10,7 @@ import requests
 import yaml
 
 from utils import (
-    extract_column_names_and_types,
+    extract_column_metadata,
     get_gdown_response,
     get_session,
     is_gdrive_url,
@@ -81,23 +82,24 @@ def grab_dataheaders(url, n_rows=10):
     return header_columns, hxl_tags, sample_data
 
 
-def make_column_types(column_names, sample_data):
-    df = pd.DataFrame.from_records(sample_data, columns=column_names)
-    column_info = extract_column_names_and_types(df)
-    return column_info
+def make_df(column_names, sample_data):
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(column_names)
+    writer.writerows(sample_data)
+    input = io.StringIO(output.getvalue())
+    df = pd.read_csv(input)
+    return df
 
 
 def make_data_columns(column_names, hxl_tags, sample_data):
-    column_types = make_column_types(column_names, sample_data)
-
+    df = make_df(column_names, sample_data)
+    final_colnames, column_types = extract_column_metadata(df)
     data_columns = []
-    for i, column_name in enumerate(column_names):
+    for i, (column_name, column_type) in enumerate(zip(final_colnames, column_types)):
+        data_column = dict(name=column_name, type=column_type)
         if hxl_tags is not None and hxl_tags[i]:
-            data_column = dict(
-                name=column_name, type=column_types[column_name], hxltag=hxl_tags[i]
-            )
-        else:
-            data_column = dict(name=column_name, type=column_types[column_name])
+            data_column.update(dict(hxltag=hxl_tags[i]))
         data_columns.append(data_column)
     return data_columns
 
@@ -136,7 +138,7 @@ def transform(filename: str):
 
 def main():
     files = glob.glob(f"{CATALOG_DIR}/*.yml")
-    items = [transform(f) for f in files]
+    items = [transform(f) for f in files if f != "sample-catalog-item.yml"]
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
         json.dump(items, f)
 
