@@ -1,4 +1,3 @@
-import sys
 from pathlib import Path
 
 import pytest
@@ -13,7 +12,7 @@ def test_validate_filename(capsys):
     assert captured.out == ""
 
 
-@pytest.mark.skip
+@pytest.mark.webtest
 def test_validate_csv_hxl_invalid_gdrive_file(capsys):
     url = "https://drive.google.com/uc?id=1_cmrGkIivqzMHgDHEx18_oJTc6PB665i"
     ok = vc.validate_csv_hxl(url, "airquality-thailand-model.yml")
