@@ -31,7 +31,7 @@ tags:
   - timor-leste
   - sklearn-model
   - machine-learning
-  
+
 # country or region to which your catalog item applies (optional)
 # if supplied, must be in the list in folder validation/regions.txt
 country-region: timor-leste
@@ -57,59 +57,40 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-    # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present 
-    skip-hxl-tag-validation: false 
+    # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
+    skip-hxl-tag-validation: false
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
-  
 
 # data-columns (optional) if your data is tabular format (eg. csv), you can supply the column names here
+# if not provided, data-columns and sample-data will be extracted from the first csv dataset link provided
+# in your links section.
 data-columns:
   - name: quadkey
     type: string
   - name: shapeName
     type: string
+    # hxltag is optional
+    hxltag: '#adm2+name'
   - name: shapeISO
     type: string
   - name: shapeID
     type: string
+    hxltag: '#adm2+code'
   - name: shapeGroup
     type: string
+    hxltag: '#adm0+code'
   - name: shapeType
     type: string
   - name: pop_count
     type: float
- 
+    hxltag: '#population'
 
 # sample-data (optional) you can supply sample rows of your data
 # if provided, you must also provide the data-columns entry which should
 # match the values in each row in the order specified in the data-columns entry
 sample-data:
-  - [
-      31011220203121,
-      Nitibe,
-      None,
-      TLS-ADM2-3_0_0-B58,
-      TLS,
-      ADM2,
-      102.251936
-    ]
-  - [
-      31011220203123,
-      Nitibe,
-      None,
-      TLS-ADM2-3_0_0-B58,
-      TLS,
-      ADM2,
-      992.492772
-     ]
-  - [
-      31011220203130,
-      Nitibe,
-      None,
-      TLS-ADM2-3_0_0-B58,
-      TLS,
-      ADM2,
-      118.8976
-    ]
+  - [31011220203121, Nitibe, None, TLS-ADM2-3_0_0-B58, TLS, ADM2, 102.251936]
+  - [31011220203123, Nitibe, None, TLS-ADM2-3_0_0-B58, TLS, ADM2, 992.492772]
+  - [31011220203130, Nitibe, None, TLS-ADM2-3_0_0-B58, TLS, ADM2, 118.8976]
