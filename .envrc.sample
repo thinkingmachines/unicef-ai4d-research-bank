@@ -1,1 +1,2 @@
 export CYPRESS_RECORD_KEY="<--add-cypress-record-key-->"
+export GSTORAGE_API_KEY="<--add-gstorage-api-key-->"
