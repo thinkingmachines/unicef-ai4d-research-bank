@@ -5,6 +5,7 @@ import sys
 import textwrap
 
 import gdown.parse_url as gdp
+import hxl.model
 import pandas as pd
 import requests
 from gdown.download import (
@@ -211,3 +212,17 @@ def extract_column_names_and_types(df: pd.DataFrame) -> dict:
     for i, column in enumerate(columns):
         column_info[column] = rename_types(str(column_types[i]))
     return column_info
+
+
+def is_hxltagged(input):
+    previous_row = []
+    try:
+        for n in range(0, 25):
+            raw_row = next(input)
+            columns = hxl.model.Column.parse_list(raw_row, previous_row)
+            if columns is not None:
+                return True
+            previous_row = raw_row
+    except StopIteration:
+        pass
+    return False

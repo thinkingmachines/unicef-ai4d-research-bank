@@ -4,6 +4,7 @@ from contextlib import closing
 from pathlib import Path
 
 import hxl
+import hxl.validation
 import requests
 import yaml
 from hxl.input import HXLTagsNotFoundException
