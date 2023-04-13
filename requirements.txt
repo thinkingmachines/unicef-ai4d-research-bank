@@ -6,3 +6,5 @@ pytest-mock
 pytest-xdist
 pytest-cov
 pandas
+geopandas
+

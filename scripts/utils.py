@@ -5,6 +5,7 @@ import sys
 import textwrap
 
 import gdown.parse_url as gdp
+import hxl.model
 import pandas as pd
 import requests
 from gdown.download import (
@@ -201,13 +202,26 @@ def rename_types(dtype):
     return dtype
 
 
-def extract_column_names_and_types(df: pd.DataFrame) -> dict:
+def extract_column_metadata(df: pd.DataFrame) -> dict:
     """
     Extracts the names of the columns from a pandas dataframe along with their data types.
     """
-    columns = df.columns
     column_types = df.dtypes
-    column_info = {}
-    for i, column in enumerate(columns):
-        column_info[column] = rename_types(str(column_types[i]))
-    return column_info
+    column_names = list(df.columns.values)
+    return column_names, [
+        rename_types(str(column_type)) for column_type in column_types
+    ]
+
+
+def is_hxltagged(input):
+    previous_row = []
+    try:
+        for n in range(0, 25):
+            raw_row = next(input)
+            columns = hxl.model.Column.parse_list(raw_row, previous_row)
+            if columns is not None:
+                return True
+            previous_row = raw_row
+    except StopIteration:
+        pass
+    return False
