@@ -1,8 +1,14 @@
 import { Skeleton } from 'antd'
+import AirQualityThailandImage from 'assets/featured/airquality-thailand-model.png'
+import PovMapPhilippines from 'assets/featured/povmap-philippines.png'
+import PovMapTimorLeste from 'assets/featured/povmap-timor-leste-rollout-dataset.png'
+import FeaturedItemCard from 'components/FeaturedItemCard'
 import SearchInput from 'components/SearchInput'
+import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
+import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
 import Tag from '../components/Tag'
 
@@ -15,6 +21,37 @@ const defaultFilters = {
 	searchValue: ''
 }
 
+const featuredItemIds = [
+	{ id: 'airquality-thailand-model', image: AirQualityThailandImage },
+	{ id: 'povmap-philippines', image: PovMapPhilippines },
+	{ id: 'povmap-timor-leste-rollout-dataset', image: PovMapTimorLeste }
+]
+
+const filterCatalogueItems = (catalogueItems: CatalogueItemType[]) => {
+	const filteredCatalogueItems = catalogueItems.filter(item =>
+		featuredItemIds.map(featuredItem => featuredItem.id).includes(item.id)
+	)
+
+	const featuredItemCards = []
+	for (const filteredCatalogueItem of filteredCatalogueItems) {
+		const featuredItemObj = featuredItemIds.find(
+			featuredItem => featuredItem.id === filteredCatalogueItem.id
+		)
+
+		if (featuredItemObj) {
+			featuredItemCards.push(
+				<FeaturedItemCard
+					key={featuredItemObj.id}
+					item={filteredCatalogueItem}
+					image={featuredItemObj.image}
+				/>
+			)
+		}
+	}
+
+	return featuredItemCards
+}
+
 const LandingPage = () => {
 	const navigate = useNavigate()
 	const { setSearchInput } = useSearchContext()
@@ -25,6 +62,9 @@ const LandingPage = () => {
 		setFilters,
 		setIsFiltersLoading
 	} = useFilterContext()
+	const { catalogueItems } = useCatalogueItemContext()
+
+	const featuredCatalogueItems = filterCatalogueItems(catalogueItems)
 
 	const onSearchBtnClick = (
 		searchValue: string,
@@ -82,6 +122,14 @@ const LandingPage = () => {
 							path='catalogue/'
 						/>
 					</div>
+				</div>
+			</div>
+			<div className='flex flex-col p-10'>
+				<span className='font-semibold tracking-normal text-cloud-burst'>
+					FEATURED DATASETS
+				</span>
+				<div className='mt-3 grid auto-rows-min grid-cols-1 gap-10 md:grid-cols-3'>
+					{featuredCatalogueItems}
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
