@@ -1,15 +1,11 @@
 /* eslint-disable react/jsx-handler-names */
 /* eslint-disable react/no-array-index-key */
-import { CopyOutlined } from '@ant-design/icons'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import { getFileFormat } from 'utils/String.util'
+import CopyLinkButton from './CopyLinkButton'
 
 interface Props {
 	catalogueItem: CatalogueItemType
-}
-
-const onCopyToClipboard = async (text: string) => {
-	await navigator.clipboard.writeText(text)
 }
 
 const CatalogueItemData = ({ catalogueItem }: Props) => {
@@ -48,16 +44,7 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 								{getFileFormat(dataset.type, 'training-dataset-').toUpperCase()}
 							</span>
 						</div>
-						<button
-							type='button'
-							className='ml-auto rounded bg-cloud-burst p-2 tracking-tight text-white hover:bg-opacity-95'
-							onClick={() => {
-								void onCopyToClipboard(dataset.url)
-							}}
-						>
-							<CopyOutlined style={{ marginRight: '8px' }} />
-							Copy link
-						</button>
+						<CopyLinkButton url={dataset.url} />
 					</div>
 				))}
 			</div>
@@ -90,16 +77,7 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 							</span>
 						</div>
 						{dataset.type.includes('raw') && (
-							<button
-								type='button'
-								className='ml-auto rounded bg-cloud-burst p-2 tracking-tight text-white hover:bg-opacity-95'
-								onClick={() => {
-									void onCopyToClipboard(dataset.url)
-								}}
-							>
-								<CopyOutlined style={{ marginRight: '8px' }} />
-								Copy link
-							</button>
+							<CopyLinkButton url={dataset.url} />
 						)}
 					</div>
 				))}
