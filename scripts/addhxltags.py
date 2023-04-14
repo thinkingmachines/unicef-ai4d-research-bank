@@ -40,37 +40,49 @@ def main():
     if not args.tags:
         print("Missing tags file, specify -t or --tags")
         return 1
-    if args.input.startswith("http://") or args.input.startswith("https://"):
-        unpatched = args.input
+    input = args.input
+    output = args.output
+    tags = args.tags
+    return add_hxltags(input, output, tags=tags)
+
+
+def add_hxltags(input, output, tags=None, tagspecs=None):
+    if input.startswith("http://") or input.startswith("https://"):
+        unpatched = input
         if is_github_url(unpatched):
             unpatched = transform_github_url(unpatched)
         elif is_gdrive_url(unpatched):
-            unpatched = transform_gdrive_url(unpatched)
-        if not validate_url(unpatched, args.input):
+            unpatched = transform_gdrive_url(unpatched, use_gstorage=True)
+        if not validate_url(unpatched, input):
             return 1
         input_options = None
     else:
         # assume file
-        unpatched = Path(args.input)
+        unpatched = Path(input)
         if not unpatched.exists():
             print(f"Invalid input file: {unpatched} not found")
             return 1
         unpatched = unpatched.as_posix()
         input_options = hxl.input.InputOptions(allow_local=True)
-    patched = Path(args.output)
+
+    patched = Path(output)
     if not patched.parent.is_dir():
         print(
             f"output directory {patched.parent} for output file {patched.name} does not exist. Create it first."
         )
         return 1
-
-    tagfile = Path(args.tags)
-    if not tagfile.exists():
-        print(f"Invalid tags file: {tagfile} not found")
+    if tags is None and tagspecs is None:
+        print("No tags or tagspecs specified. Use -t or --tags to specify a tags file")
         return 1
-    tagging_specs = []
-    with open(tagfile) as f:
-        tagging_specs = json.load(f)
+    if tags:
+        tagfile = Path(tags)
+        if not tagfile.exists():
+            print(f"Invalid tags file: {tagfile} not found")
+            return 1
+        tagspecs = {}
+        with open(tagfile) as f:
+            tagspecs = json.load(f)
+
     if is_gdrive_url(unpatched):
         resp, sess = get_gdown_response(unpatched)
         if resp is None:
@@ -83,7 +95,7 @@ def main():
     source = hxl.data(
         hxl.converters.Tagger(
             csv_input,
-            tagging_specs,
+            tagspecs.items(),
         )
     ).cache()
 
