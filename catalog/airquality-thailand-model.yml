@@ -18,7 +18,7 @@ evaluation-metrics:
   - link:
       description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
       url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
-links
+links:
   - url: https://drive.google.com/file/d/138zqndK07bqtUXAelzpiFqacohVxWetx/view?usp=share_link
     description: >
       predictions_chiangmai_2021.csv
