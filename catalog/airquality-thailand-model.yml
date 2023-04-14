@@ -1,5 +1,8 @@
 name: 'Air Quality Model for Thailand'
-description: 'This is a sklearn random forest regressor model  for predicting PM2.5 concentrations in Thailand  (add more details here later...)'
+description: >
+  This project explored PM2.5 estimation using Machine Learning models in Thailand. Air pollution is a pressing health concern worldwide, and thus, its monitoring is important for epidemological studies and informing public policy.
+  However, ground sensors (whether reference grade or low-cost) are sparse. For example, in Mueang Chiang Mai, there are only a few air quality sensors based on OpenAQ data.
+  Using Machine Learning models to predict PM2.5 levels based on area predictors is a potential way to augment these ground stations, and allows us to monitor air quality even in areas without them.
 card-type: model
 organization:
   name: 'Unicef East Asia and Pacific Regional Office'
@@ -15,7 +18,32 @@ evaluation-metrics:
   - link:
       description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
       url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
-links:
+links
+  - url: https://drive.google.com/file/d/138zqndK07bqtUXAelzpiFqacohVxWetx/view?usp=share_link
+    description: >
+      predictions_chiangmai_2021.csv
+      predictions for chiangmai for the year 2021
+    type: dataset-csv
+
+  - url: https://drive.google.com/file/d/13-wFFCCntJsLQVmyFE8Cm7Wf1dmCw2pd/view?usp=share_link
+    description: >
+      2022-05-18-base-table-openaq-filt.csv
+      Table generated from OpenAQ PM2.5 values.This file also contains the same columns as the air4thai one, but with the additional sensor_type column. This indicated which type of sensor was used to measure PM2.5 value in each station per day.
+      This is the latest, best dataset we have for ML modelling. The other datasets were preserved for replicating the experiments.
+    type: training-dataset-csv
+
+  - url: https://drive.google.com/file/d/12wz-BgJChgWZZyAZ97vZ6uwXPffDT2kQ/view?usp=share_link
+    description: >
+      2022-05-31--base-table-openaq-refgrade.csv
+      Derivation of 2022-05-18-base-table-openaq-filt, filtering observations to sensor_type == "reference grade"
+    type: training-dataset-csv
+
+  - url: https://drive.google.com/file/d/134uGLrh3kGuymEqsM_b0jQT8InIwMWB-/view?usp=share_link
+    description: >
+      2022-05-31-base-table-openaq-lowcost.csv
+      Derivation of 2022-05-18-base-table-openaq-filt, filtering observations to sensor_type == "low cost"
+    type: training-dataset-csv
+
   - url: https://drive.google.com/file/d/1kxScRmolAA5hSd6Ig1ly85WQJ_Z6NmGc/view?usp=share_link
     description: >
       2022-05-31-patched-openaq.csv :
@@ -23,8 +51,7 @@ links:
       Missing MAIAC AOD values were predicted using a model trained using CAM AOD data. 
       These predictions were appended to the existing AOD data used for training the AOD model. 
       This patched table was then used to predict PM 2.5 values
-
-    type: dataset-csv
+    type: training-dataset-csv
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-air-quality
     description: 'UNICEF AI4D Air Quality Github Repository'
