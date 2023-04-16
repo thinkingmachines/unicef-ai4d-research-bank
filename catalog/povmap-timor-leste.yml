@@ -1,5 +1,11 @@
 name: 'Poverty Mapping Model for Timor Leste'
-description: 'This is a sklearn random forest regressor model  for predicting relative wealth for Timor Leste.  (add more details here later...)'
+description: >
+  This is an sklearn Random Forest regressor model for predicting relative wealth for Timor Leste.
+  Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
+  It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
+  as well as Domestic and Health Survey (DHS) data from USAID. 
+  It was built as part of the UNICEF AI4D Poverty Mapping Project which aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries 
+  in Southeast Asia (SEA).
 card-type: model
 organization:
   name: 'Unicef East Asia and Pacific Regional Office'
@@ -15,31 +21,44 @@ year-period: 2016
 evaluation-metrics:
   - metric:
       metric-type: rsquared
-      value: 0.59
-  - link:
-      description: 'Additional evaluation metrics discussion'
+      value: 0.6
+    link:
+      description: 'Model evaluation using cross-validation'
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#evaluate-model-training-using-cross-validation
+  - link:
+      description: 'SHAP Feature Importance Plots'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#shap-feature-importance
+
 links:
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
+    description: UNICEF AI4D Poverty Mapping Project Github Repository
+    type: repository
+  - url: https://drive.google.com/file/d/1q9ev9qlXf5p0-CTuJ8IO6Qi-tEIuRqCp/view?usp=share_link
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+  - url: https://drive.google.com/file/d/1zTE3X6vQlJEKPpnLzrBd7OA84rwIsO1e/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+  - url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
     type: 'dataset-csv'
-    skip-hxl-tag-validation: true
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/2023-03-02-tl_final_model_rollout.ipynb
-    description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.ipynb
+    description: 'Timor Leste Model Rollout Part 1 (Train Single-country Model)'
     type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/2023_02-21-tl_final_model_training.ipynb
-    description: 'Timor Leste Model Rollout Part 1 (Training Final Single-country Model)'
-    type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/2023-03-01-tl_generate_populated_grids.ipynb
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.ipynb
     description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
     type: 'code-notebook'
-  - url: https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
-    description: 'Training dataset for Poverty Mapping Model on Timor Leste'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb
+    description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
+    type: 'code-notebook'
+
+  - url: https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
+    description: 'Training dataset for Poverty Mapping Model on Timor Leste as CSV'
     type: 'training-dataset-csv'
-    skip-hxl-tag-validation: true
+
+  - url: https://drive.google.com/file/d/1PDU9N4aA0zsc0cYRtPNRfHYFlSAdyunq/view?usp=share_link
+    description: 'Training dataset for Poverty Mapping Model on Timor Leste as GeoJSON'
+    type: 'training-dataset-geojson'
