@@ -1,10 +1,12 @@
 name: 'Poverty Mapping Model for Philippines'
 description: >
-  This is a sklearn random forest regressor model  for predicting relative wealth for Philippines.  (add more details here later...)
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-  Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  This is an sklearn Random Forest regressor model for predicting relative wealth for Philippines.
+  Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
+  It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
+  as well as Domestic and Health Survey (DHS) data from USAID. 
+  It was built as part of the UNICEF AI4D Poverty Mapping Project which aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries 
+  in Southeast Asia (SEA).
+
 card-type: model
 organization:
   name: 'Thinking Machines Data Sciences Inc'
@@ -20,27 +22,45 @@ evaluation-metrics:
       metric-type: rsquared
       value: 0.59
     link:
-      description: 'How we computed the Rsquared for the Predicted Wealth Index'
+      description: 'Model evaluation using cross-validation'
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html#evaluate-model-training-using-cross-validation
-  - metric:
-      metric-type: F1-Score
-      value: 0.49
-    link:
-      description: 'Additional evaluation metrics discussion on the F1 Score for the split quantiles'
-      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html#evaluate-model-training-using-cross-validation
+  - link:
+      description: 'SHAP Feature Importance Plots'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_ph.html#shap-feature-importance
 
 links:
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl
-    description: 'Philippines Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
+    description: UNICEF AI4D Poverty Mapping Project Github Repository
+    type: repository
+
+  - url: https://drive.google.com/file/d/1MlE5VJTWwAdQlpyFcVYku8s4efIpxtrB/view?usp=share_link
+    description: 'Philippines Poverty Mapping Model Weights (.pkl). See related notebook links for usage'
     type: model-weights
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+
+  - url: https://drive.google.com/file/d/14i_k2xhnuuVkQJJL9Mt8l3QhzLDDOtXQ/view?usp=share_link
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
+    type: 'dataset-csv'
+
+  - url: https://drive.google.com/file/d/1HVfLJiY1UmA7tWW4XO_xjpQrszmTJTHg/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-geojson'
-    skip-hxl-tag-validation: true
 
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/2023_02-21-ph_final_model_training.ipynb
-    description: 'Philippines Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.ipynb
+    description: 'Philippines Model Rollout Part 1 (Train Model)'
     type: 'code-notebook'
-  - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/ph/2_ph_generate_grids.ipynb
+    description: 'Philippines Model Rollout Part 2 (Generate Grids)'
+    type: 'code-notebook'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/ph/3_ph_rollout_model.ipynb
+    description: 'Philippines Model Rollout Part 3 (Rollout Model)'
+    type: 'code-notebook'
+
+  - url: https://drive.google.com/file/d/15q-fTiTI-oN_aYKwiXhgzdx4fyTa3Y07/view?usp=share_link
+    description: 'Training dataset for Poverty Mapping Model on Philippines'
+    type: 'training-dataset-csv'
+
+  - url: https://drive.google.com/file/d/1i0jThcT2I6R6rh7GtLlotMNT29hPxKS1/view?usp=share_link
     description: 'Training dataset for Poverty Mapping Model on Philippines'
     type: 'training-dataset-geojson'
