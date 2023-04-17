@@ -7,4 +7,9 @@ pytest-xdist
 pytest-cov
 pandas
 geopandas
+folium
+matplotlib
+mapclassify
+contextily
+
 
