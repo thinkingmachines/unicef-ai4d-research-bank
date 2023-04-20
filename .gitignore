@@ -16,3 +16,6 @@ public/api/data/catalog.json
 *.pyc
 tests/testdata/testoutput/*
 **/.ipynb_checkpoints/
+notebooks/catalog_data_imgs
+notebooks/catalog_imgs
+notebooks/region_imgs

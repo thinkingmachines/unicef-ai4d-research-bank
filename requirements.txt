@@ -11,5 +11,7 @@ folium
 matplotlib
 mapclassify
 contextily
+jupyterlab
+jupyterlab-vim
 
 
