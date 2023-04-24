@@ -33,7 +33,7 @@ jobs:
         run: pnpm i && cp .env.github .env
 
       - name: Merge catalog entries
-        run: python scripts/transform_catalog.py
+        run: python scripts/transform_catalog.py && python scripts/transform_featured.py
         env:
           GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
