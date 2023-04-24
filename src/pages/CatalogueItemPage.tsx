@@ -9,6 +9,7 @@ import { Skeleton, Tabs } from 'antd'
 import CatalogueItemData from 'components/CatalogueItemData'
 import CatalogueItemLinks from 'components/CatalogueItemLinks'
 import CatalogueItemOverview from 'components/CatalogueItemOverview'
+import NotFound from 'components/NotFound'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
@@ -81,11 +82,7 @@ const CatalogueItemPage = () => {
 	}
 
 	if (!catalogueItem) {
-		return (
-			<div className='h-[calc(100vh_-_3rem)] bg-white text-cloud-burst'>
-				error
-			</div>
-		)
+		return <NotFound />
 	}
 
 	const {

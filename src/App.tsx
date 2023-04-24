@@ -1,5 +1,6 @@
 import { ConfigProvider } from 'antd'
 import Header from 'components/Header'
+import NotFound from 'components/NotFound'
 import { CatalogueItemProvider } from 'context/CatalogueItemContext'
 import { FilterProvider } from 'context/FilterContext'
 import { SearchProvider } from 'context/SearchContext'
@@ -35,7 +36,9 @@ export default function App(): ReactElement {
 								<Route path={`${HOME_PATH}/catalogue`}>
 									<Route index element={<CataloguePage />} />
 									<Route path=':id' element={<CatalogueItemPage />} />
+									<Route path='*' element={<NotFound />} />
 								</Route>
+								<Route path='*' element={<NotFound />} />
 							</Routes>
 						</SearchProvider>
 					</FilterProvider>
