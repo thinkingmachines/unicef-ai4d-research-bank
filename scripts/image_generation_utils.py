@@ -37,7 +37,7 @@ def get_iso3_code(region: str, code: str = "alpha-3") -> typing.Optional[str]:
     }
     iso3_lookup = get_iso3_codes()
     iso3_entry = iso3_lookup.get(iso_standard_region_name_lookup.get(region, region))
-    return iso3_entry[code] if iso3_entry is not None else None
+    return iso3_entry.get(code, None) if iso3_entry is not None else None
 
 
 GEOBOUNDARIES_REQUEST_URL = "https://www.geoboundaries.org/gbRequest.html?ISO={}&ADM={}"
