@@ -35,7 +35,7 @@ const FeaturedItemCard = ({ item, image }: Props) => (
 								}}
 							/>
 							<span className='text-xs text-gray-600'>
-								Year/Period: {formatString(item['country-region'])}
+								Country/Region: {formatString(item['country-region'])}
 							</span>
 						</div>
 					) : undefined}
