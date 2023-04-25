@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import React, { useEffect, useMemo, useState } from 'react'
-import { fetchCatalogItems } from '../api'
+import { fetchCatalogItems, fetchFeaturedIds } from '../api'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 interface CatalogueItemContextType {
@@ -11,6 +11,7 @@ interface CatalogueItemContextType {
 	setFilteredCatalogueItems: React.Dispatch<
 		React.SetStateAction<CatalogueItemType[]>
 	>
+	featuredItems: CatalogueItemType[]
 }
 
 interface Props {
@@ -22,6 +23,7 @@ export const CatalogueItemContext =
 
 export const CatalogueItemProvider = ({ children }: Props) => {
 	const [isLoading, setIsLoading] = useState(true)
+	const [featuredItems, setFeaturedItems] = useState<CatalogueItemType[]>([])
 	const [catalogueItems, setCatalogueItems] = useState<CatalogueItemType[]>([])
 	const [filteredCatalogueItems, setFilteredCatalogueItems] = useState<
 		CatalogueItemType[]
@@ -33,16 +35,34 @@ export const CatalogueItemProvider = ({ children }: Props) => {
 			catalogueItems,
 			setCatalogueItems,
 			filteredCatalogueItems,
-			setFilteredCatalogueItems
+			setFilteredCatalogueItems,
+			featuredItems
 		}),
 		[
 			isLoading,
 			catalogueItems,
 			setCatalogueItems,
 			filteredCatalogueItems,
-			setFilteredCatalogueItems
+			setFilteredCatalogueItems,
+			featuredItems
 		]
 	)
+
+	const generateFeaturedItems = async (
+		allCatalogueItems: CatalogueItemType[]
+	) => {
+		const featuredIds = await fetchFeaturedIds()
+		const featuredIdsArray = featuredIds.map(featured => featured.id)
+
+		const featuredCatalogueItems = allCatalogueItems
+			.filter(catalogueItem => featuredIdsArray.includes(catalogueItem.id))
+			.sort(
+				(a, b) =>
+					featuredIdsArray.indexOf(a.id) - featuredIdsArray.indexOf(b.id)
+			)
+
+		setFeaturedItems(featuredCatalogueItems)
+	}
 
 	useEffect(() => {
 		const fetchAllCatalogueItems = async () => {
@@ -50,8 +70,10 @@ export const CatalogueItemProvider = ({ children }: Props) => {
 			const allCatalogueItems = await fetchCatalogItems()
 			setCatalogueItems(allCatalogueItems)
 			setFilteredCatalogueItems(allCatalogueItems)
+			void generateFeaturedItems(allCatalogueItems)
 			setIsLoading(false)
 		}
+
 		void fetchAllCatalogueItems()
 	}, [])
 
