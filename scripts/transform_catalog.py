@@ -109,6 +109,13 @@ def grab_dataheaders(url, n_rows=10):
     return header_columns, hxl_tags, sample_data
 
 
+class JSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return json.JSONEncoder.default(self, obj)
+
+
 def grab_geoproperties(features, nrows=10):
     rows = []
     for i, feature in enumerate(features):
@@ -116,9 +123,11 @@ def grab_geoproperties(features, nrows=10):
             break
         row = feature.get("properties", None)
         if row is not None:
-            row["geometry"] = feature.get("geometry", None)
+            row["geometry"] = json.dumps(feature.get("geometry", None), cls=JSONEncoder)
         else:
-            row = dict(geometry=feature.get("geometry", None))
+            row = dict(
+                geometry=json.dumps(feature.get("geometry", None), cls=JSONEncoder)
+            )
         rows.append(row)
     df = pd.DataFrame(rows)
     return df
@@ -191,11 +200,6 @@ def transform(filename: str):
 
 # see https://stackoverflow.com/questions/69104540/python-json-typeerror-object-of-type-decimal-is-not-json-serializable
 # to fix TypeError: Object of type Decimal is not JSON serializable
-class JSONEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Decimal):
-            return float(obj)
-        return json.JSONEncoder.default(self, obj)
 
 
 def main():
