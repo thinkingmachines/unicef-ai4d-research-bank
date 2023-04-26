@@ -116,7 +116,7 @@ export const getIntersectionOfIds = (
 	filteredIdSets: Record<keyof FiltersType, Set<string>>,
 	filters: FiltersType
 ) => {
-	// Filter sets for filters where there is no value
+	// Exclude empty filters when performing an intersection since they represent "all"
 	const nonEmptySets = Object.entries(filteredIdSets)
 		.filter(([key]) => !isFilterEmpty(filters[key as keyof FiltersType]))
 		.map(([_, value]) => value)

@@ -9,19 +9,19 @@ import type { ReactElement } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HOME_PATH from './constants'
 
+const theme = {
+	token: {
+		colorPrimary: '#24295c',
+		colorPrimaryBg: '#d3d4de',
+		colorLinkHover: '#24295c',
+		lineHeightLG: 1.39
+	}
+}
+
 export default function App(): ReactElement {
 	return (
 		<BrowserRouter>
-			<ConfigProvider
-				theme={{
-					token: {
-						colorPrimary: '#24295c',
-						colorPrimaryBg: '#d3d4de',
-						colorLinkHover: '#24295c',
-						lineHeightLG: 1.39
-					}
-				}}
-			>
+			<ConfigProvider theme={theme}>
 				<Header />
 				<CatalogueItemProvider>
 					<FilterProvider>
