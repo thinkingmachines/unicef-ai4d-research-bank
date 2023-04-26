@@ -1,21 +1,40 @@
 import io
-from pathlib import Path
 
 import pandas as pd
 import pytest
 import transform_catalog as tc
+import yaml
+
+
+@pytest.fixture
+def valid_catalog_item():
+    "loads a catalog item yaml file"
+    with open("tests/testdata/valid-catalog-item.yml") as f:
+        item = yaml.safe_load(f)
+    item["links"] = tc.transform_links(item["links"])
+    yield item
 
 
 @pytest.mark.webtest
 def test_transform():
-    item = tc.transform("tests/testdata/valid-catalog-item.yml")
-    assert item["id"] == "valid-catalog-item"
+    item = tc.transform("tests/testdata/valid-hxltag-catalog-item.yml")
+    assert item["id"] == "valid-hxltag-catalog-item"
     assert "data-columns" in item
     assert "sample-data" in item
     assert len(item["data-columns"]) == 79
     assert len(item["sample-data"]) == 10
     assert "hxltag" in item["data-columns"][1]
     assert item["data-columns"][1]["hxltag"] == "#date+reported"
+
+
+@pytest.mark.webtest
+def test_transform_gdrive():
+    item = tc.transform("tests/testdata/valid-gdrive-catalog-item.yml")
+    assert item["id"] == "valid-gdrive-catalog-item"
+    assert "data-columns" in item
+    assert "sample-data" in item
+    assert len(item["data-columns"]) == 71
+    assert len(item["sample-data"]) == 10
 
 
 TEST_INPUT = """,date,station_code,station,city,sensor_type,longitude,latitude,geometry,bbox,total_population,AAI_mean,AAI_min,AAI_max,AAI_median,CAMS_AOD_055_mean,CAMS_AOD_055_min,CAMS_AOD_055_max,CAMS_AOD_055_median,AOD_047_mean,AOD_047_min,AOD_047_max,AOD_047_median,AOD_055_mean,AOD_055_min,AOD_055_max,AOD_055_median,NDVI_mean,NDVI_min,NDVI_max,NDVI_median,EVI_mean,EVI_min,EVI_max,EVI_median,dewpoint_temperature_2m_mean,dewpoint_temperature_2m_min,dewpoint_temperature_2m_median,dewpoint_temperature_2m_max,temperature_2m_mean,temperature_2m_min,temperature_2m_median,temperature_2m_max,u_component_of_wind_10m_mean,u_component_of_wind_10m_min,u_component_of_wind_10m_median,u_component_of_wind_10m_max,v_component_of_wind_10m_mean,v_component_of_wind_10m_min,v_component_of_wind_10m_median,v_component_of_wind_10m_max,surface_pressure_mean,surface_pressure_min,surface_pressure_median,surface_pressure_max,total_precipitation_daily,mean_precipitation_hourly,pm2.5,ADM0_EN,ADM0_PCODE,ADM0_TH,ADM1_EN,ADM1_PCODE,ADM1_TH,ADM2_EN,ADM2_PCODE,ADM2_TH,ADM3ALT1EN,ADM3ALT1TH,ADM3ALT2EN,ADM3ALT2TH,ADM3_EN,ADM3_PCODE,ADM3_REF,ADM3_TH,Shape_Area,Shape_Leng,validOn,validTo
@@ -30,3 +49,26 @@ def test_extract_column_metadata():
     column_names, column_types = tc.extract_column_metadata(df)
     assert len(column_names) == 79
     assert len(column_types) == 79
+
+
+def test_find_qualified_link(valid_catalog_item):
+    item = tc.find_qualified_link(valid_catalog_item["links"])
+    assert item is not None
+    assert "geojson" in item["type"]
+
+
+@pytest.mark.webtest
+def test_find_hxltag_qualified_link():
+    item = tc.transform("tests/testdata/valid-hxltag-catalog-item.yml")
+    item = tc.find_qualified_link(item["links"])
+    assert item is not None
+    assert "csv" in item["type"]
+
+
+@pytest.mark.webtest
+def test_add_data_column_samples(valid_catalog_item):
+    item = tc.add_data_column_samples(valid_catalog_item)
+    assert "data-columns" in item
+    assert len(item["data-columns"]) == 11
+    assert "sample-data" in item
+    assert len(item["sample-data"]) == 10
