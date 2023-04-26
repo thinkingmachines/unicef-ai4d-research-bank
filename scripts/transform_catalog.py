@@ -44,7 +44,7 @@ def find_qualified_link(links):
 
 def get_csv_reader(url):
     if is_gdrive_url(url):
-        resp, sess = get_gdown_response(url)
+        resp, sess, _ = get_gdown_response(url)
         if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
             return None
     else:
@@ -69,21 +69,18 @@ def get_csv_reader(url):
 
 def get_stream_json_reader(url):
     if is_gdrive_url(url):
-        resp, sess = get_gdown_response(url)
-        if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
+        request_resp, _, updated_url = get_gdown_response(url)
+        if request_resp.status_code != 200 or "Content-Disposition" not in resp.headers:
             return None
-    else:
-        # sess = get_session(proxy=None)
-        try:
-            # resp = sess.get(url, stream=True, verify=True)
-            resp = urlopen(url)
-        except requests.exceptions.ProxyError as e:
-            print(e, file=sys.stderr)
+        url = updated_url
 
-            return None
-        # if resp.status_code != 200:
-        if resp.status != 200:
-            return None
+    try:
+        resp = urlopen(url)
+    except requests.exceptions.ProxyError as e:
+        print(e, file=sys.stderr)
+        return None
+    if resp.status != 200:
+        return None
 
     features = ijson.items(resp, "features.item")
     return resp, features

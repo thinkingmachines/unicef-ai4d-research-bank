@@ -139,7 +139,7 @@ def get_gdown_response(
         url_origin = url
     else:
         # not a gdrive url
-        return None, None
+        return None, None, url
 
     while True:
         try:
@@ -151,7 +151,7 @@ def get_gdown_response(
                 file=sys.stderr,
             )
             print(e, file=sys.stderr)
-            return None, None
+            return None, None, url
 
         if "Content-Disposition" in res.headers:
             # This is the file
@@ -170,9 +170,9 @@ def get_gdown_response(
                 file=sys.stderr,
             )
             print("\n\t", url_origin, "\n", file=sys.stderr)
-            return None, None
+            return None, None, url
 
-    return res, sess
+    return res, sess, url
 
 
 class CSVResponseInput(AbstractInput):
