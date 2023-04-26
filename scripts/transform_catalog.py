@@ -3,6 +3,7 @@ import glob
 import io
 import json
 import sys
+from decimal import Decimal
 from pathlib import Path
 from urllib.request import urlopen
 
@@ -188,11 +189,20 @@ def transform(filename: str):
         return item
 
 
+# see https://stackoverflow.com/questions/69104540/python-json-typeerror-object-of-type-decimal-is-not-json-serializable
+# to fix TypeError: Object of type Decimal is not JSON serializable
+class JSONEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            return float(obj)
+        return json.JSONEncoder.default(self, obj)
+
+
 def main():
     files = glob.glob(f"{CATALOG_DIR}/*.yml")
     items = [transform(f) for f in files if not f.endswith("sample-catalog-item.yml")]
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(items, f)
+        json.dump(items, f, cls=JSONEncoder)
 
 
 if __name__ == "__main__":
