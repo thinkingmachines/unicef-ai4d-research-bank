@@ -4,6 +4,7 @@ import io
 import json
 import sys
 from pathlib import Path
+from urllib.request import urlopen
 
 import ijson
 import pandas as pd
@@ -72,19 +73,16 @@ def get_stream_json_reader(url):
         if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
             return None
     else:
-        sess = get_session(proxy=None)
+        # sess = get_session(proxy=None)
         try:
-            resp = sess.get(url, stream=True, verify=True)
+            # resp = sess.get(url, stream=True, verify=True)
+            resp = urlopen(url)
         except requests.exceptions.ProxyError as e:
-            print(
-                "An error has occurred using proxy:",
-                sess.proxies,
-                file=sys.stderr,
-            )
             print(e, file=sys.stderr)
 
             return None
-        if resp.status_code != 200:
+        # if resp.status_code != 200:
+        if resp.status != 200:
             return None
 
     features = ijson.items(resp, "features.item")
