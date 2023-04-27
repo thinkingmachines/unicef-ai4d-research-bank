@@ -90,24 +90,26 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 		dataColumnsSection = (
 			<div className='flex flex-col'>
 				<span className='mb-1 font-semibold text-gray-700'>Data Schema</span>
-				<table className='border-collapse'>
-					<thead>
-						<tr className='bg-gray-300'>
-							<td className='p-2 font-semibold text-cloud-burst'>
-								Column Name
-							</td>
-							<td className='p-2 font-semibold text-cloud-burst'>Type</td>
-						</tr>
-					</thead>
-					<tbody>
-						{dataColumns.map(column => (
-							<tr key={column.name} className='even:bg-gray-100'>
-								<td className='p-2 font-medium'>{column.name}</td>
-								<td className='p-2'>{column.type.toUpperCase()}</td>
+				<div className='flex max-h-[500px] flex-col overflow-y-scroll'>
+					<table className='border-collapse'>
+						<thead>
+							<tr className='bg-gray-300'>
+								<td className='p-2 font-semibold text-cloud-burst'>
+									Column Name
+								</td>
+								<td className='p-2 font-semibold text-cloud-burst'>Type</td>
 							</tr>
-						))}
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							{dataColumns.map(column => (
+								<tr key={column.name} className='even:bg-gray-100'>
+									<td className='p-2 font-medium'>{column.name}</td>
+									<td className='p-2'>{column.type.toUpperCase()}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		)
 	}
