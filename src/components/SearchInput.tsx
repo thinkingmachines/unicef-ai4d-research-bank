@@ -33,6 +33,8 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 	const { setFilters } = useFilterContext()
 
 	const onSearch = (searchValue: string) => {
+		setSearchInput(searchValue)
+
 		if (searchValue.length < 3) {
 			setSearchSuggestions([])
 			return
@@ -50,7 +52,6 @@ const SearchInput = ({ onSearchBtnClick, path, inputWidth }: Props) => {
 			}))
 
 		setSearchSuggestions(options)
-		setSearchInput(searchValue)
 	}
 
 	const onSelect = (title: string, option: SearchSuggestionsType) => {
