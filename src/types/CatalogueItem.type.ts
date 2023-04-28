@@ -14,6 +14,7 @@ export interface CatalogueItemType {
 	links: LinkType[]
 	'data-columns'?: DataColumnType[]
 	'sample-data'?: (number | string)[][]
+	'detail-image-url'?: string
 }
 
 export interface OrganizationType {
