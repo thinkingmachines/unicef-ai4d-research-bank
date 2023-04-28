@@ -84,7 +84,7 @@ def add_hxltags(input, output, tags=None, tagspecs=None):
             tagspecs = json.load(f)
 
     if is_gdrive_url(unpatched):
-        resp, sess = get_gdown_response(unpatched)
+        resp, sess, _ = get_gdown_response(unpatched)
         if resp is None:
             print(
                 f"Invalid gdrive url {unpatched}: Could not access url. Possibly not publically shared."

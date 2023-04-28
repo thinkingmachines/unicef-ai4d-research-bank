@@ -117,7 +117,7 @@ def has_valid_organization(organization, fname):
 
 def validate_csv_hxl(url, fname):
     if is_gdrive_url(url):
-        resp, sess = get_gdown_response(url)
+        resp, sess, _ = get_gdown_response(url)
         if resp is None:
             print(f"Invalid file {fname}: Could not access link with url {url}")
             return False
