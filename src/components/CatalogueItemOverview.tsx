@@ -21,6 +21,7 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 				</span>
 			</div>
 		)
+
 		const linkItem = link && (
 			<div className='self-center'>
 				<InfoCircleOutlined style={{ marginRight: '8px' }} />
@@ -34,6 +35,7 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 				</a>
 			</div>
 		)
+
 		if (metric && link) {
 			return (
 				<div
@@ -45,6 +47,7 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 				</div>
 			)
 		}
+
 		if (metric) {
 			return (
 				<div className='p-5' key={metric['metric-type']}>
@@ -52,6 +55,7 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 				</div>
 			)
 		}
+
 		if (link) {
 			return (
 				<div className='p-5' key={link.url}>
@@ -59,8 +63,10 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 				</div>
 			)
 		}
+
 		return '-'
 	})
+
 	return (
 		<div>
 			<p className='mb-5 text-gray-600'>{description}</p>
