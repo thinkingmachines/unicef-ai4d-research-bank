@@ -3,6 +3,7 @@ import glob
 import io
 import json
 import sys
+import typing
 from decimal import Decimal
 from pathlib import Path
 from urllib.request import urlopen
@@ -11,6 +12,7 @@ import ijson
 import pandas as pd
 import requests
 import yaml
+from image_generation_utils import get_gdf_data, make_image
 
 from utils import (
     extract_column_metadata,
@@ -185,6 +187,49 @@ def add_data_column_samples(item, nrows=10):
     return item
 
 
+def find_geojson_link(links):
+    for link in links:
+        if "geojson" in link["type"]:
+            return link["url"]
+    return None
+
+
+MAX_GEOJSON_SIZE_LIMIT = 1024 * 1024 * 150  # 150MB
+
+
+def check_size(url):
+    resp = requests.get(url)
+    if resp.status_code != 200:
+        return False
+    if "Content-length" in resp.headers:
+        size = int(resp.headers["Content-Length"])
+        if size > MAX_GEOJSON_SIZE_LIMIT:
+            return False
+    return True
+
+
+def generate_detail_image(geojson_url, item_id):
+    data_gdf = get_gdf_data(geojson_url)
+    make_image(item_id, None, data_gdf, output_dir=Path("public/assets/items"))
+
+
+DEFAULT_DETAIL_IMAGE_URL = "assets/default-featured-image.jpg"
+
+
+def add_detail_image_url(item: typing.TypedDict) -> typing.TypedDict:
+    detail_img_url = DEFAULT_DETAIL_IMAGE_URL
+    if "country-region" in item:
+        detail_img_url = f'assets/regions/{item["country-region"]}.png'
+    geojson_url = find_geojson_link(item["links"])
+    if geojson_url is not None:
+        if check_size(geojson_url):
+            generate_detail_image(geojson_url, item["id"])
+            detail_img_url = f'assets/items/{item["id"]}.png'
+
+    item["detail-image-url"] = detail_img_url
+    return item
+
+
 def transform(filename: str):
     file = Path(filename)
     with open(file) as f:
@@ -194,7 +239,7 @@ def transform(filename: str):
             item["links"] = transform_links(item["links"])
             if "data-columns" not in item:
                 item = add_data_column_samples(item)
-
+        item = add_detail_image_url(item)
         return item
 
 
