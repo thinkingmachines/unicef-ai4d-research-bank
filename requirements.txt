@@ -13,5 +13,5 @@ mapclassify
 contextily
 jupyterlab
 jupyterlab-vim
-
+ijson
 
