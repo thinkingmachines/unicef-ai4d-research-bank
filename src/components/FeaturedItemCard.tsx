@@ -14,7 +14,8 @@ const FeaturedItemCard = ({ item, image }: Props) => (
 		<Link to={`${HOME_PATH}/catalogue/${item.id}`}>
 			<div className='h-[200px]'>
 				<img
-					src={image}
+					// src={image}
+					src={`${HOME_PATH}/${item['detail-image-url'] ?? image}`}
 					alt={item.name}
 					className='h-full w-full rounded-t-sm object-cover'
 				/>

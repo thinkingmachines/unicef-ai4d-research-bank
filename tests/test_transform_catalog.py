@@ -15,8 +15,9 @@ def valid_catalog_item():
     yield item
 
 
-@pytest.mark.webtest
-def test_transform():
+# @pytest.mark.webtest
+def test_transform(mocker):
+    mocker.patch("transform_catalog.make_image", return_value=None)
     item = tc.transform("tests/testdata/valid-hxltag-catalog-item.yml")
     assert item["id"] == "valid-hxltag-catalog-item"
     assert "data-columns" in item
@@ -25,6 +26,8 @@ def test_transform():
     assert len(item["sample-data"]) == 10
     assert "hxltag" in item["data-columns"][1]
     assert item["data-columns"][1]["hxltag"] == "#date+reported"
+    assert "detail-image-url" in item
+    assert item["detail-image-url"] == "assets/items/valid-hxltag-catalog-item.png"
 
 
 @pytest.mark.webtest
