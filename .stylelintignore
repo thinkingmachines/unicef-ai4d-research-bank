@@ -1,4 +1,3 @@
-pnpm-lock.yaml
 public/assets/404.css
 public/404.html
-htmlcov/*
+htmlcov/*.css

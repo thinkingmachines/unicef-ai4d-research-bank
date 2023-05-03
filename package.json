@@ -18,7 +18,7 @@
 		"format": "prettier -uw --cache --ignore-path .gitignore .",
 		"run-tsc": "tsc",
 		"run-eslint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
-		"run-stylelint": "stylelint --cache --fix --ignore-path .gitignore **/*.css",
+		"run-stylelint": "stylelint --allow-empty-input --cache --fix --ignore-path .gitignore **/*.css",
 		"lint": "run-p run-tsc run-eslint run-stylelint",
 		"validate": "run-p lint test:ci test:e2e:headless",
 		"merge-catalog": "python scripts/transform_catalog.py && python scripts/transform_featured.py",
@@ -102,7 +102,7 @@
 	},
 	"lint-staged": {
 		"*": "prettier -uw --cache",
-		"*.css": "stylelint --cache --fix",
+		"*.css": "stylelint --allow-empty-input --cache --fix",
 		"*.{ts,tsx}": [
 			"eslint --cache --fix",
 			"vitest related --run --coverage=false"

@@ -73,17 +73,20 @@ def get_csv_reader(url):
 def get_stream_json_reader(url):
     if is_gdrive_url(url):
         request_resp, _, updated_url = get_gdown_response(url)
-        if request_resp.status_code != 200 or "Content-Disposition" not in resp.headers:
-            return None
+        if (
+            request_resp.status_code != 200
+            or "Content-Disposition" not in request_resp.headers
+        ):
+            return None, None
         url = updated_url
 
     try:
         resp = urlopen(url)
     except requests.exceptions.ProxyError as e:
         print(e, file=sys.stderr)
-        return None
+        return None, None
     if resp.status != 200:
-        return None
+        return None, None
 
     features = ijson.items(resp, "features.item")
     return resp, features
@@ -171,6 +174,8 @@ def add_data_column_samples(item, nrows=10):
     url = link["url"]
     if "geojson" in link["type"]:
         resp, features = get_stream_json_reader(url)
+        if resp is None:
+            return item
         df = grab_geoproperties(features, nrows=nrows)
         resp.close()
         item["data-columns"] = make_data_columns(df, None)  # no hxltags for geojson
