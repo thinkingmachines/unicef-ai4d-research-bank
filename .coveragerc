@@ -1,0 +1,6 @@
+[run]
+source = scripts/
+omit = .venv/*,tests/*,scripts/.ipynb_checkpoints/*, **/__init__.py
+
+[report]
+omit = .venv/*,tests/*
