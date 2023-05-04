@@ -21,5 +21,6 @@ tests/testdata/testoutput/*
 notebooks/catalog_data_imgs
 notebooks/catalog_imgs
 notebooks/region_imgs
+notebooks/multi_region_imgs
 htmlcov/*
 .coverage
