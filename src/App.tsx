@@ -1,5 +1,4 @@
 import { ConfigProvider } from 'antd'
-import { fetchCatalogItems, fetchFeaturedIds } from 'api'
 import Header from 'components/Header'
 import NotFound from 'components/NotFound'
 import { CatalogueItemProvider } from 'context/CatalogueItemContext'
@@ -34,15 +33,6 @@ export default function App(): ReactElement {
 									<Route path=':id' element={<CatalogueItemPage />} />
 									<Route path='*' element={<NotFound />} />
 								</Route>
-								<Route
-									path={`${HOME_PATH}/api/data/catalog.json`}
-									element={JSON.stringify(fetchCatalogItems())}
-								/>
-								<Route
-									path={`${HOME_PATH}/api/data/featured.json`}
-									element={JSON.stringify(fetchFeaturedIds())}
-								/>
-
 								<Route path='*' element={<NotFound />} />
 							</Routes>
 						</SearchProvider>
