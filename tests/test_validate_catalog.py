@@ -12,6 +12,22 @@ def test_validate_filename(capsys):
     assert captured.out == ""
 
 
+def test_validate_yaml(capsys):
+    file = "./tests/testdata/valid-catalog-item.yml"
+    ok = vc.validate_file(file)
+    captured = capsys.readouterr()
+    assert ok
+    assert captured.out == ""
+
+
+def test_validate_multicountry_yaml(capsys):
+    file = "./tests/testdata/valid-multi-country-catalog-item.yml"
+    ok = vc.validate_file(file)
+    captured = capsys.readouterr()
+    assert ok
+    assert captured.out == ""
+
+
 @pytest.mark.webtest
 def test_validate_csv_hxl_invalid_gdrive_file(capsys):
     url = "https://drive.google.com/uc?id=1_cmrGkIivqzMHgDHEx18_oJTc6PB665i"

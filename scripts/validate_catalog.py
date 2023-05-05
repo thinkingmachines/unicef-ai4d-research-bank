@@ -140,9 +140,45 @@ def validate_csv_hxl(url, fname):
     return True
 
 
+REQUIRED_LINK_FIELDS = set(["description", "url", "type"])
+OPTIONAL_LINK_FIELDS = set(["name", "alt-format"])
+ALLOWED_LINK_FIELDS = REQUIRED_LINK_FIELDS | OPTIONAL_LINK_FIELDS
+
+
+def has_no_extra_link_fields(link, fname):
+    link_fields = set(link.keys())
+    extra_fields = link_fields - ALLOWED_LINK_FIELDS
+    ok = len(extra_fields) == 0
+    if not ok:
+        print(
+            f"Invalid file {fname}: there are extra link fields that are not allowed in a catalog: {list(extra_fields)}"
+        )
+    return ok
+
+
+REQUIRED_ALT_FORMAT_FIELDS = set(["type", "url"])
+OPTIONAL_ALT_FORMAT_FIELDS = set(["name"])
+
+
+def validate_alt_format(alt_format, fname):
+    raise NotImplementedError
+
+
+def validate_alt_formats(alt_format, fname):
+    if isinstance(alt_format, dict):
+        return validate_alt_format(alt_format)
+    elif hasattr(alt_format, "__iter__"):  # is a list of dicts
+        return all([validate_alt_format(d) for d in alt_format])
+    else:
+        print(
+            f"Invalid file {fname}: `alt-format` {alt_format} must be a list of dicts"
+        )
+        return False
+
+
 def validate_link(link, i, fname):
     ok = []
-    if not set(link.keys()).issuperset(["description", "url", "type"]):
+    if not set(link.keys()).issuperset(REQUIRED_LINK_FIELDS):
         if "description" not in link:
             print(f"Invalid file {fname}: No description found for link [{i}]")
         if "url" not in link:
@@ -150,7 +186,7 @@ def validate_link(link, i, fname):
         if "type" not in link:
             print(f"Invalid file {fname}: No type found for link[{i}]")
         ok.append(False)
-
+    ok.append(has_no_extra_link_fields(link, fname))
     if "url" in link:
         ok.append(validate_url(link["url"], fname))
         if "type" in link and "csv" in link["type"]:
@@ -165,6 +201,8 @@ def validate_link(link, i, fname):
                 print(
                     f"Warning for file {fname}: HXL tag validation skipped for the CSV link {link['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
                 )
+    if "alt-format" in link:
+        validate_alt_format(link["alt-format"], fname)
     return all(ok)
 
 
@@ -172,7 +210,7 @@ def has_valid_links(links, fname):
     ok = []
     for i, link in enumerate(links):
         ok.append(validate_link(link, i, fname))
-    return all(ok)
+    return len(ok) > 0 and all(ok)
 
 
 def validate_yaml(file, fname):
@@ -203,6 +241,9 @@ def validate_yaml(file, fname):
         ok.append(has_valid_organization(item["organization"], name))
     if "links" in item:
         ok.append(has_valid_links(item["links"], name))
+    else:
+        ok.append(False)
+        print(f"Invalid file {fname}: No `links` field found")
     if "sample-data" in item and "data-columns" not in item:
         ok.append(False)
         print(f"Invalid file {fname}: Sample data is missing `data-columns`")
