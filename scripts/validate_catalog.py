@@ -188,7 +188,17 @@ def validate_yaml(file, fname):
     ok.append(has_no_extra_fields(item, name))
     # validate countries
     if "country-region" in item:
-        ok.append(has_valid_region(item["country-region"], name))
+        region = item["country-region"]
+        if type(region) == str:
+            ok.append(has_valid_region(region, name))
+        elif hasattr(region, "__iter__"):  # assume list
+            ok.append(all([has_valid_region(r, name) for r in region]))
+        else:  # unknown type
+            print(
+                f"Invalid file {fname}: `country-region` {region} should be a string or a list of strings"
+            )
+            ok.append(False)
+
     if "organization" in item:
         ok.append(has_valid_organization(item["organization"], name))
     if "links" in item:
