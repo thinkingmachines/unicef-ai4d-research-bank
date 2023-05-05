@@ -212,14 +212,10 @@ def validate_yaml(file, fname):
 def validate_file(fname):
     fpath = Path(fname)
     if fpath.suffix != ".yml":
-        if fpath.name == "catalog-item.yml.sample":
-            with open(fpath) as f:
-                return validate_yaml(f, fpath.name.replace(".sample", ""))
-        else:
-            print(
-                f"Invalid file {fpath.name}: Only catalog items with a .yml file extension are allowed"
-            )
-            return False
+        print(
+            f"Invalid file {fpath.name}: Only catalog items with a .yml file extension are allowed"
+        )
+        return False
     with open(fpath) as f:
         return validate_yaml(f, fpath.name)
 
