@@ -32,9 +32,16 @@ tags:
   - sklearn-model
   - machine-learning
 
-# country or region to which your catalog item applies (optional)
-# if supplied, must be in the list in folder validation/regions.txt
+# country or region to which your catalog item applies (optional, can have multiple values)
+# if supplied, each entry must be in the list in folder validation/regions.txt
 country-region: timor-leste
+# if multiple countries/regions are supplied
+# alternate format
+# country-region:
+#   - timor-leste
+#   - malaysia
+#   - thailand
+#   - myanmar
 
 # year or time period to which your catalog applies (optional)
 year-period: 2016
