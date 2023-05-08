@@ -141,7 +141,7 @@ def validate_csv_hxl(url, fname):
 
 
 REQUIRED_LINK_FIELDS = set(["description", "url", "type"])
-OPTIONAL_LINK_FIELDS = set(["name", "alt-format"])
+OPTIONAL_LINK_FIELDS = set(["name", "alt-format", "skip-hxl-tag-validation"])
 ALLOWED_LINK_FIELDS = REQUIRED_LINK_FIELDS | OPTIONAL_LINK_FIELDS
 
 
@@ -157,21 +157,58 @@ def has_no_extra_link_fields(link, fname):
 
 
 REQUIRED_ALT_FORMAT_FIELDS = set(["type", "url"])
-OPTIONAL_ALT_FORMAT_FIELDS = set(["name"])
+OPTIONAL_ALT_FORMAT_FIELDS = set(["name", "skip-hxl-tag-validation"])
+ALLOWED_ALT_FORMAT_FIELDS = REQUIRED_ALT_FORMAT_FIELDS | OPTIONAL_ALT_FORMAT_FIELDS
 
 
-def validate_alt_format(alt_format, fname):
-    raise NotImplementedError
+def has_no_extra_alt_format_fields(alt_format, i, j, fname):
+    alt_format_fields = set(alt_format.keys())
+    extra_fields = alt_format_fields - ALLOWED_ALT_FORMAT_FIELDS
+    ok = len(extra_fields) == 0
+    if not ok:
+        print(
+            f"Invalid file {fname}: there are extra fields that are not allowed in alt format [{j}] in link[{i}]: {list(extra_fields)}"
+        )
+    return ok
 
 
-def validate_alt_formats(alt_format, fname):
+def validate_alt_format(alt_format, i, j, fname):
+    ok = []
+    if not set(alt_format.keys()).issuperset(REQUIRED_ALT_FORMAT_FIELDS):
+        if "url" not in alt_format:
+            print(f"Invalid file {fname}: No url found for link[{i}]")
+        if "type" not in alt_format:
+            print(f"Invalid file {fname}: No type found for link[{i}]")
+        ok.append(False)
+    ok.append(has_no_extra_alt_format_fields(alt_format, i, j, fname))
+    if "url" in alt_format:
+        ok.append(validate_url(alt_format["url"], fname))
+        if "type" in alt_format and "csv" in alt_format["type"]:
+            # transform github and gstorage urls
+            if (
+                "skip-hxl-tag-validation" not in alt_format
+                or not alt_format["skip-hxl-tag-validation"]
+            ):
+                newlink = transform_dataset_file_link(alt_format, pop_skip_tag=False)
+                ok.append(validate_csv_hxl(newlink["url"], fname))
+            else:
+                print(
+                    f"Warning for file {fname}: HXL tag validation skipped for the alt format[{j}] in CSV link [{i}] with url {alt_format['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
+                )
+
+    return all(ok)
+
+
+def validate_alt_formats(alt_format, i, fname):
     if isinstance(alt_format, dict):
-        return validate_alt_format(alt_format)
+        return validate_alt_format(alt_format, i, 0, fname)
     elif hasattr(alt_format, "__iter__"):  # is a list of dicts
-        return all([validate_alt_format(d) for d in alt_format])
+        return all(
+            [validate_alt_format(d, i, j, fname) for j, d in enumerate(alt_format)]
+        )
     else:
         print(
-            f"Invalid file {fname}: `alt-format` {alt_format} must be a list of dicts"
+            f"Invalid file {fname}: `alt-format` {alt_format} must be a list of key-value pairs (dicts) for link[{i}]"
         )
         return False
 
@@ -202,7 +239,7 @@ def validate_link(link, i, fname):
                     f"Warning for file {fname}: HXL tag validation skipped for the CSV link {link['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
                 )
     if "alt-format" in link:
-        validate_alt_format(link["alt-format"], fname)
+        ok.append(validate_alt_formats(link["alt-format"], i, fname))
     return all(ok)
 
 
@@ -210,7 +247,10 @@ def has_valid_links(links, fname):
     ok = []
     for i, link in enumerate(links):
         ok.append(validate_link(link, i, fname))
-    return len(ok) > 0 and all(ok)
+    if len(ok) == 0:
+        print(f"Invalid file {fname}: No `links` listed")
+        ok.append(False)
+    return all(ok)
 
 
 def validate_yaml(file, fname):
