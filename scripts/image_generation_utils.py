@@ -169,57 +169,50 @@ def make_image(
     plt.savefig(f"{output_dir}/{id}.png", pad_inches=0.0, bbox_inches="tight", dpi=100)
 
 
-def first(items: typing.List[typing.Any]) -> typing.Optional[typing.Any]:
+def make_multi_image(
+    id,
+    admin_gdfs,
+    data_gdf,
+    size=(17, 12),
+    admin_color="b",
+    data_color="r",
+    output_dir=Path(""),
+):
     """
-    Gets the first item from a list or None if the list is empty
-    """
-    try:
-        return next(iter(items))
-    except StopIteration:
-        return None
+    Creates an image file of a map with administrative and data overlays.
 
-
-def generate_catalog_item_image(
-    item: typing.TypedDict,
-    image_args: typing.TypedDict = dict(size=(17, 12), admin_color="b", data_color="r"),
-    output_dir: Path = Path(""),
-) -> int:
-    """
-    Generates an image for a catalog item and saves it to disk.
-
-    Args:
-        item (TypedDict): A dictionary containing metadata for the catalog item to generate an image for.
-        image_args (TypedDict, optional): A dictionary containing arguments to pass to the make_image() function.
-            Defaults to {'size': (17,12), 'admin_color': 'b', 'data_color': 'r'}.
-        output_dir (Path, optional): The directory where the output image file should be saved. Defaults to the current directory.
-
+    Parameters:
+        id (str): Unique identifier for the image file.
+        admin_gdf (GeoDataFrame or None): GeoDataFrame of administrative boundaries to overlay on the map. If None, no overlay will be added.
+        data_gdf (GeoDataFrame or None): GeoDataFrame of data points to overlay on the map. If None, no overlay will be added.
+        size (tuple of float): Size of the image in inches (width, height). Default is (17, 12).
+        admin_color (str): Color of the administrative boundary overlay. Default is 'b' (blue).
+        data_color (str): Color of the data point overlay. Default is 'r' (red).
+        output_dir (Path): Directory to save the output image file. Default is the current directory.
     Returns:
-        int: An exit code indicating the status of the function. Returns 0 if successful and 1 if an error occurred.
+        None
 
-    Example:
-        >>> image_args = {'size': (10, 10), 'admin_color': 'r', 'data_color': 'g'}
-        >>> generate_catalog_item_image(item, image_args, Path('/path/to/images'))
+    Saves an image file of the map with overlays to the specified output directory with the specified ID. The image file will be a PNG file with a DPI of 100 and no padding around the edges.
     """
-    data_url = first(
-        [link["url"] for link in item["links"] if "geojson" in link["type"]]
+    crs = None
+    fig, ax = plt.subplots()
+    for admin_gdf in admin_gdfs:
+        ax = admin_gdf.plot(ax=ax, facecolor="none", edgecolor=admin_color, alpha=0.85)
+        if crs is None:
+            crs = admin_gdf.crs
+    if data_gdf is not None:
+        ax = data_gdf.plot(ax=ax, facecolor="none", edgecolor=data_color, alpha=0.25)
+        crs = data_gdf.crs
+    plt.tick_params(
+        axis="both",
+        which="both",
+        bottom=False,
+        top=False,
+        left=False,
+        right=False,
+        labelbottom=False,
+        labelleft=False,
     )
-    region = item.get("country-region", None)
-    id = item["id"]
-    if region is None and data_url is None:
-        print(
-            f"Warning: The catalog file {id}.yml didn't  find a valid region and geojson url to generate an image from"
-        )
-        return 1
-    data_gdf = None
-    if data_url:
-        data_gdf = get_gdf_data(data_url)
-    admin_gdf = None
-    if region:
-        admin_gdf = get_admin_gdf(region)
-    if data_gdf is None and admin_gdf is None:
-        print(
-            f"Warning: The catalog file {id}.yml did't find a valid admin boundaries file and geojson dataset to generate an image from"
-        )
-        return 1
-    make_image(item["id"], admin_gdf, data_gdf, output_dir=output_dir, **image_args)
-    return 0
+    cx.add_basemap(ax, crs=crs.to_string())
+    fig.set_size_inches(*size)
+    plt.savefig(f"{output_dir}/{id}.png", pad_inches=0.0, bbox_inches="tight", dpi=100)
