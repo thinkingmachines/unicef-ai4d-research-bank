@@ -1,4 +1,4 @@
-name: 'Poverty Mapping Model for Timor Leste'
+name: 'Poverty Mapping Model for Cross Country (Timor Leste, Indonesia, Myanmar)'
 description: >
   This is an sklearn Random Forest regressor model for predicting relative wealth for Timor Leste.
   Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
@@ -16,7 +16,10 @@ tags:
   - timor-leste
   - sklearn-model
   - machine-learning
-country-region: timor-leste
+country-region:
+  - timor-leste
+  - indonesia
+  - myanmar
 year-period: 2016
 evaluation-metrics:
   - metric:
@@ -37,11 +40,11 @@ links:
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
   - url: https://drive.google.com/file/d/1zTE3X6vQlJEKPpnLzrBd7OA84rwIsO1e/view?usp=share_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14)'
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
-    alt-format:
-      url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
-      type: 'dataset-csv'
+  - url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.ipynb
     description: 'Timor Leste Model Rollout Part 1 (Train Single-country Model)'

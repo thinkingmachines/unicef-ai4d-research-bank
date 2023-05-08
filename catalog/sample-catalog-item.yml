@@ -64,14 +64,22 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-    # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
     skip-hxl-tag-validation: false
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
+    # alt-format (optional): if the dataset provides multiple formats (csv, geojson, shapefile) - they can be specified as alternate formats
+    # multiple times, each providing a separate url and type
+    # if the dataset is a csv type, hxl-tag validation is applied unless the skip-hxl-tag-validation flag is set to true
+    alt-format:
+      - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+        type: 'dataset-csv'
+        # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
+        # the hxl-tag-validation is only applied to datasets with a `csv` type
+        skip-hxl-tag-validation: true
 
 # data-columns (optional) if your data is tabular format (eg. csv), you can supply the column names here
-# if not provided, data-columns and sample-data will be extracted from the first csv dataset link provided
+# if not provided, data-columns and sample-data will be extracted from the first csv or geojson dataset link provided
 # in your links section.
 data-columns:
   - name: quadkey
