@@ -12,12 +12,19 @@ import ijson
 import pandas as pd
 import requests
 import yaml
-from image_generation_utils import get_gdf_data, make_image
+from image_generation_utils import (
+    get_admin_gdf,
+    get_gdf_data,
+    make_image,
+    make_multi_image,
+)
 
 from utils import (
     extract_column_metadata,
     get_gdown_response,
+    get_link_filename,
     get_session,
+    is_dataset_file,
     is_gdrive_url,
     is_hxltagged,
     transform_dataset_file_link,
@@ -27,21 +34,50 @@ CATALOG_DIR = "./catalog"
 OUTPUT_PATH = "./public/api/data/catalog.json"
 
 
+def transform_alt_format(new_link, use_gstorage=True):
+    # include original link and type
+    alt_formats = [dict(url=new_link["url"], type=new_link["type"])]
+    if "alt-format" not in new_link:
+        new_link["alt-format"] = alt_formats
+        return new_link
+
+    alt_format = new_link["alt-format"]
+    if type(alt_format) == dict:
+        alt_formats.append(
+            transform_dataset_file_link(alt_format, use_gstorage=use_gstorage)
+        )
+    elif hasattr(alt_format, "__iter__"):  #
+        alt_formats.extend(
+            [
+                transform_dataset_file_link(link, use_gstorage=use_gstorage)
+                for link in alt_format
+            ]
+        )
+    new_link["alt-format"] = alt_formats
+    return new_link
+
+
 def transform_links(links):
     new_links = []
     for link in links:
-        new_link = transform_dataset_file_link(link, use_gstorage=True)
+        new_link = transform_dataset_file_link(link.copy(), use_gstorage=True)
+        if is_dataset_file(link):
+            link_name = get_link_filename(link["url"], use_gstorage=True)
+            if "name" not in new_link and link_name is not None:
+                new_link["name"] = link_name
+            new_link = transform_alt_format(new_link, use_gstorage=True)
         new_links.append(new_link)
-
     return new_links
 
 
 def find_qualified_link(links):
-    qualified = [
-        link for link in links if "csv" in link["type"] or "geojson" in link["type"]
-    ]
-    if qualified:
-        return qualified[0]  # first qualified link
+    for link in links:
+        if "csv" in link["type"] or "geojson" in link["type"]:
+            return link
+        if "alt-format" in link:
+            for alt_format in link["alt-format"]:
+                if "csv" in alt_format["type"] or "geojson" in alt_format["type"]:
+                    return alt_format
     return None
 
 
@@ -218,19 +254,41 @@ def generate_detail_image(geojson_url, item_id):
     make_image(item_id, None, data_gdf, output_dir=Path("public/assets/items"))
 
 
+def generate_multi_region_image(
+    regions,
+    image_args=dict(size=(17, 12), admin_color="b", data_color="r"),
+    output_dir=Path(""),
+):
+    multi_region_name = "-".join(regions.sort())
+    admin_gdfs = [get_admin_gdf(region) for region in regions]
+    make_multi_image(
+        multi_region_name, admin_gdfs, None, output_dir=output_dir, **image_args
+    )
+    return 0
+
+
 DEFAULT_DETAIL_IMAGE_URL = "assets/default-featured-image.jpg"
 
 
 def add_detail_image_url(item: typing.TypedDict) -> typing.TypedDict:
     detail_img_url = DEFAULT_DETAIL_IMAGE_URL
     if "country-region" in item:
-        detail_img_url = f'assets/regions/{item["country-region"]}.png'
+        region = item["country-region"]
+        if type(region) == str:  # single country/region
+            detail_img_url = f'assets/regions/{item["country-region"]}.png'
     geojson_url = find_geojson_link(item["links"])
     if geojson_url is not None:
         if check_size(geojson_url):
             generate_detail_image(geojson_url, item["id"])
             detail_img_url = f'assets/items/{item["id"]}.png'
-
+    if hasattr(region, "__iter__") and detail_img_url == DEFAULT_DETAIL_IMAGE_URL:
+        multi_region_name = "-".join(region.sort())
+        detail_img_url = f"assets/multiregions/{multi_region_name}.png"
+        detail_path = Path(f"public/{detail_img_url}")
+        if not detail_path.exists():
+            generate_multi_region_image(
+                region, output_dir=Path("public/assets/multiregions")
+            )
     item["detail-image-url"] = detail_img_url
     return item
 
@@ -245,6 +303,12 @@ def transform(filename: str):
             if "data-columns" not in item:
                 item = add_data_column_samples(item)
         item = add_detail_image_url(item)
+        if "country-region" in item:
+            if type(item["country-region"]) == str:
+                item["country-region"] == [
+                    item["country-region"]
+                ]  # convert to list for uniformity
+
         return item
 
 

@@ -12,7 +12,9 @@ from hxl.input import HXLTagsNotFoundException
 from utils import (
     CSVResponseInput,
     get_gdown_response,
+    get_link_filename,
     get_session,
+    is_dataset_file,
     is_gdrive_url,
     transform_dataset_file_link,
 )
@@ -157,7 +159,7 @@ def has_no_extra_link_fields(link, fname):
 
 
 REQUIRED_ALT_FORMAT_FIELDS = set(["type", "url"])
-OPTIONAL_ALT_FORMAT_FIELDS = set(["name", "skip-hxl-tag-validation"])
+OPTIONAL_ALT_FORMAT_FIELDS = set(["skip-hxl-tag-validation"])
 ALLOWED_ALT_FORMAT_FIELDS = REQUIRED_ALT_FORMAT_FIELDS | OPTIONAL_ALT_FORMAT_FIELDS
 
 
@@ -226,6 +228,11 @@ def validate_link(link, i, fname):
     ok.append(has_no_extra_link_fields(link, fname))
     if "url" in link:
         ok.append(validate_url(link["url"], fname))
+        if "name" not in link and is_dataset_file(link):
+            name = get_link_filename(link["url"])
+            if name is None:
+                print(f"Invalid file {fname}: No name found for link[{i}]")
+                ok.append(False)
         if "type" in link and "csv" in link["type"]:
             # transform github and gstorage urls
             if (
@@ -238,6 +245,7 @@ def validate_link(link, i, fname):
                 print(
                     f"Warning for file {fname}: HXL tag validation skipped for the CSV link {link['url']}. We strongly recommend adding HXL Tags instead. Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets."
                 )
+
     if "alt-format" in link:
         ok.append(validate_alt_formats(link["alt-format"], i, fname))
     return all(ok)
