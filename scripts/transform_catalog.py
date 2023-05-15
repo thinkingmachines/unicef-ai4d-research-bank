@@ -85,7 +85,7 @@ def get_csv_reader(url):
     if is_gdrive_url(url):
         resp, sess, _ = get_gdown_response(url)
         if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
-            return None
+            return None, None
     else:
         sess = get_session(proxy=None)
         try:
@@ -97,10 +97,9 @@ def get_csv_reader(url):
                 file=sys.stderr,
             )
             print(e, file=sys.stderr)
-
-            return None
+            return None, None
         if resp.status_code != 200:
-            return None
+            return None, None
 
     reader = csv.reader(resp.iter_lines(chunk_size=8192, decode_unicode=True))
     return resp, reader
@@ -130,6 +129,8 @@ def get_stream_json_reader(url):
 
 def grab_dataheaders(url, n_rows=10):
     resp, reader = get_csv_reader(url)
+    if resp is None:
+        return None, None, None
     if is_hxltagged(reader):
         resp.close()
         resp, new_reader = get_csv_reader(url)
@@ -259,7 +260,8 @@ def generate_multi_region_image(
     image_args=dict(size=(17, 12), admin_color="b", data_color="r"),
     output_dir=Path(""),
 ):
-    multi_region_name = "-".join(regions.sort())
+    regions.sort()
+    multi_region_name = "-".join(regions)
     admin_gdfs = [get_admin_gdf(region) for region in regions]
     make_multi_image(
         multi_region_name, admin_gdfs, None, output_dir=output_dir, **image_args
@@ -282,7 +284,8 @@ def add_detail_image_url(item: typing.TypedDict) -> typing.TypedDict:
             generate_detail_image(geojson_url, item["id"])
             detail_img_url = f'assets/items/{item["id"]}.png'
     if hasattr(region, "__iter__") and detail_img_url == DEFAULT_DETAIL_IMAGE_URL:
-        multi_region_name = "-".join(region.sort())
+        region.sort()
+        multi_region_name = "-".join(region)
         detail_img_url = f"assets/multiregions/{multi_region_name}.png"
         detail_path = Path(f"public/{detail_img_url}")
         if not detail_path.exists():
