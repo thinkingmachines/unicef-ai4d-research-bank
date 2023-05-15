@@ -1,6 +1,6 @@
-name: 'Poverty Mapping Model for Cross Country (Timor Leste, Indonesia, Myanmar)'
+name: 'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar'
 description: >
-  This is an sklearn Random Forest regressor model for predicting relative wealth for Timor Leste.
+  This is a single cross-country sklearn Random Forest regressor model for predicting relative wealth for Indonesia, Timor Leste and Myanmar.
   Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
   It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
   as well as Domestic and Health Survey (DHS) data from USAID. 
@@ -39,10 +39,6 @@ links:
   - url: https://drive.google.com/file/d/1q9ev9qlXf5p0-CTuJ8IO6Qi-tEIuRqCp/view?usp=share_link
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-  - url: https://drive.google.com/file/d/1zTE3X6vQlJEKPpnLzrBd7OA84rwIsO1e/view?usp=share_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
-    type: 'dataset-geojson'
-    name: 2023-02-21-tl-rollout-output.geojson
   - url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
     type: 'dataset-csv'
@@ -62,8 +58,3 @@ links:
   - url: https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
     description: 'Training dataset for Poverty Mapping Model on Timor Leste as CSV'
     type: 'training-dataset-csv'
-
-  - url: https://drive.google.com/file/d/1PDU9N4aA0zsc0cYRtPNRfHYFlSAdyunq/view?usp=share_link
-    description: 'Training dataset for Poverty Mapping Model on Timor Leste as GeoJSON'
-    type: 'training-dataset-geojson'
-    name: 2023-02-21-tl-rollout-output.geojson
