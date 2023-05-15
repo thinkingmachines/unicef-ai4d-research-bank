@@ -61,5 +61,6 @@ links:
     type: 'training-dataset-csv'
 
   - url: https://drive.google.com/file/d/1i0jThcT2I6R6rh7GtLlotMNT29hPxKS1/view?usp=share_link
+    name: 2023-02-21-ph-dhs-cluster-features-all.geojson
     description: 'Training dataset for Poverty Mapping Model on Philippines'
     type: 'training-dataset-geojson'

@@ -39,6 +39,7 @@ links:
   - url: https://drive.google.com/file/d/1zTE3X6vQlJEKPpnLzrBd7OA84rwIsO1e/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-geojson'
+    name: 2023-02-21-tl-rollout-output.geojson
     alt-format:
       url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
       type: 'dataset-csv'
@@ -62,3 +63,4 @@ links:
   - url: https://drive.google.com/file/d/1PDU9N4aA0zsc0cYRtPNRfHYFlSAdyunq/view?usp=share_link
     description: 'Training dataset for Poverty Mapping Model on Timor Leste as GeoJSON'
     type: 'training-dataset-geojson'
+    name: 2023-02-21-tl-rollout-output.geojson
