@@ -40,10 +40,9 @@ links:
   - url: https://drive.google.com/file/d/14i_k2xhnuuVkQJJL9Mt8l3QhzLDDOtXQ/view?usp=share_link
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-csv'
-
-  - url: https://drive.google.com/file/d/1HVfLJiY1UmA7tWW4XO_xjpQrszmTJTHg/view?usp=share_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
-    type: 'dataset-geojson'
+    alt-format:
+      - url: https://drive.google.com/file/d/1HVfLJiY1UmA7tWW4XO_xjpQrszmTJTHg/view?usp=share_link
+        type: 'dataset-geojson'
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/ph/1_ph_train_model.ipynb
     description: 'Philippines Model Rollout Part 1 (Train Model)'
@@ -62,5 +61,6 @@ links:
     type: 'training-dataset-csv'
 
   - url: https://drive.google.com/file/d/1i0jThcT2I6R6rh7GtLlotMNT29hPxKS1/view?usp=share_link
+    name: 2023-02-21-ph-dhs-cluster-features-all.geojson
     description: 'Training dataset for Poverty Mapping Model on Philippines'
     type: 'training-dataset-geojson'

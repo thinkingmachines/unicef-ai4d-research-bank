@@ -15,6 +15,19 @@ import { formatString } from './String.util'
 dayjs.extend(isSameOrAfter)
 dayjs.extend(isSameOrBefore)
 
+const updateAcc = (acc: FilterOption[], countryRegion: string, id: string) => {
+	const countryObj = acc.find(obj => obj.value === countryRegion)
+	if (countryObj) {
+		countryObj.catalogueIds.push(id)
+		return acc
+	}
+	acc.push({
+		catalogueIds: [id],
+		label: formatString(countryRegion),
+		value: countryRegion
+	})
+	return acc
+}
 export const getCountryOptions = (
 	catalogueItems: CatalogueItemType[]
 ): FilterOption[] =>
@@ -25,19 +38,13 @@ export const getCountryOptions = (
 			if (!countryRegion) {
 				return acc
 			}
-
-			const countryObj = acc.find(obj => obj.value === countryRegion)
-			if (countryObj) {
-				countryObj.catalogueIds.push(id)
-				return acc
+			if (!Array.isArray(countryRegion)) {
+				return updateAcc(acc, countryRegion, id)
 			}
-
-			acc.push({
-				catalogueIds: [id],
-				label: formatString(countryRegion),
-				value: countryRegion
-			})
-			return acc
+			return countryRegion.reduce<FilterOption[]>(
+				(racc, ritem) => updateAcc(racc, ritem, id),
+				acc
+			)
 		}, [])
 		.sort((a, b) => a.value.localeCompare(b.value))
 

@@ -7,7 +7,7 @@ export interface CatalogueItemType {
 	'date-added': string
 	'date-modified'?: string
 	tags?: string[]
-	'country-region'?: string
+	'country-region'?: string[] | string
 	'year-period'?: string
 	'used-by'?: UsedByType
 	'evaluation-metrics'?: EvaluationMetricsType[]

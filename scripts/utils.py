@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import textwrap
+from pathlib import Path
 
 import gdown.parse_url as gdp
 import hxl.model
@@ -55,6 +56,25 @@ def is_dataset_file(link):
             "training-dataset-csv",
         ]
     return False
+
+
+def get_link_filename(url, use_gstorage=True):
+    if is_gdrive_url(url):
+        url = transform_gdrive_url(url, use_gstorage=use_gstorage)
+        if not "www.googleapis.com/drive/v3/files" in url:
+            return None
+        resp = requests.get(url.replace("alt=media&", ""))
+        if resp.status_code != 200:
+            return None
+        metadata = resp.json()
+        if "name" not in metadata:
+            return None
+        return metadata["name"]
+    # get name from extension
+    urlpath = Path(url)
+    if urlpath.suffix == "":
+        return None
+    return urlpath.name
 
 
 def transform_gdrive_url(url, use_gstorage=False):

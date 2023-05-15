@@ -21,6 +21,7 @@ interface Props {
 export const CatalogueItemContext =
 	React.createContext<CatalogueItemContextType>({} as CatalogueItemContextType)
 
+// eslint-disable-next-line arrow-body-style
 export const CatalogueItemProvider = ({ children }: Props) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [featuredItems, setFeaturedItems] = useState<CatalogueItemType[]>([])
@@ -47,7 +48,6 @@ export const CatalogueItemProvider = ({ children }: Props) => {
 			featuredItems
 		]
 	)
-
 	const generateFeaturedItems = async (
 		allCatalogueItems: CatalogueItemType[]
 	) => {
