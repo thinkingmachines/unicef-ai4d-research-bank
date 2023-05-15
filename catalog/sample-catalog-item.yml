@@ -56,7 +56,7 @@ evaluation-metrics:
       description: 'Additional evaluation metrics discussion'
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#evaluate-model-training-using-cross-validation
 
-# links (required) are the URLs to the datasets, model weights, documentation, or github repos
+# links are the URLs to the datasets, model weights, documentation, or github repos
 # the valid types are 'model-weights','dataset-geojson', 'dataset-csv', 'dataset-raw-csv', 'dataset-raw-geojson',
 # 'code-notebook','repository', 'documentation', 'dataset-shapefile', 'dataset-raw-shapefile', 'dataset-tif', 'dataset-raw-tif'
 # at least one link must be provided
@@ -64,19 +64,34 @@ links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
     description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
-    skip-hxl-tag-validation: false
+
+    # dataset links are those that have a type that start with keyword "dataset"
+    # and must have a name - but depending on the url, the name can be derived from the last part of the url
+
+    # if the dataset is a csv type (has a "csv" in the type), we strongly recommend adding HXL Tags.
+    # Please visit https://hxlstandard.org/ to learn how to add HXL tags to your datasets.
+  - url: https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
+    description: 'Training dataset for Poverty Mapping Model on Timor Leste as CSV'
+    type: 'training-dataset-csv'
+    name: 2023-02-21-tl-dhs-cluster-features-all.csv
+    # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
+    # the hxl-tag-validation is only applied to datasets with a `csv` type
+    # skip-hxl-tag-validation: true
+
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
+    # name is optional for dataset links if it can be derived from the url
+    # name: rollout_output_tl.geojson
+
     # alt-format (optional): if the dataset provides multiple formats (csv, geojson, shapefile) - they can be specified as alternate formats
-    # multiple times, each providing a separate url and type
+    # multiple times, each alt-format providing a separate url and type
     # if the dataset is a csv type, hxl-tag validation is applied unless the skip-hxl-tag-validation flag is set to true
     alt-format:
-      - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv
+      - url: https://drive.google.com/file/d/138zqndK07bqtUXAelzpiFqacohVxWetx/view?usp=share_link
         type: 'dataset-csv'
         # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
         # the hxl-tag-validation is only applied to datasets with a `csv` type
-        skip-hxl-tag-validation: true
 
 # data-columns (optional) if your data is tabular format (eg. csv), you can supply the column names here
 # if not provided, data-columns and sample-data will be extracted from the first csv or geojson dataset link provided
