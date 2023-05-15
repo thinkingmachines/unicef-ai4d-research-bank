@@ -20,3 +20,5 @@ jobs:
           python-version: 3.9
       - run: pip install -r requirements.txt
       - run: python scripts/validate_catalog.py
+        env:
+          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
