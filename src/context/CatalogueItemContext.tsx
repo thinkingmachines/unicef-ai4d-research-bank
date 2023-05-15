@@ -22,18 +22,6 @@ export const CatalogueItemContext =
 	React.createContext<CatalogueItemContextType>({} as CatalogueItemContextType)
 
 // eslint-disable-next-line arrow-body-style
-const formatCountry = (country: string[] | string): string => {
-	return Array.isArray(country) && country.length > 0 ? country[0] : country
-}
-
-const transformCountryRegionCatalogItems = (
-	catalogueItems: CatalogueItemType[]
-): CatalogueItemType[] =>
-	catalogueItems.map(item => ({
-		...item,
-		'country-region': formatCountry(item['country-region'])
-	}))
-
 export const CatalogueItemProvider = ({ children }: Props) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [featuredItems, setFeaturedItems] = useState<CatalogueItemType[]>([])
@@ -80,11 +68,9 @@ export const CatalogueItemProvider = ({ children }: Props) => {
 		const fetchAllCatalogueItems = async () => {
 			setIsLoading(true)
 			const allCatalogueItems = await fetchCatalogItems()
-			const transformedCatalogueItems =
-				transformCountryRegionCatalogItems(allCatalogueItems)
-			setCatalogueItems(transformedCatalogueItems)
-			setFilteredCatalogueItems(transformedCatalogueItems)
-			void generateFeaturedItems(transformedCatalogueItems)
+			setCatalogueItems(allCatalogueItems)
+			setFilteredCatalogueItems(allCatalogueItems)
+			void generateFeaturedItems(allCatalogueItems)
 			setIsLoading(false)
 		}
 
