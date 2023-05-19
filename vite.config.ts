@@ -35,5 +35,6 @@ export default defineConfig(({ mode }) => ({
 						manifest: {}
 					})
 			  ])
-	]
+	],
+	assetsInclude: ['**/*.md']
 }))
