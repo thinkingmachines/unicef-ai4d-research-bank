@@ -1,13 +1,12 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-props-no-spreading  */
 
-import MARKDOWN from 'assets/catalog-contribution.md'
 import 'github-markdown-css'
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import type { PluggableList } from 'react-markdown/lib/react-markdown'
 import remarkGfm from 'remark-gfm'
-
+import { CONTRIBUTION_URL } from '../constants/index'
 /**
  * Use !important modifiers to allow tailwind to override styles
  * provided by github-markdown-css' markdown-body class
@@ -18,7 +17,7 @@ const ContributionPage = () => {
 	const [markdown, setMarkdown] = useState('')
 
 	useEffect(() => {
-		void fetch(MARKDOWN as RequestInfo)
+		void fetch(CONTRIBUTION_URL)
 			.then(async res => res.text())
 			.then(md => setMarkdown(md))
 	}, [])
