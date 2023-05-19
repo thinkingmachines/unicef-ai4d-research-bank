@@ -99,64 +99,71 @@ const CataloguePage = () => {
 					Search Catalogue
 				</span>
 			</div>
-			<div className='flex flex-col py-8 px-10 md:flex-row'>
-				<div className='mr-16 w-full self-start rounded-md bg-gray-50 p-6 md:w-1/3'>
-					<span className='font-semibold text-cloud-burst'>FILTERS</span>
-					<Space style={{ width: '100%' }} direction='vertical'>
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Country/Region</span>
-							<Select
-								mode='multiple'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select a country/region...'
-								defaultValue={filters.countryFilter}
-								onChange={onCountryRegionChange}
-								options={countries}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Year</span>
-							<RangePicker
-								style={{ width: '100%', marginTop: '8px' }}
-								onChange={onYearChange}
-								defaultValue={filters.yearFilter}
-								picker='year'
-								allowEmpty={[true, true]}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Organization</span>
-							<Select
-								mode='multiple'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select an organization...'
-								defaultValue={filters.organizationFilter}
-								onChange={onOrganizationChange}
-								options={organizations}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Tags</span>
-							<Select
-								mode='tags'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select a tag...'
-								defaultValue={filters.tagsFilter}
-								onChange={onTagsChange}
-								options={tags}
-							/>
-						</div>
-					</Space>
-				</div>
-				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
+			<div className='flex flex-col px-10 pb-8 pt-5 '>
+				<div className='pb-5'>
 					<SearchInput onSearchBtnClick={onSearchBtnClick} path='' />
-					<div className='my-3 text-cloud-burst'>{catalogueItemsSection}</div>
+				</div>
+
+				<div className='flex'>
+					<div className='mr-16 w-full self-start rounded-md bg-gray-50 p-6 md:w-1/3'>
+						<span className='font-semibold text-cloud-burst'>FILTERS</span>
+						<Space style={{ width: '100%' }} direction='vertical'>
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>
+									Country/Region
+								</span>
+								<Select
+									mode='multiple'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select a country/region...'
+									defaultValue={filters.countryFilter}
+									onChange={onCountryRegionChange}
+									options={countries}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Year</span>
+								<RangePicker
+									style={{ width: '100%', marginTop: '8px' }}
+									onChange={onYearChange}
+									defaultValue={filters.yearFilter}
+									picker='year'
+									allowEmpty={[true, true]}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Organization</span>
+								<Select
+									mode='multiple'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select an organization...'
+									defaultValue={filters.organizationFilter}
+									onChange={onOrganizationChange}
+									options={organizations}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Tags</span>
+								<Select
+									mode='tags'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select a tag...'
+									defaultValue={filters.tagsFilter}
+									onChange={onTagsChange}
+									options={tags}
+								/>
+							</div>
+						</Space>
+					</div>
+					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
+						<div className='my-3 text-cloud-burst'>{catalogueItemsSection}</div>
+					</div>
 				</div>
 			</div>
 		</div>
