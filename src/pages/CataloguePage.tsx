@@ -9,11 +9,14 @@ import { useSearchContext } from 'context/SearchContext'
 import { useState } from 'react'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
+import { PAGE_SIZE } from '../constants/index'
 import '../css/Pagination.css'
 
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
+	const [currentPage, setCurrentPage] = useState<number>(1)
+
 	const { setSearchInput } = useSearchContext()
 	const { filteredCatalogueItems, isLoading: isCatalogueItemsLoading } =
 		useCatalogueItemContext()
@@ -70,6 +73,9 @@ const CataloguePage = () => {
 		catalogueItemsSection = <span>No catalogue items available.</span>
 	}
 
+	const startIndex = (currentPage - 1) * PAGE_SIZE
+	const endIndex = startIndex + PAGE_SIZE
+
 	if (!isLoading && filteredCatalogueItems.length > 0) {
 		catalogueItemsSection = (
 			<>
@@ -79,21 +85,21 @@ const CataloguePage = () => {
 					available
 				</span>
 				<div className='grid grid-cols-1 divide-y divide-gray-100 '>
-					{filteredCatalogueItems.map(catalogueItem => (
-						<CatalogueItemCard
-							key={catalogueItem.id}
-							catalogueItemData={catalogueItem}
-						/>
-					))}
+					{filteredCatalogueItems
+						.slice(startIndex, endIndex)
+						.map(catalogueItem => (
+							<CatalogueItemCard
+								key={catalogueItem.id}
+								catalogueItemData={catalogueItem}
+							/>
+						))}
 				</div>
 			</>
 		)
 	}
 
-	const [current, setCurrent] = useState<number>(3)
-
 	const onChange: PaginationProps['onChange'] = page => {
-		setCurrent(page)
+		setCurrentPage(page)
 	}
 
 	return (
@@ -183,10 +189,10 @@ const CataloguePage = () => {
 							{catalogueItemsSection}
 						</div>
 						<Pagination
-							current={current}
+							current={currentPage}
 							onChange={onChange}
 							total={filteredCatalogueItems.length}
-							pageSize={5}
+							pageSize={PAGE_SIZE}
 							showSizeChanger={false}
 							showTotal={total => `Total ${total} items`}
 						/>
