@@ -1,11 +1,15 @@
-import { DatePicker, Select, Skeleton, Space } from 'antd'
+import type { PaginationProps } from 'antd'
+import { DatePicker, Pagination, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
+import CustomRadio from 'components/Radio'
 import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
+import { useState } from 'react'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
+import '../css/Pagination.css'
 
 const { RangePicker } = DatePicker
 
@@ -86,6 +90,12 @@ const CataloguePage = () => {
 		)
 	}
 
+	const [current, setCurrent] = useState<number>(3)
+
+	const onChange: PaginationProps['onChange'] = page => {
+		setCurrent(page)
+	}
+
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
 			<div className='relative flex flex-col items-center justify-center py-10 px-10 '>
@@ -162,7 +172,24 @@ const CataloguePage = () => {
 						</Space>
 					</div>
 					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
-						<div className='my-3 text-cloud-burst'>{catalogueItemsSection}</div>
+						<div className='flex'>
+							<div className='bg-sky-200'>
+								<CustomRadio />
+							</div>
+							<div className='bg-sky-200'>Dropdown</div>
+						</div>
+
+						<div className='my-3  text-cloud-burst'>
+							{catalogueItemsSection}
+						</div>
+						<Pagination
+							current={current}
+							onChange={onChange}
+							total={filteredCatalogueItems.length}
+							pageSize={5}
+							showSizeChanger={false}
+							showTotal={total => `Total ${total} items`}
+						/>
 					</div>
 				</div>
 			</div>

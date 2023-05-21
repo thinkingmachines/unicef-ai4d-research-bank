@@ -1,0 +1,19 @@
+.ant-pagination-item:not(.ant-pagination-item-active) {
+	border-color: #d9d9d9;
+}
+
+.ant-pagination-prev {
+	border-color: #d9d9d9;
+	border-width: thin;
+	border-style: solid;
+}
+
+.ant-pagination-next {
+	border-color: #d9d9d9;
+	border-width: thin;
+	border-style: solid;
+}
+
+.ant-pagination-total-text {
+	color: #82838d; /* Replace 'red' with your desired font color */
+}
