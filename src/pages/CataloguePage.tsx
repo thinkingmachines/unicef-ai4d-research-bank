@@ -2,6 +2,7 @@ import type { PaginationProps } from 'antd'
 import { DatePicker, Pagination, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
 import CustomRadio from 'components/CustomRadio'
+import CustomSelect from 'components/CustomSelect'
 import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
@@ -9,8 +10,8 @@ import { useSearchContext } from 'context/SearchContext'
 import { useEffect, useState } from 'react'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
-import type { ToggleOption } from '../constants/index'
-import { PAGE_SIZE, TOGGLE_OPTIONS } from '../constants/index'
+import type { SelectOption, ToggleOption } from '../constants/index'
+import { PAGE_SIZE, SELECT_OPTIONS, TOGGLE_OPTIONS } from '../constants/index'
 import '../css/Pagination.css'
 
 const { RangePicker } = DatePicker
@@ -19,6 +20,9 @@ const CataloguePage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1)
 	const [radioOptions, setRadioOptions] = useState<ToggleOption>(
 		TOGGLE_OPTIONS.All
+	)
+	const [selectOptions, setSelectOptions] = useState<SelectOption>(
+		SELECT_OPTIONS.none
 	)
 
 	const { setSearchInput } = useSearchContext()
@@ -80,10 +84,6 @@ const CataloguePage = () => {
 		catalogueItemsSection = <span>No catalogue items available.</span>
 	}
 
-	const updateParentOptions = (value: ToggleOption) => {
-		setRadioOptions(value)
-	}
-
 	useEffect(() => {
 		const toggleFilteredData = filteredCatalogueItems.filter(item => {
 			if (radioOptions === TOGGLE_OPTIONS.model) {
@@ -96,10 +96,44 @@ const CataloguePage = () => {
 			return true
 		})
 
-		setFilteredData(toggleFilteredData)
-	}, [radioOptions, filteredCatalogueItems])
+		const sortedData = [...toggleFilteredData] // Create a copy of toggleFilteredData
 
-	// filter using dropdown
+		if (selectOptions === SELECT_OPTIONS.yearAsc) {
+			sortedData.sort((a, b) => {
+				const yearPeriodA = a['year-period']
+					? Number.parseInt(a['year-period'], 10)
+					: 0
+				const yearPeriodB = b['year-period']
+					? Number.parseInt(b['year-period'], 10)
+					: 0
+
+				return yearPeriodA - yearPeriodB
+			})
+		}
+
+		if (selectOptions === SELECT_OPTIONS.yearDesc) {
+			sortedData.sort((a, b) => {
+				const yearPeriodA = a['year-period']
+					? Number.parseInt(a['year-period'], 10)
+					: 0
+				const yearPeriodB = b['year-period']
+					? Number.parseInt(b['year-period'], 10)
+					: 0
+
+				return yearPeriodB - yearPeriodA
+			})
+		}
+
+		if (selectOptions === SELECT_OPTIONS.nameAsc) {
+			sortedData.sort((a, b) => a.name.localeCompare(b.name))
+		}
+
+		if (selectOptions === SELECT_OPTIONS.nameDesc) {
+			sortedData.sort((a, b) => b.name.localeCompare(a.name))
+		}
+
+		setFilteredData(sortedData)
+	}, [radioOptions, filteredCatalogueItems, selectOptions])
 
 	const startIndex = (currentPage - 1) * PAGE_SIZE
 	const endIndex = startIndex + PAGE_SIZE
@@ -205,10 +239,19 @@ const CataloguePage = () => {
 					</div>
 					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
 						<div className='flex'>
-							<div className='bg-sky-200'>
-								<CustomRadio updateParentOptions={updateParentOptions} />
+							<CustomRadio
+								updateParentOptions={(value: ToggleOption) => {
+									setRadioOptions(value)
+								}}
+							/>
+							<div className='mx-6 py-1 text-sm font-normal text-[#82838D]'>
+								Sort by:
 							</div>
-							<div className='bg-sky-200'>Dropdown</div>
+							<CustomSelect
+								updateParentOptions={(value: SelectOption) => {
+									setSelectOptions(value)
+								}}
+							/>
 						</div>
 
 						<div className='my-3  text-cloud-burst'>

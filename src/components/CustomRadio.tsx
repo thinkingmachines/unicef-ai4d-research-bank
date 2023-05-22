@@ -7,7 +7,7 @@ interface CustomRadioProps {
 }
 
 const CustomRadio = ({ updateParentOptions }: CustomRadioProps) => {
-	const onToggle = (x: ToggleOption) => updateParentOptions(x)
+	const onToggle = (value: ToggleOption) => updateParentOptions(value)
 
 	return (
 		<Radio.Group defaultValue={TOGGLE_OPTIONS.All} buttonStyle='solid'>
