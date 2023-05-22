@@ -1,25 +1,32 @@
 import type { PaginationProps } from 'antd'
 import { DatePicker, Pagination, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
-import CustomRadio from 'components/Radio'
+import CustomRadio from 'components/CustomRadio'
 import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
-import { PAGE_SIZE } from '../constants/index'
+import type { ToggleOption } from '../constants/index'
+import { PAGE_SIZE, TOGGLE_OPTIONS } from '../constants/index'
 import '../css/Pagination.css'
 
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
 	const [currentPage, setCurrentPage] = useState<number>(1)
+	const [radioOptions, setRadioOptions] = useState<ToggleOption>(
+		TOGGLE_OPTIONS.All
+	)
 
 	const { setSearchInput } = useSearchContext()
 	const { filteredCatalogueItems, isLoading: isCatalogueItemsLoading } =
 		useCatalogueItemContext()
+
+	const [filteredData, setFilteredData] = useState(filteredCatalogueItems)
+
 	const {
 		countries,
 		organizations,
@@ -73,26 +80,45 @@ const CataloguePage = () => {
 		catalogueItemsSection = <span>No catalogue items available.</span>
 	}
 
+	const updateParentOptions = (value: ToggleOption) => {
+		setRadioOptions(value)
+	}
+
+	useEffect(() => {
+		const toggleFilteredData = filteredCatalogueItems.filter(item => {
+			if (radioOptions === TOGGLE_OPTIONS.model) {
+				return item['card-type'] === 'model'
+			}
+			if (radioOptions === TOGGLE_OPTIONS.dataset) {
+				return item['card-type'] === 'dataset'
+			}
+
+			return true
+		})
+
+		setFilteredData(toggleFilteredData)
+	}, [radioOptions, filteredCatalogueItems])
+
+	// filter using dropdown
+
 	const startIndex = (currentPage - 1) * PAGE_SIZE
 	const endIndex = startIndex + PAGE_SIZE
 
-	if (!isLoading && filteredCatalogueItems.length > 0) {
+	if (!isLoading && filteredData.length > 0) {
 		catalogueItemsSection = (
 			<>
 				<span className='text-sm text-gray-500'>
-					{filteredCatalogueItems.length}
-					{filteredCatalogueItems.length === 1 ? ' result ' : ' results '}
+					{filteredData.length}
+					{filteredData.length === 1 ? ' result ' : ' results '}
 					available
 				</span>
 				<div className='grid grid-cols-1 divide-y divide-gray-100 '>
-					{filteredCatalogueItems
-						.slice(startIndex, endIndex)
-						.map(catalogueItem => (
-							<CatalogueItemCard
-								key={catalogueItem.id}
-								catalogueItemData={catalogueItem}
-							/>
-						))}
+					{filteredData.slice(startIndex, endIndex).map(catalogueItem => (
+						<CatalogueItemCard
+							key={catalogueItem.id}
+							catalogueItemData={catalogueItem}
+						/>
+					))}
 				</div>
 			</>
 		)
@@ -180,7 +206,7 @@ const CataloguePage = () => {
 					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
 						<div className='flex'>
 							<div className='bg-sky-200'>
-								<CustomRadio />
+								<CustomRadio updateParentOptions={updateParentOptions} />
 							</div>
 							<div className='bg-sky-200'>Dropdown</div>
 						</div>
@@ -191,7 +217,7 @@ const CataloguePage = () => {
 						<Pagination
 							current={currentPage}
 							onChange={onChange}
-							total={filteredCatalogueItems.length}
+							total={filteredData.length}
 							pageSize={PAGE_SIZE}
 							showSizeChanger={false}
 							showTotal={total => `Total ${total} items`}
