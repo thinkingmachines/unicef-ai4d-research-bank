@@ -2,8 +2,7 @@
 import {
 	CalendarOutlined,
 	EnvironmentOutlined,
-	TagsOutlined,
-	TeamOutlined
+	TagsOutlined
 } from '@ant-design/icons'
 import { Skeleton, Tabs } from 'antd'
 import CatalogueItemData from 'components/CatalogueItemData'
@@ -193,28 +192,7 @@ const CatalogueItemPage = () => {
 									</span>
 								</div>
 							</div>
-							<div className='align-center flex flex-row gap-3'>
-								<TeamOutlined
-									style={{
-										color: '#6b7280',
-										fontSize: '24px',
-										margin: 'auto 0'
-									}}
-								/>
-								<div className='flex flex-col'>
-									<span className='text-xs font-medium text-gray-500'>
-										ORGANIZATION
-									</span>
-									<a
-										href={organization.url}
-										target='_blank'
-										rel='noreferrer'
-										className='text-sm font-medium hover:underline'
-									>
-										{organization.name}
-									</a>
-								</div>
-							</div>
+
 							<div className='align-center flex flex-row gap-3'>
 								<CalendarOutlined
 									style={{
@@ -243,6 +221,14 @@ const CatalogueItemPage = () => {
 								</div>
 							) : undefined}
 						</div>
+					</div>
+					<div className='rounded bg-gray-50 p-5'>
+						<span className='text-sm font-semibold'>
+							This dataset has been used by:
+						</span>
+						<div className='flex flex-wrap gap-3 py-3'>Unicef1</div>
+						<div className='flex flex-wrap gap-3 py-3'>Unicef2</div>
+						<div className='flex flex-wrap gap-3 py-3'>Unicef3</div>
 					</div>
 					<div className='rounded bg-gray-50 p-5'>
 						<span className='text-sm font-semibold'>
