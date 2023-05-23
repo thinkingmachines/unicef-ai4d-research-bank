@@ -21,6 +21,11 @@ const theme = {
 		colorPrimaryBg: '#d3d4de',
 		colorLinkHover: '#24295c',
 		lineHeightLG: 1.39
+	},
+	components: {
+		Pagination: {
+			borderRadius: 0
+		}
 	}
 }
 

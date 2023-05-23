@@ -1,18 +1,36 @@
-import { DatePicker, Select, Skeleton, Space } from 'antd'
+import type { PaginationProps } from 'antd'
+import { DatePicker, Pagination, Select, Skeleton, Space } from 'antd'
 import CatalogueItemCard from 'components/CatalogueItemCard'
+import CustomRadio from 'components/CustomRadio'
+import CustomSelect from 'components/CustomSelect'
 import SearchInput from 'components/SearchInput'
 import { useCatalogueItemContext } from 'context/CatalogueItemContext'
 import { useFilterContext } from 'context/FilterContext'
 import { useSearchContext } from 'context/SearchContext'
+import { useEffect, useState } from 'react'
 import type { DateFilterType } from 'types/SearchFilters.type'
 import CatalogueHeroImg from '../assets/catalogue-hero-bg.jpg'
+import type { SelectOption, ToggleOption } from '../constants/index'
+import { PAGE_SIZE, SELECT_OPTIONS, TOGGLE_OPTIONS } from '../constants/index'
+import '../css/Pagination.css'
 
 const { RangePicker } = DatePicker
 
 const CataloguePage = () => {
+	const [currentPage, setCurrentPage] = useState<number>(1)
+	const [radioOptions, setRadioOptions] = useState<ToggleOption>(
+		TOGGLE_OPTIONS.All
+	)
+	const [selectOptions, setSelectOptions] = useState<SelectOption>(
+		SELECT_OPTIONS.none
+	)
+
 	const { setSearchInput } = useSearchContext()
 	const { filteredCatalogueItems, isLoading: isCatalogueItemsLoading } =
 		useCatalogueItemContext()
+
+	const [filteredData, setFilteredData] = useState(filteredCatalogueItems)
+
 	const {
 		countries,
 		organizations,
@@ -66,16 +84,70 @@ const CataloguePage = () => {
 		catalogueItemsSection = <span>No catalogue items available.</span>
 	}
 
-	if (!isLoading && filteredCatalogueItems.length > 0) {
+	useEffect(() => {
+		const toggleFilteredData = filteredCatalogueItems.filter(item => {
+			if (radioOptions === TOGGLE_OPTIONS.model) {
+				return item['card-type'] === 'model'
+			}
+			if (radioOptions === TOGGLE_OPTIONS.dataset) {
+				return item['card-type'] === 'dataset'
+			}
+
+			return true
+		})
+
+		const sortedData = [...toggleFilteredData] // Create a copy of toggleFilteredData
+
+		if (selectOptions === SELECT_OPTIONS.yearAsc) {
+			sortedData.sort((a, b) => {
+				const yearPeriodA = a['year-period']
+					? Number.parseInt(a['year-period'], 10)
+					: 0
+				const yearPeriodB = b['year-period']
+					? Number.parseInt(b['year-period'], 10)
+					: 0
+
+				return yearPeriodA - yearPeriodB
+			})
+		}
+
+		if (selectOptions === SELECT_OPTIONS.yearDesc) {
+			sortedData.sort((a, b) => {
+				const yearPeriodA = a['year-period']
+					? Number.parseInt(a['year-period'], 10)
+					: 0
+				const yearPeriodB = b['year-period']
+					? Number.parseInt(b['year-period'], 10)
+					: 0
+
+				return yearPeriodB - yearPeriodA
+			})
+		}
+
+		if (selectOptions === SELECT_OPTIONS.nameAsc) {
+			sortedData.sort((a, b) => a.name.localeCompare(b.name))
+		}
+
+		if (selectOptions === SELECT_OPTIONS.nameDesc) {
+			sortedData.sort((a, b) => b.name.localeCompare(a.name))
+		}
+
+		setFilteredData(sortedData)
+	}, [radioOptions, filteredCatalogueItems, selectOptions])
+
+	const startIndex = (currentPage - 1) * PAGE_SIZE
+	const endIndex = startIndex + PAGE_SIZE
+
+	if (!isLoading && filteredData.length > 0) {
 		catalogueItemsSection = (
 			<>
 				<span className='text-sm text-gray-500'>
-					{filteredCatalogueItems.length}
-					{filteredCatalogueItems.length === 1 ? ' result ' : ' results '}
+					{filteredData.length}
+					{filteredData.length === 1 ? ' result ' : ' results '}
 					available
 				</span>
 				<div className='grid grid-cols-1 divide-y divide-gray-100 '>
-					{filteredCatalogueItems.map(catalogueItem => (
+					{filteredData.slice(startIndex, endIndex).map(catalogueItem => (
 						<CatalogueItemCard
 							key={catalogueItem.id}
 							catalogueItemData={catalogueItem}
@@ -84,6 +156,10 @@ const CataloguePage = () => {
 				</div>
 			</>
 		)
+	}
+
+	const onChange: PaginationProps['onChange'] = page => {
+		setCurrentPage(page)
 	}
 
 	return (
@@ -99,64 +175,97 @@ const CataloguePage = () => {
 					Search Catalogue
 				</span>
 			</div>
-			<div className='flex flex-col py-8 px-10 md:flex-row'>
-				<div className='mr-16 w-full self-start rounded-md bg-gray-50 p-6 md:w-1/3'>
-					<span className='font-semibold text-cloud-burst'>FILTERS</span>
-					<Space style={{ width: '100%' }} direction='vertical'>
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Country/Region</span>
-							<Select
-								mode='multiple'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select a country/region...'
-								defaultValue={filters.countryFilter}
-								onChange={onCountryRegionChange}
-								options={countries}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Year</span>
-							<RangePicker
-								style={{ width: '100%', marginTop: '8px' }}
-								onChange={onYearChange}
-								defaultValue={filters.yearFilter}
-								picker='year'
-								allowEmpty={[true, true]}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Organization</span>
-							<Select
-								mode='multiple'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select an organization...'
-								defaultValue={filters.organizationFilter}
-								onChange={onOrganizationChange}
-								options={organizations}
-							/>
-						</div>
-
-						<div className='pt-3'>
-							<span className='font-bold text-cloud-burst'>Tags</span>
-							<Select
-								mode='tags'
-								allowClear
-								style={{ width: '100%', marginTop: '8px' }}
-								placeholder='Select a tag...'
-								defaultValue={filters.tagsFilter}
-								onChange={onTagsChange}
-								options={tags}
-							/>
-						</div>
-					</Space>
-				</div>
-				<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
+			<div className='flex flex-col px-10 pb-8 pt-5 '>
+				<div className='pb-5'>
 					<SearchInput onSearchBtnClick={onSearchBtnClick} path='' />
-					<div className='my-3 text-cloud-burst'>{catalogueItemsSection}</div>
+				</div>
+
+				<div className='flex'>
+					<div className='mr-16 w-full self-start rounded-md bg-gray-50 p-6 md:w-1/3'>
+						<span className='font-semibold text-cloud-burst'>FILTERS</span>
+						<Space style={{ width: '100%' }} direction='vertical'>
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>
+									Country/Region
+								</span>
+								<Select
+									mode='multiple'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select a country/region...'
+									defaultValue={filters.countryFilter}
+									onChange={onCountryRegionChange}
+									options={countries}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Year</span>
+								<RangePicker
+									style={{ width: '100%', marginTop: '8px' }}
+									onChange={onYearChange}
+									defaultValue={filters.yearFilter}
+									picker='year'
+									allowEmpty={[true, true]}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Organization</span>
+								<Select
+									mode='multiple'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select an organization...'
+									defaultValue={filters.organizationFilter}
+									onChange={onOrganizationChange}
+									options={organizations}
+								/>
+							</div>
+
+							<div className='pt-3'>
+								<span className='font-bold text-cloud-burst'>Tags</span>
+								<Select
+									mode='tags'
+									allowClear
+									style={{ width: '100%', marginTop: '8px' }}
+									placeholder='Select a tag...'
+									defaultValue={filters.tagsFilter}
+									onChange={onTagsChange}
+									options={tags}
+								/>
+							</div>
+						</Space>
+					</div>
+					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
+						<div className='flex'>
+							<CustomRadio
+								updateParentOptions={(value: ToggleOption) => {
+									setRadioOptions(value)
+								}}
+							/>
+							<div className='mx-6 py-1 text-sm font-normal text-[#82838D]'>
+								Sort by:
+							</div>
+							<CustomSelect
+								updateParentOptions={(value: SelectOption) => {
+									setSelectOptions(value)
+								}}
+							/>
+						</div>
+
+						<div className='my-3  text-cloud-burst'>
+							{catalogueItemsSection}
+						</div>
+						<Pagination
+							current={currentPage}
+							onChange={onChange}
+							total={filteredData.length}
+							pageSize={PAGE_SIZE}
+							showSizeChanger={false}
+							showTotal={total => `Total ${total} items`}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>
