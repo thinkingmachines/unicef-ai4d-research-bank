@@ -3,13 +3,14 @@ import { useState } from 'react'
 
 interface Props {
 	url: string
+	placeholder?: string
 }
 
 const onCopyToClipboard = async (text: string) => {
 	await navigator.clipboard.writeText(text)
 }
 
-const CopyLinkButton = ({ url }: Props) => {
+const CopyLinkButton = ({ url, placeholder }: Props) => {
 	const [isCopied, setIsCopied] = useState(false)
 
 	const onCopyClick = () => {
@@ -24,13 +25,17 @@ const CopyLinkButton = ({ url }: Props) => {
 	return (
 		<button
 			type='button'
-			className='ml-auto w-[100px] rounded bg-cloud-burst p-2 text-left tracking-tight text-white hover:bg-opacity-95'
+			className='my-3 rounded-md bg-gray-200  p-10 py-1 pl-2 pr-4 text-left text-xs font-semibold tracking-tight text-gray-600 hover:bg-black hover:bg-opacity-20'
 			onClick={onCopyClick}
 		>
 			<CopyOutlined style={{ marginRight: '8px' }} />
-			{isCopied ? 'Copied!' : 'Copy Link'}
+			{isCopied ? 'Copied!' : placeholder}
 		</button>
 	)
 }
 
 export default CopyLinkButton
+
+CopyLinkButton.defaultProps = {
+	placeholder: 'Enter URL'
+}

@@ -43,7 +43,14 @@ export interface MetricLink {
 }
 
 export interface LinkType {
+	url: string
 	description: string
+	type: string
+	name: string
+	'alt-format': AltFormatType[]
+}
+
+export interface AltFormatType {
 	url: string
 	type: string
 }

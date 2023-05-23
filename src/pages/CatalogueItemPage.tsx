@@ -17,6 +17,10 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { formatString } from 'utils/String.util'
 import Tag from '../components/Tag'
+import {
+	TEMP_NUMBER_OF_DOWNLOADS,
+	TEMP_WHO_DOWNLOADED
+} from '../constants/index'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 const defaultFilters = {
@@ -120,8 +124,6 @@ const CatalogueItemPage = () => {
 
 	const bannerImage = detailImage ? `../${detailImage}` : null
 
-	const NUMBER_OF_DOWNLOADS = 121
-
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
 			<div className='relative flex min-h-[10rem] flex-col items-center justify-center bg-cloud-burst p-10'>
@@ -147,7 +149,7 @@ const CatalogueItemPage = () => {
 						{organization.name}
 					</a>
 					<div>&#8226;</div>
-					<div>{NUMBER_OF_DOWNLOADS} downloads</div>
+					<div>{TEMP_NUMBER_OF_DOWNLOADS} downloads</div>
 				</div>
 			</div>
 
@@ -226,9 +228,11 @@ const CatalogueItemPage = () => {
 						<span className='text-sm font-semibold'>
 							This dataset has been used by:
 						</span>
-						<div className='flex flex-wrap gap-3 py-3'>Unicef1</div>
-						<div className='flex flex-wrap gap-3 py-3'>Unicef2</div>
-						<div className='flex flex-wrap gap-3 py-3'>Unicef3</div>
+						{TEMP_WHO_DOWNLOADED.map(data => (
+							<div className='flex flex-wrap gap-3 py-3' key={data}>
+								{data}
+							</div>
+						))}
 					</div>
 					<div className='rounded bg-gray-50 p-5'>
 						<span className='text-sm font-semibold'>
