@@ -92,7 +92,8 @@ const CatalogueItemPage = () => {
 		'date-modified': dateModified,
 		'year-period': yearPeriod,
 		'country-region': countryRegion,
-		tags
+		tags,
+		'detail-image-url': detailImage
 	} = catalogueItem
 
 	let yearPeriodTitle
@@ -118,34 +119,40 @@ const CatalogueItemPage = () => {
 		}
 	]
 
+	const bannerImage = detailImage ? `../${detailImage}` : null
+
+	const NUMBER_OF_DOWNLOADS = 121
+
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
-			<div className='flex min-h-[10rem] flex-col bg-cloud-burst p-10 text-white'>
-				<a
-					href={organization.url}
-					className='text-sm hover:underline'
-					target='_blank'
-					rel='noreferrer'
-				>
-					{organization.name}
-				</a>
-				<span className='text-3xl font-medium tracking-tighter'>
+			<div className='relative flex min-h-[10rem] flex-col items-center justify-center bg-cloud-burst p-10'>
+				{detailImage ? (
+					<img
+						src={bannerImage ?? ''}
+						alt='BannerImage'
+						className='bg absolute z-0 h-full w-full object-cover'
+					/>
+				) : null}
+				<div className='absolute z-10 h-full w-full bg-cloud-burst opacity-80 brightness-75' />
+
+				<span className='z-20 self-start pl-28 text-3xl font-medium tracking-tighter'>
 					{name} {yearPeriodTitle}
 				</span>
-				<div className='mt-2 flex flex-row gap-10 text-sm'>
-					<span>
-						<EnvironmentOutlined />{' '}
-						{countryRegion
-							? `Country/Region: ${formatString(countryRegion)}`
-							: '-'}
-					</span>
-					<span>
-						<CalendarOutlined />{' '}
-						{yearPeriod ? `Year/Period: ${yearPeriod}` : '-'}
-					</span>
+				<div className='z-20 mt-2 flex flex-row gap-3 self-start pl-28 text-sm'>
+					<a
+						href={organization.url}
+						className='z-20 self-start text-sm hover:underline'
+						target='_blank'
+						rel='noreferrer'
+					>
+						{organization.name}
+					</a>
+					<div>&#8226;</div>
+					<div>{NUMBER_OF_DOWNLOADS} downloads</div>
 				</div>
 			</div>
-			<div className='flex flex-col md:flex-row'>
+
+			<div className='flex flex-col pl-28 md:flex-row'>
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
 					<Tabs defaultActiveKey='1' items={tabItems} />
 				</div>
