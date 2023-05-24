@@ -73,14 +73,17 @@ const LandingPage = () => {
 				/>
 				<div className='absolute z-10 h-full w-full bg-cloud-burst opacity-60' />
 				<div className='z-20 flex flex-col items-center justify-center'>
-					<span className='mb-3 text-center text-2xl font-medium tracking-tighter text-white md:text-4xl'>
+					<span
+						className='mb-3 text-center text-2xl font-medium tracking-tighter text-white md:text-4xl'
+						data-cy='hero-mainText'
+					>
 						Accelerating machine learning adoption in the development sector
 					</span>
-					<span className='px-10 text-center'>
+					<span className='px-10 text-center' data-cy='hero-subtext'>
 						Browse our catalogue of models and datasets to gain access to code,
 						documentation, and pre-processed datasets that fit to your needs
 					</span>
-					<div className='my-5 flex w-2/3 flex-row'>
+					<div className='my-5 flex w-2/3 flex-row' data-cy='hero-search'>
 						<SearchInput
 							onSearchBtnClick={onSearchBtnClick}
 							path='catalogue/'
@@ -88,7 +91,7 @@ const LandingPage = () => {
 					</div>
 				</div>
 			</div>
-			<div className='flex flex-col p-10'>
+			<div className='flex flex-col p-10' data-cy='featured-datasets'>
 				<span className='font-semibold tracking-normal text-cloud-burst'>
 					FEATURED DATASETS
 				</span>
@@ -107,7 +110,10 @@ const LandingPage = () => {
 				</div>
 			</div>
 			<div className='flex flex-col md:flex-row'>
-				<div className='flex w-full flex-col p-10 md:w-1/2'>
+				<div
+					className='flex w-full flex-col p-10 md:w-1/2'
+					data-cy='tag-browse'
+				>
 					<span className='font-semibold tracking-normal text-cloud-burst'>
 						BROWSE BY TAGS
 					</span>
@@ -128,7 +134,10 @@ const LandingPage = () => {
 					</div>
 				</div>
 				<div className='flex w-full flex-col p-10 md:w-1/2'>
-					<span className='font-semibold tracking-normal text-cloud-burst'>
+					<span
+						className='font-semibold tracking-normal text-cloud-burst'
+						data-cy='region-browse'
+					>
 						BROWSE BY COUNTRY/REGION
 					</span>
 					<div className='flex flex-wrap gap-3 py-3 text-cloud-burst'>
