@@ -56,11 +56,8 @@ links:
     description: 'Philippines Model Rollout Part 3 (Rollout Model)'
     type: 'code-notebook'
 
+  # https://drive.google.com/drive/folders/15bOWigdscLGekiZM8G_Yx5V52MSOrSL4
   - url: https://drive.google.com/file/d/15q-fTiTI-oN_aYKwiXhgzdx4fyTa3Y07/view?usp=share_link
     description: 'Training dataset for Poverty Mapping Model on Philippines'
     type: 'training-dataset-csv'
-
-  - url: https://drive.google.com/file/d/1i0jThcT2I6R6rh7GtLlotMNT29hPxKS1/view?usp=share_link
-    name: 2023-02-21-ph-dhs-cluster-features-all.geojson
-    description: 'Training dataset for Poverty Mapping Model on Philippines'
-    type: 'training-dataset-geojson'
+    name: '2023-02-21-ph-dhs-cluster-features-all'
