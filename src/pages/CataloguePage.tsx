@@ -233,6 +233,7 @@ const CataloguePage = () => {
 									defaultValue={filters.tagsFilter}
 									onChange={onTagsChange}
 									options={tags}
+									data-cy='select-tags'
 								/>
 							</div>
 						</Space>
