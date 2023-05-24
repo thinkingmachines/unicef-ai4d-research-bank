@@ -32,7 +32,7 @@ const CatalogueItemLinks = ({ catalogueItem }: Props) => {
 								key={link.description}
 								target='_blank'
 								rel='noreferrer'
-								className='hover:underline'
+								className='text-[#504F54] underline'
 							>
 								{link.description}
 							</a>

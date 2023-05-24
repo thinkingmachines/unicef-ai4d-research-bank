@@ -1,5 +1,6 @@
 import { InfoCircleOutlined } from '@ant-design/icons'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
+import MAP_PREVIEW_NOTE from '../constants/texts'
 
 interface Props {
 	catalogueItem: CatalogueItemType
@@ -67,6 +68,10 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 		return '-'
 	})
 
+	const bannerImage = catalogueItem['detail-image-url']
+		? `../${catalogueItem['detail-image-url']}`
+		: undefined
+
 	return (
 		<div>
 			<p className='mb-5 text-gray-600'>{description}</p>
@@ -78,6 +83,15 @@ const CatalogueItemOverview = ({ catalogueItem }: Props) => {
 					</div>
 				</div>
 			)}
+			{bannerImage ? (
+				<div className='mb-6'>
+					<span className='font-semibold text-gray-700'>Map Preview</span>
+					<p className='mt-3 mb-5 text-gray-600'>{MAP_PREVIEW_NOTE}</p>
+					<div className='text-gray-600'>
+						<img src={bannerImage} alt='BannerImage' />
+					</div>
+				</div>
+			) : undefined}
 		</div>
 	)
 }

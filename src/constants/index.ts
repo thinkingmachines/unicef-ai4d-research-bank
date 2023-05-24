@@ -22,3 +22,10 @@ export const SELECT_OPTIONS = {
 } as const
 
 export type SelectOption = (typeof SELECT_OPTIONS)[keyof typeof SELECT_OPTIONS]
+
+export const TEMP_NUMBER_OF_DOWNLOADS = 121
+
+export const TEMP_WHO_DOWNLOADED = ['UNICEF', 'WFP', 'WHO']
+
+export const TEMP_REDIRECT_FORM =
+	'https://inform.unicef.org/eapro/researchbank/downloadform?url='
