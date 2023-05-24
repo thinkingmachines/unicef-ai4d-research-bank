@@ -1,4 +1,4 @@
 const MAP_PREVIEW_NOTE =
-	'Note: The following visualization represents the geographical scope of the dataset. [Disclaimer on the map visualization, this language can be improved.]'
+	'Note: The following visualization represents the geographical scope of the dataset.'
 
 export default MAP_PREVIEW_NOTE
