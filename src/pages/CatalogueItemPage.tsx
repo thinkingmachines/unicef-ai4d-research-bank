@@ -226,7 +226,7 @@ const CatalogueItemPage = () => {
 					</div>
 					<div className='rounded bg-gray-50 p-5'>
 						<span className='text-sm font-semibold'>
-							This dataset has been used by:
+							This dataset has been downloaded by:
 						</span>
 						{TEMP_WHO_DOWNLOADED.map(data => (
 							<div className='flex flex-wrap gap-3 py-3' key={data}>
