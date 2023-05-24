@@ -84,7 +84,11 @@ def find_qualified_link(links):
 def get_csv_reader(url):
     if is_gdrive_url(url):
         resp, sess, _ = get_gdown_response(url)
-        if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
+        if (
+            resp is None
+            or resp.status_code != 200
+            or "Content-Disposition" not in resp.headers
+        ):
             return None, None
     else:
         sess = get_session(proxy=None)
@@ -109,7 +113,8 @@ def get_stream_json_reader(url):
     if is_gdrive_url(url):
         request_resp, _, updated_url = get_gdown_response(url)
         if (
-            request_resp.status_code != 200
+            request_resp is None
+            or request_resp.status_code != 200
             or "Content-Disposition" not in request_resp.headers
         ):
             return None, None

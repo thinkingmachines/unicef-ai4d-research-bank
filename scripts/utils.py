@@ -128,6 +128,7 @@ def get_gdown_response(
     url,
     proxy=None,
     verify=True,
+    show_error=True,
 ):
     """Get the Response from a Gdrive download request (instead of the output file).
 
@@ -165,12 +166,13 @@ def get_gdown_response(
         try:
             res = sess.get(url, stream=True, verify=verify)
         except requests.exceptions.ProxyError as e:
-            print(
-                "An error has occurred using proxy:",
-                sess.proxies,
-                file=sys.stderr,
-            )
-            print(e, file=sys.stderr)
+            if show_error:
+                print(
+                    "An error has occurred using proxy:",
+                    sess.proxies,
+                    file=sys.stderr,
+                )
+                print(e, file=sys.stderr)
             return None, None, url
 
         if "Content-Disposition" in res.headers:
@@ -181,15 +183,11 @@ def get_gdown_response(
         try:
             url = get_url_from_gdrive_confirmation(res.text)
         except RuntimeError as e:
-            print("Access denied with the following error:")
-            error = "\n".join(textwrap.wrap(str(e)))
-            error = indent(error, "\t")
-            print("\n", error, "\n", file=sys.stderr)
-            print(
-                "You may still be able to access the file from the browser:",
-                file=sys.stderr,
-            )
-            print("\n\t", url_origin, "\n", file=sys.stderr)
+            if show_error:
+                print("Access denied with the following error:")
+                error = "\n".join(textwrap.wrap(str(e)))
+                error = indent(error, "\t")
+                print("\n", error, "\n", file=sys.stderr)
             return None, None, url
 
     return res, sess, url
@@ -222,7 +220,7 @@ def rename_types(dtype):
     return dtype
 
 
-def extract_column_metadata(df: pd.DataFrame) -> dict:
+def extract_column_metadata(df: pd.DataFrame):
     """
     Extracts the names of the columns from a pandas dataframe along with their data types.
     """
