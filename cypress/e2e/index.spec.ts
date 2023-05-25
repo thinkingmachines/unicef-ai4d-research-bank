@@ -13,7 +13,6 @@ describe('Access all resources', () => {
 	})
 
 	it('should navigate to the catalog item page on click', () => {
-		// eslint-disable-next-line cypress/no-unnecessary-waiting
 		cy.wait(3000)
 		cy.contains(
 			'Poverty Mapping Rollout Dataset for Timor Leste (2016)'
