@@ -251,6 +251,10 @@ def find_geojson_link(links):
     for link in links:
         if "geojson" in link["type"]:
             return link["url"]
+        if "alt-format" in link:
+            for alt_link in link["alt-format"]:
+                if "geojson" in alt_link["type"]:
+                    return alt_link["url"]
     return None
 
 
@@ -290,8 +294,9 @@ def generate_multi_region_image(
 DEFAULT_DETAIL_IMAGE_URL = "assets/default-featured-image.jpg"
 
 
-def add_detail_image_url(item: typing.TypedDict) -> typing.TypedDict:
+def add_detail_image_url(item: typing.Dict) -> typing.Dict:
     detail_img_url = DEFAULT_DETAIL_IMAGE_URL
+    region = None
     if "country-region" in item:
         region = item["country-region"]
         if type(region) == str:  # single country/region
