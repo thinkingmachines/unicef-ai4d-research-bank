@@ -15,7 +15,7 @@ ISO3_URL = "https://raw.githubusercontent.com/lukes/ISO-3166-Countries-with-Regi
 
 
 @lru_cache(maxsize=None)
-def get_iso3_codes() -> typing.TypedDict:
+def get_iso3_codes() -> typing.Dict:
     iso3_df = pd.read_csv(ISO3_URL)
     iso3_lookup = {item["name"].lower(): item for item in iso3_df.to_dict("records")}
     return iso3_lookup
@@ -121,8 +121,8 @@ def get_gdf_data(url: str) -> typing.Optional[gpd.GeoDataFrame]:
 
 def make_image(
     id: str,
-    admin_gdf: gpd.GeoDataFrame,
-    data_gdf: gpd.GeoDataFrame,
+    admin_gdf: typing.Union[gpd.GeoDataFrame, None],
+    data_gdf: typing.Union[gpd.GeoDataFrame, None],
     size: tuple = (17, 12),
     admin_color: str = "b",
     data_color: str = "r",
@@ -213,6 +213,7 @@ def make_multi_image(
         labelbottom=False,
         labelleft=False,
     )
-    cx.add_basemap(ax, crs=crs.to_string())
+    if crs is not None:
+        cx.add_basemap(ax, crs=crs.to_string())
     fig.set_size_inches(*size)
     plt.savefig(f"{output_dir}/{id}.png", pad_inches=0.0, bbox_inches="tight", dpi=100)
