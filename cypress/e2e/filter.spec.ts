@@ -2,7 +2,7 @@ describe('The correct filter elements should be displayed', () => {
 	before(() => {
 		cy.visit('/catalogue')
 		cy.request('/api/data/catalog.json')
-		// cy.wait(3000)
+		cy.wait(3000)
 	})
 
 	it('renders the filter ', () => {
