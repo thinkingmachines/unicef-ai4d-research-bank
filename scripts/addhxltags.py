@@ -52,6 +52,8 @@ def add_hxltags(input, output, tags=None, tagspecs=None):
         if is_github_url(unpatched):
             unpatched = transform_github_url(unpatched)
         elif is_gdrive_url(unpatched):
+            if not validate_url(unpatched, input):
+                return 1
             unpatched = transform_gdrive_url(unpatched, use_gstorage=True)
         if not validate_url(unpatched, input):
             return 1

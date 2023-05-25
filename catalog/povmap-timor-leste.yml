@@ -55,12 +55,8 @@ links:
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb
     description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
     type: 'code-notebook'
-
+    # https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
   - url: https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
     description: 'Training dataset for Poverty Mapping Model on Timor Leste as CSV'
     type: 'training-dataset-csv'
-
-  - url: https://drive.google.com/file/d/1PDU9N4aA0zsc0cYRtPNRfHYFlSAdyunq/view?usp=share_link
-    description: 'Training dataset for Poverty Mapping Model on Timor Leste as GeoJSON'
-    type: 'training-dataset-geojson'
-    name: 2023-02-21-tl-rollout-output.geojson
+    name: '2023-02-21-tl-dhs-cluster-features-all.csv'
