@@ -140,7 +140,7 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 	let dataColumnsSection
 	if (dataColumns) {
 		dataColumnsSection = (
-			<div className='flex flex-col'>
+			<div className='flex flex-col' data-cy='catalog-item-data-schema'>
 				<div className='flex max-h-[500px] flex-col overflow-y-scroll'>
 					<table className='border-collapse'>
 						<thead>
