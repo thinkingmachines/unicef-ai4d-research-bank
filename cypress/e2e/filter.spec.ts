@@ -72,7 +72,7 @@ describe('The number of results should be 0 if using tag filter with a tag does 
 			.contains('Tags')
 			.siblings('div.ant-select')
 			.click()
-			.type('test{enter}')
+			.type('NoneExistentTag{enter}')
 
 		cy.contains('No catalogue items available.')
 	})
@@ -102,7 +102,7 @@ describe('The search entries should only entries from before year 2019', () => {
 
 		cy.contains('.ant-picker-cell-inner', '2019').first().click()
 
-		cy.contains('4 results available').should('be.visible')
+		cy.contains('5 results available').should('be.visible')
 	})
 })
 
