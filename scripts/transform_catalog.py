@@ -72,7 +72,7 @@ def transform_links(links):
 
 def find_qualified_link(links):
     for link in links:
-        if "csv" in link["type"] or "geojson" in link["type"]:
+        if "url" in link and ("csv" in link["type"] or "geojson" in link["type"]):
             return link
         if "alt-format" in link:
             for alt_format in link["alt-format"]:
@@ -84,7 +84,11 @@ def find_qualified_link(links):
 def get_csv_reader(url):
     if is_gdrive_url(url):
         resp, sess, _ = get_gdown_response(url)
-        if resp.status_code != 200 or "Content-Disposition" not in resp.headers:
+        if (
+            resp is None
+            or resp.status_code != 200
+            or "Content-Disposition" not in resp.headers
+        ):
             return None, None
     else:
         sess = get_session(proxy=None)
@@ -109,7 +113,8 @@ def get_stream_json_reader(url):
     if is_gdrive_url(url):
         request_resp, _, updated_url = get_gdown_response(url)
         if (
-            request_resp.status_code != 200
+            request_resp is None
+            or request_resp.status_code != 200
             or "Content-Disposition" not in request_resp.headers
         ):
             return None, None
@@ -117,9 +122,10 @@ def get_stream_json_reader(url):
 
     try:
         resp = urlopen(url)
-    except requests.exceptions.ProxyError as e:
+    except Exception as e:
         print(e, file=sys.stderr)
         return None, None
+
     if resp.status != 200:
         return None, None
 
@@ -131,23 +137,29 @@ def grab_dataheaders(url, n_rows=10):
     resp, reader = get_csv_reader(url)
     if resp is None:
         return None, None, None
+
+    header_columns, hxl_tags = None, None
+
     if is_hxltagged(reader):
         resp.close()
         resp, new_reader = get_csv_reader(url)
-        header_columns = next(new_reader)
-        hxl_tags = next(new_reader)
+        if new_reader is not None:
+            header_columns = next(new_reader)
+            hxl_tags = next(new_reader)
     else:
         resp.close()
         resp, new_reader = get_csv_reader(url)
-        header_columns = next(new_reader)
-        hxl_tags = None
+        if new_reader is not None:
+            header_columns = next(new_reader)
+            hxl_tags = None
     sample_data = []
-    for i, row in enumerate(new_reader):
-        if i >= n_rows:
-            break
-        sample_data.append(row)
-
-    resp.close()
+    if new_reader is not None:
+        for i, row in enumerate(new_reader):
+            if i >= n_rows:
+                break
+            sample_data.append(row)
+    if resp is not None:
+        resp.close()
     return header_columns, hxl_tags, sample_data
 
 
@@ -212,6 +224,9 @@ def add_data_column_samples(item, nrows=10):
     if "geojson" in link["type"]:
         resp, features = get_stream_json_reader(url)
         if resp is None:
+            print(
+                f"Warning for {item['id']}: Could not get geojson data from url {url}"
+            )
             return item
         df = grab_geoproperties(features, nrows=nrows)
         resp.close()
@@ -222,10 +237,13 @@ def add_data_column_samples(item, nrows=10):
         )  # no hxltags for geojson
     else:  # for csv
         column_names, hxl_tags, sample_data = grab_dataheaders(url)
-        if column_names:
-            df = make_df(column_names, sample_data)
-            item["data-columns"] = make_data_columns(df, hxl_tags)
-            item["sample-data"] = make_sample_data(hxl_tags, sample_data)
+        if column_names is None:
+            print(f"Warning for {item['id']}: Could not get csv data from url {url}")
+            return item
+
+        df = make_df(column_names, sample_data)
+        item["data-columns"] = make_data_columns(df, hxl_tags)
+        item["sample-data"] = make_sample_data(hxl_tags, sample_data)
     return item
 
 
@@ -233,6 +251,10 @@ def find_geojson_link(links):
     for link in links:
         if "geojson" in link["type"]:
             return link["url"]
+        if "alt-format" in link:
+            for alt_link in link["alt-format"]:
+                if "geojson" in alt_link["type"]:
+                    return alt_link["url"]
     return None
 
 
@@ -272,8 +294,9 @@ def generate_multi_region_image(
 DEFAULT_DETAIL_IMAGE_URL = "assets/default-featured-image.jpg"
 
 
-def add_detail_image_url(item: typing.TypedDict) -> typing.TypedDict:
+def add_detail_image_url(item: typing.Dict) -> typing.Dict:
     detail_img_url = DEFAULT_DETAIL_IMAGE_URL
+    region = None
     if "country-region" in item:
         region = item["country-region"]
         if type(region) == str:  # single country/region
@@ -308,7 +331,7 @@ def transform(filename: str):
         item = add_detail_image_url(item)
         if "country-region" in item:
             if type(item["country-region"]) == str:
-                item["country-region"] == [
+                item["country-region"] = [
                     item["country-region"]
                 ]  # convert to list for uniformity
 

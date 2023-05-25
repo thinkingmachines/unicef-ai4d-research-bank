@@ -94,15 +94,21 @@ def validate_filename(fpath):
 
 
 def validate_url(url, fname):
-    r = requests.get(url)
-    if r.status_code != 200:
-        with closing(get_session(proxy=None)) as sess:
-            r = sess.get(url)
-            if r.status_code != 200:
-                print(
-                    f"Invalid file {fname}: Link not available for {url}, reason: {r.reason}"
-                )
-                return False
+    if is_gdrive_url(url):
+        resp, sess, _ = get_gdown_response(url)
+        if resp is None:
+            print(f"Invalid file {fname}: Could not access link with url {url}")
+            return False
+    else:
+        r = requests.get(url)
+        if r.status_code != 200:
+            with closing(get_session(proxy=None)) as sess:
+                r = sess.get(url)
+                if r.status_code != 200:
+                    print(
+                        f"Invalid file {fname}: Link not available for {url}, reason: {r.reason}"
+                    )
+                    return False
 
     return True
 
