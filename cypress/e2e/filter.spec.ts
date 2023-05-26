@@ -107,7 +107,7 @@ describe('The search entries should only entries from before year 2019', () => {
 })
 
 describe('Filter year/period for entries spanning multiple entries', () => {
-	it('Sets end year to 2019 and verifies results', () => {
+	it('Sets end year to 2021 and verifies results', () => {
 		cy.visit('/catalogue')
 
 		cy.get('.ant-picker-input').eq(0).click()
