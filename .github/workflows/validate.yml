@@ -10,6 +10,8 @@ on:
     paths:
       - 'catalog/**.yml'
 
+  workflow_dispatch:
+
 jobs:
   validate-catalog:
     runs-on: ubuntu-latest
