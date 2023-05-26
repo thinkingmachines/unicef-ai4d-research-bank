@@ -2,7 +2,7 @@ import { defineConfig } from 'cypress'
 
 export default defineConfig({
 	fileServerFolder: 'dist',
-	fixturesFolder: false,
+	fixturesFolder: 'public/api/data',
 	projectId: 'ivvovd',
 	e2e: {
 		chromeWebSecurity: false,

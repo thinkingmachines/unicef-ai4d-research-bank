@@ -14,7 +14,7 @@ const FeaturedItemCard = ({ item, image }: Props) => {
 		item['card-type'] === 'model' ? 'MACHINE LEARNING MODEL' : 'DATASET'
 
 	return (
-		<div className='rounded-md border border-gray-300'>
+		<div className='rounded-md border border-gray-300' data-cy='featured-card'>
 			<Link to={`${HOME_PATH}/catalogue/${item.id}`}>
 				<div className='h-[200px]'>
 					<img
@@ -25,10 +25,16 @@ const FeaturedItemCard = ({ item, image }: Props) => {
 					/>
 				</div>
 				<div className='flex flex-col py-3 px-5'>
-					<span className='text-xs text-gray-600'>
+					<span
+						className='text-xs text-gray-600'
+						data-cy='featured-card-org-name'
+					>
 						{item.organization.name}
 					</span>
-					<span className='text-base font-semibold text-cloud-burst'>
+					<span
+						className='text-base font-semibold text-cloud-burst'
+						data-cy='featured-card-name'
+					>
 						{item.name} ({item['year-period']})
 					</span>
 					<div className='flex'>
@@ -47,7 +53,10 @@ const FeaturedItemCard = ({ item, image }: Props) => {
 										fontSize: '14px'
 									}}
 								/>
-								<span className='text-xs text-gray-600'>
+								<span
+									className='text-xs text-gray-600'
+									data-cy='featured-card-country-region'
+								>
 									Country/Region: {formatString(item['country-region'])}
 								</span>
 							</div>
@@ -61,7 +70,10 @@ const FeaturedItemCard = ({ item, image }: Props) => {
 										fontSize: '14px'
 									}}
 								/>
-								<span className='text-xs text-gray-600'>
+								<span
+									className='text-xs text-gray-600'
+									data-cy='featured-card-year-period'
+								>
 									Year/Period: {item['year-period']}
 								</span>
 							</div>

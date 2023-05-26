@@ -35,7 +35,9 @@ module.exports = {
 				'cypress/no-force': 'error',
 				'cypress/assertion-before-screenshot': 'error',
 				'cypress/require-data-selectors': 'error',
-				'cypress/no-pause': 'error'
+				'cypress/no-pause': 'error',
+				'cypress/no-unnecessary-waiting': 'off',
+				'cypress/require-data-selectors': 'off'
 			}
 		}
 	]

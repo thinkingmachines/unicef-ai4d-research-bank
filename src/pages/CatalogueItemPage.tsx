@@ -157,7 +157,10 @@ const CatalogueItemPage = () => {
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
 					<Tabs defaultActiveKey='1' items={tabItems} />
 				</div>
-				<div className='flex w-full flex-col gap-5 p-10 text-cloud-burst md:w-1/3'>
+				<div
+					className='flex w-full flex-col gap-5 p-10 text-cloud-burst md:w-1/3'
+					data-cy='catalog-item-aside'
+				>
 					<div className='rounded bg-gray-50 p-6'>
 						<div className='flex flex-col gap-5'>
 							<div className='align-center flex flex-row gap-3'>
@@ -234,7 +237,10 @@ const CatalogueItemPage = () => {
 							</div>
 						))}
 					</div>
-					<div className='rounded bg-gray-50 p-5'>
+					<div
+						className='bg-gray-50p-5 rounded'
+						data-cy='catalog-item-aside-tags'
+					>
 						<span className='text-sm font-semibold'>
 							<TagsOutlined style={{ marginRight: '8px' }} />
 							Tags
