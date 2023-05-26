@@ -2,9 +2,10 @@
 
 Copy paste to PR title, remove this section after complying
 
-- `<pr-type>: pr title`
+- <pr-type>: pr title
 
 example:
+
 - `feat: add button`
 - `chore: sort folders`
 - `tests: add tests`
@@ -13,7 +14,6 @@ example:
 
 Add any extra details, or provide context to the person who will be reviewing the PR or future
 developers who may need to use the PR as context
-
 
 ## Changelog
 
