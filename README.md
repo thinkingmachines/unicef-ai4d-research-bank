@@ -9,29 +9,27 @@
 
 The UNICEF AI4D Research Bank is part of Thinking Machines's [overall push for open science through the AI4D](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) (AI for Development) initiative which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.
 
-This site itself is hosted on [Github Pages](https://thinkingmachines.github.io/unicef-ai4d-research-bank) and uses
-the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ simplified features
-
-## Contributing Datasets and Models
-
-- Instructions on adding models and datasets are [provided here](catalog-contribution.md).
+The [**live site**](https://thinkingmachines.github.io/unicef-ai4d-research-bank) is hosted in Github Pages and uses
+the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ simplified features. To see the instructions for original Vitamin template [see this](old-README.md)
 
 ## Features
 
 - [Vite](https://vitejs.dev) with [React](https://reactjs.org), [TypeScript](https://www.typescriptlang.org) and [absolute imports](https://github.com/aleclarson/vite-tsconfig-paths).
 - [Tailwind CSS v3](https://tailwindcss.com) with a [basic reset for form styles](https://github.com/tailwindlabs/tailwindcss-forms) and a [Prettier plugin](https://github.com/tailwindlabs/prettier-plugin-tailwindcss) that automatically sorts classes.
-- Use [ESLint](https://eslint.org), [stylelint](https://stylelint.io) and [Prettier](https://prettier.io) on VSCode and before you commit with [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged).
+- [ESLint](https://eslint.org), [stylelint](https://stylelint.io) and [Prettier](https://prettier.io) on VSCode and before you commit with [Husky](https://github.com/typicode/husky) and [lint-staged](https://github.com/okonet/lint-staged).
 - [PWA](https://github.com/antfu/vite-plugin-pwa) with [17/17 Lighthouse score](https://web.dev/pwa-checklist/).
-- Write unit and integration tests with [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/).
-- Write e2e tests with [Cypress](https://www.cypress.io).
-- ~~GitHub Actions for automatic [dependency updates](https://renovatebot.com/), [CodeQL Analysis](https://securitylab.github.com/tools/codeql), running tests and code coverage with [Codecov](https://about.codecov.io/).~~
-- Deploy to ~~[vercel.com](https://vercel.com/) with pre-configured [SPA fallback](https://vercel.com/docs/configuration#routes/advanced/spa-fallback).~~ Github Pages.
+- Unit and integration tests with [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/).
+- E2E tests with [Cypress](https://www.cypress.io).
 
 ## Getting started
 
-To see the instructions for original Vitamin template [see this](old-README.md)
+### Developing Locally
 
-Customizations made to the installation and setup instructions for the Research Bank site are now [updated here](SETUP.md):
+Local developmentt [installation instructions here](SETUP.md)
+
+### Contributing Datasets and Models
+
+- Instructions on adding models and datasets are [provided here](catalog-contribution.md).
 
 ## Scripts
 
