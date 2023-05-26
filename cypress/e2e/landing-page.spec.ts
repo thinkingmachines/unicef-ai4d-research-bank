@@ -1,6 +1,3 @@
-/* eslint-disable cypress/no-unnecessary-waiting */
-/* eslint-disable cypress/require-data-selectors */
-
 describe('The correct elements are visible in the landing page', () => {
 	it('renders the main page ', () => {
 		cy.visit('/')

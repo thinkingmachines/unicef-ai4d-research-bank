@@ -185,7 +185,10 @@ const CataloguePage = () => {
 						<span className='font-semibold text-cloud-burst'>FILTERS</span>
 						<Space style={{ width: '100%' }} direction='vertical'>
 							<div className='pt-3'>
-								<span className='font-bold text-cloud-burst'>
+								<span
+									className='font-bold text-cloud-burst'
+									data-cy='country-filter'
+								>
 									Country/Region
 								</span>
 								<Select
