@@ -43,7 +43,7 @@ describe('Clicking the "browse by tags" auto populate the catalogue filters', ()
 
 	it('redirects to the search catalogue page', () => {
 		cy.contains('button', 'air-quality').click()
-		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
+		cy.location('pathname').should('eq', `/${URL_PREFIX}/catalogue`)
 	})
 
 	it('renders the search catalogue page', () => {
@@ -89,7 +89,7 @@ describe('Landing page autocomplete on search should lead to catalog page', () =
 			.type('cross country poverty')
 
 		cy.get('span.ant-input-group-addon').find('button').click()
-		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
+		cy.location('pathname').should('eq', `/${URL_PREFIX}{/catalogue`)
 
 		cy.contains(
 			'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar (2016)'

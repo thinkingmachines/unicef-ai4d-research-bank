@@ -18,7 +18,7 @@ const mockItems = CatalogItemsMock.items
 describe('Render App page with mocked fetch', () => {
 	it('renders', async () => {
 		;(fetch as Mock).mockResolvedValue(createFetchResponse(mockItems))
-		window.history.pushState({}, 'Home', '/unicef-ai4d-research-bank/')
+		window.history.pushState({}, 'Home', '/my-ai4d-research-bank/')
 		renderWithProviders(<App />, false)
 	})
 })

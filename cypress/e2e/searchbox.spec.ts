@@ -41,7 +41,7 @@ describe('Clicking on a search suggestion should auto-populate the search in the
 
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/airquality-thailand-model`
+			`/${URL_PREFIX}/catalogue/airquality-thailand-model`
 		)
 
 		cy.contains('Catalogue').click()
