@@ -8,6 +8,7 @@ coverage
 .nyc_output
 .stylelintcache
 cypress/videos
+cypress/screenshots
 .env
 .envrc
 public/api/data/catalog.json

@@ -14,7 +14,7 @@
 		"test:ci": "vitest run",
 		"test:e2e": "pnpm preview:test 'cypress open'",
 		"test:e2e:headless": "pnpm preview:test 'cypress run'",
-		"test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/unicef-ai4d-research-bank 'cypress run --record'",
+		"test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/unicef-ai4d-research-bank 'cypress run'",
 		"format": "prettier -uw --cache --ignore-path .gitignore .",
 		"run-tsc": "tsc",
 		"run-eslint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx .",
