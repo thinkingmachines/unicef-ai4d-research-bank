@@ -126,7 +126,7 @@ const CatalogueItemPage = () => {
 
 	return (
 		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
-			<div className='relative flex min-h-[10rem] flex-col items-center justify-center bg-cloud-burst p-10'>
+			<div className='relative flex min-h-[10rem] flex-col items-center justify-center bg-cloud-burst p-10 text-white'>
 				{detailImage ? (
 					<img
 						src={bannerImage ?? ''}
