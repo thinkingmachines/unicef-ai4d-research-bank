@@ -43,8 +43,8 @@ jobs:
       - name: Validate unit tests
         run: pnpm test:ci
 
-      - name: Build prod
-        run: pnpm build
+      - name: Build test environment
+        run: pnpm build:test-env
 
       - name: Validate e2e
         run: pnpm test:e2e:ci

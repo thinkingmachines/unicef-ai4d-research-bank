@@ -5,6 +5,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"build": "vite build",
+		"build:test-env": "NODE_ENV=test vite build",
 		"commit": "cz",
 		"dev": "vite --open",
 		"prepare": "husky install",
