@@ -1,7 +1,6 @@
 describe('The catalog item sub components display correctly', () => {
 	before(() => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 		cy.wait(3000)
 	})
 
@@ -59,7 +58,6 @@ describe('The catalog item sub components display correctly', () => {
 describe('The data columns should render correctly', () => {
 	before(() => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 		cy.wait(3000)
 	})
 

@@ -2,9 +2,21 @@
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import HOME_PATH from '../constants'
 
+let CATALOG_PATH = ''
+
+if (process.env.NODE_ENV === 'test') {
+	console.log('LOG: Using testing environment... Loading from fixtures')
+	CATALOG_PATH = '/api/data/fixtures/'
+} else if (
+	process.env.NODE_ENV === 'production' ||
+	process.env.NODE_ENV === 'development'
+) {
+	CATALOG_PATH = '/api/data/'
+}
+
 export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
 	try {
-		const response = await fetch(`${HOME_PATH}/api/data/catalog.json`)
+		const response = await fetch(`${HOME_PATH}${CATALOG_PATH}catalog.json`)
 		const catalog: CatalogueItemType[] =
 			(await response.json()) as CatalogueItemType[]
 		return catalog
@@ -16,7 +28,7 @@ export const fetchCatalogItems = async (): Promise<CatalogueItemType[]> => {
 
 export const fetchFeaturedIds = async (): Promise<Record<string, string>[]> => {
 	try {
-		const response = await fetch(`${HOME_PATH}/api/data/featured.json`)
+		const response = await fetch(`${HOME_PATH}${CATALOG_PATH}featured.json`)
 		const featured: Record<string, string>[] =
 			(await response.json()) as Record<string, string>[]
 		return featured

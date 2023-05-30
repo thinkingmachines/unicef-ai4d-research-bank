@@ -33,19 +33,14 @@ jobs:
       - name: Install dependencies
         run: pnpm i && pnpm cypress install && cp .env.github .env
 
-      - name: Merge catalog entries
-        run: python scripts/transform_catalog.py && python scripts/transform_featured.py
-        env:
-          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
-
       - name: Validate format
         run: pnpm run-p lint
 
       - name: Validate unit tests
         run: pnpm test:ci
 
-      - name: Build prod
-        run: pnpm build
+      - name: Build test environment
+        run: pnpm build:test-env
 
       - name: Validate e2e
         run: pnpm test:e2e:ci

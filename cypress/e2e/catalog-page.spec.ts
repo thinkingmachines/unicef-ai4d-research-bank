@@ -1,9 +1,6 @@
-import type { CatalogueItemType } from '../../src/types/CatalogueItem.type'
-
 describe('The catalog page renders', () => {
 	before(() => {
 		cy.visit('/catalogue')
-		cy.request('/api/data/catalog.json')
 		cy.wait(3000)
 	})
 
@@ -43,51 +40,23 @@ describe('The catalog page renders', () => {
 })
 
 describe('all models and datasets should be displayed by default', () => {
-	let catalogDataLength: number
-
-	before(() => {
-		cy.fixture('catalog.json').then((data: CatalogueItemType[]) => {
-			catalogDataLength = data.length
-		})
-	})
-
 	it('should render all the default items', () => {
 		cy.visit('/')
 
 		cy.contains('Catalogue').click()
 		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
 
-		if (catalogDataLength > 5) {
-			cy.get('span')
-				.contains('results available')
-				.siblings('div')
-				.find('a')
-				.should('have.length', 5)
-		} else {
-			cy.get('span')
-				.contains('results available')
-				.siblings('div')
-				.find('a')
-				.should('have.length', catalogDataLength)
-		}
+		cy.get('span')
+			.contains('results available')
+			.siblings('div')
+			.find('a')
+			.should('have.length', 5)
 	})
 })
 
 describe('clicking on a search result should redirect the user to the selected catalogue item page', () => {
-	let catalogData: CatalogueItemType[]
-
-	before(() => {
-		cy.fixture('catalog.json').then((data: CatalogueItemType[]) => {
-			catalogData = data
-		})
-	})
-
 	it('renders the main page ', () => {
 		cy.visit('/')
-	})
-
-	it('fetch the catalog json file ', () => {
-		cy.request('/api/data/catalog.json')
 	})
 
 	it('should navigate to the catalog page on click', () => {
@@ -101,11 +70,9 @@ describe('clicking on a search result should redirect the user to the selected c
 			.first()
 			.click()
 
-		cy.log(catalogData[0].id)
-
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/${catalogData[0].id}`
+			`/unicef-ai4d-research-bank/catalogue/povmap-philippines`
 		)
 	})
 })

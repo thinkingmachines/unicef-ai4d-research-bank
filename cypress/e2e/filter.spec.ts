@@ -1,7 +1,6 @@
 describe('The correct filter elements should be displayed', () => {
 	before(() => {
 		cy.visit('/catalogue')
-		cy.request('/api/data/catalog.json')
 		cy.wait(3000)
 	})
 
@@ -88,7 +87,7 @@ describe('The search entries should only entries from year 2017 till present', (
 
 		cy.contains('.ant-picker-cell-inner', '2017').first().click()
 
-		cy.contains('3 results available').should('be.visible')
+		cy.contains('2 results available').should('be.visible')
 	})
 })
 
@@ -102,7 +101,7 @@ describe('The search entries should only entries from before year 2019', () => {
 
 		cy.contains('.ant-picker-cell-inner', '2019').first().click()
 
-		cy.contains('5 results available').should('be.visible')
+		cy.contains('4 results available').should('be.visible')
 	})
 })
 
