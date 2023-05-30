@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v2.2.4
         with:
@@ -26,6 +28,12 @@ jobs:
         with:
           python-version: 3.9
           cache: 'pip'
+
+      - name: Install git-restore-mtime
+        run: sudo apt install git-restore-mtime
+
+      - name: Restore mtimes for catalog items
+        run: cd catalog && git restore-mtime && cd ../featured && git restore-mtime cd ../public/api/data && git restore-mtime  && cd ../../..
 
       - name: Setup python
         run: pip install -r requirements.txt
