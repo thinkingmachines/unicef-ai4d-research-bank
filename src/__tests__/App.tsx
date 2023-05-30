@@ -7,6 +7,8 @@ import type { Mock } from 'vitest'
 import { describe, it, vi } from 'vitest'
 import CatalogItemsMock from '../mocks/CatalogueItems.data.json'
 
+const { VITE_HOME_PATH } = import.meta.env
+
 global.fetch = vi.fn()
 
 function createFetchResponse(data: unknown) {
@@ -18,7 +20,7 @@ const mockItems = CatalogItemsMock.items
 describe('Render App page with mocked fetch', () => {
 	it('renders', async () => {
 		;(fetch as Mock).mockResolvedValue(createFetchResponse(mockItems))
-		window.history.pushState({}, 'Home', '/my-ai4d-research-bank/')
+		window.history.pushState({}, 'Home', VITE_HOME_PATH as string)
 		renderWithProviders(<App />, false)
 	})
 })
