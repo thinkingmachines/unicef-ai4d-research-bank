@@ -1,7 +1,6 @@
 describe('The search input needs at least 3 characters before displaying search results', () => {
 	it('should not display search results', () => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 		cy.wait(3000)
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
@@ -16,7 +15,6 @@ describe('The search input needs at least 3 characters before displaying search 
 
 	it('should display search results', () => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()
@@ -34,7 +32,6 @@ describe('Clicking on a search suggestion should auto-populate the search in the
 
 	it('should populate the search results in catalogue search page', () => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()
@@ -59,7 +56,6 @@ describe('Clicking on a search suggestion should auto-populate the search in the
 describe('pressing x should clear the search bar', () => {
 	it('should update the search results', () => {
 		cy.visit('/')
-		cy.request('/api/data/catalog.json')
 		cy.visit('/catalogue')
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()

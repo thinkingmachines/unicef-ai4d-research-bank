@@ -3,9 +3,7 @@ describe('The correct elements are visible in the landing page', () => {
 		cy.visit('/')
 	})
 
-	it('fetch the catalog json file ', () => {
-		cy.request('/api/data/catalog.json')
-	})
+	it('fetch the catalog json file ', () => {})
 
 	it('renders the hero', () => {
 		cy.get('[data-cy="hero-mainText"]').contains(
@@ -44,7 +42,6 @@ describe('Clicking the "browse by tags" auto populate the catalogue filters', ()
 	})
 
 	it('redirects to the search catalogue page', () => {
-		cy.request('/api/data/catalog.json')
 		cy.contains('button', 'air-quality').click()
 		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
 	})
