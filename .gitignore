@@ -11,8 +11,6 @@ cypress/videos
 cypress/screenshots
 .env
 .envrc
-public/assets/items/*.png
-public/assets/multiregions/*.png
 .venv/
 **/__pycache__/
 *.pyc
