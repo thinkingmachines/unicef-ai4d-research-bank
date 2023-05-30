@@ -12,23 +12,12 @@ import ijson
 import pandas as pd
 import requests
 import yaml
-from image_generation_utils import (
-    get_admin_gdf,
-    get_gdf_data,
-    make_image,
-    make_multi_image,
-)
+from image_generation_utils import (get_admin_gdf, get_gdf_data, make_image,
+                                    make_multi_image)
 
-from utils import (
-    extract_column_metadata,
-    get_gdown_response,
-    get_link_filename,
-    get_session,
-    is_dataset_file,
-    is_gdrive_url,
-    is_hxltagged,
-    transform_dataset_file_link,
-)
+from utils import (extract_column_metadata, get_gdown_response,
+                   get_link_filename, get_session, is_dataset_file,
+                   is_gdrive_url, is_hxltagged, transform_dataset_file_link)
 
 CATALOG_DIR = "./catalog"
 OUTPUT_PATH = "./public/api/data/catalog.json"
@@ -273,8 +262,9 @@ def check_size(url):
 
 
 def generate_detail_image(geojson_url, item_id):
-    data_gdf = get_gdf_data(geojson_url)
-    make_image(item_id, None, data_gdf, output_dir=Path("public/assets/items"))
+    data_gdf = get_gdf_data(geojson_url,item_id)
+    if data_gdf is not None:
+        make_image(item_id, None, data_gdf, output_dir=Path("public/assets/items"))
 
 
 def generate_multi_region_image(

@@ -1,4 +1,4 @@
-name: Test
+name: Test application
 
 on:
   push:
@@ -12,6 +12,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v2.2.4
         with:
@@ -44,5 +46,3 @@ jobs:
 
       - name: Validate e2e
         run: pnpm test:e2e:ci
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

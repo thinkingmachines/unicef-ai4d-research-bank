@@ -99,20 +99,24 @@ def get_admin_gdf(region: str, adm: str = "ADM0") -> typing.Optional[gpd.GeoData
 
 
 @lru_cache(maxsize=None)
-def get_gdf_data(url: str) -> typing.Optional[gpd.GeoDataFrame]:
+def get_gdf_data(url: str, item_id: str) -> typing.Optional[gpd.GeoDataFrame]:
     """
     Downloads and returns GeoDataFrame data from a specified URL.
 
     Args:
         url (str): The URL of the data to be downloaded.
-
+        item_id(str): The item id of the item
     Returns:
         GeoDataFrame: A GeoDataFrame object containing the downloaded data.
 
     Example:
         >>> get_gdf_data('https://example.com/data.gpkg')
     """
-    gdf = gpd.read_file(url)
+    try:
+        gdf = gpd.read_file(url)
+    except Exception as e:
+        print(f"Invalid file {item_id}: The URL {url} returned an exception {e}")
+        return None
     if gdf is None:
         return None
     gdf = gdf.to_crs("EPSG:4326")
