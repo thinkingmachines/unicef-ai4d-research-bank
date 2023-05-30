@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 // const URL_PREFIX = Cypress.env('VITE_HOME_URL')
+import type { CatalogueItemType } from '../../src/types/CatalogueItem.type'
+
 const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The catalog page renders', () => {
 	before(() => {
@@ -58,6 +60,12 @@ describe('all models and datasets should be displayed by default', () => {
 })
 
 describe('clicking on a search result should redirect the user to the selected catalogue item page', () => {
+	let catalogData: CatalogueItemType[]
+	before(() => {
+		cy.fixture('catalog.json').then((data: CatalogueItemType[]) => {
+			catalogData = data
+		})
+	})
 	it('renders the main page ', () => {
 		cy.visit('/')
 	})
