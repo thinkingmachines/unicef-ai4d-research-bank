@@ -28,7 +28,7 @@ module.exports = {
 				'import/no-extraneous-dependencies': 'off',
 				'@typescript-eslint/no-unused-expressions': 'off',
 				'no-void': 'off',
-
+				'@typescript-eslint/no-unsafe-assignment': 'off',
 				'cypress/no-assigning-return-values': 'error',
 				'cypress/no-unnecessary-waiting': 'error',
 				'cypress/no-async-tests': 'error',

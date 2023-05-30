@@ -1,3 +1,4 @@
+const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The correct elements are visible in the landing page', () => {
 	it('renders the main page ', () => {
 		cy.visit('/')
@@ -43,7 +44,7 @@ describe('Clicking the "browse by tags" auto populate the catalogue filters', ()
 
 	it('redirects to the search catalogue page', () => {
 		cy.contains('button', 'air-quality').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 	})
 
 	it('renders the search catalogue page', () => {
@@ -89,7 +90,7 @@ describe('Landing page autocomplete on search should lead to catalog page', () =
 			.type('cross country poverty')
 
 		cy.get('span.ant-input-group-addon').find('button').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}{/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 
 		cy.contains(
 			'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar (2016)'
@@ -115,7 +116,8 @@ describe('Searching from the landing page should reset the tag filters', () => {
 			.type('cross country poverty')
 
 		cy.get('span.ant-input-group-addon').find('button').click()
-		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
+		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 
 		cy.get('span.ant-select-selection-item-content').should('not.exist')
 	})

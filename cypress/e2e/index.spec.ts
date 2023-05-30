@@ -1,3 +1,4 @@
+const URL_PREFIX = '/my-ai4d-research-bank'
 describe('Access all resources', () => {
 	it('renders the main page ', () => {
 		cy.visit('/')
@@ -5,7 +6,7 @@ describe('Access all resources', () => {
 
 	it('should navigate to the catalog page on click', () => {
 		cy.contains('Catalogue').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 	})
 
 	it('should navigate to the catalog item page on click', () => {
@@ -16,12 +17,12 @@ describe('Access all resources', () => {
 
 		cy.location('pathname').should(
 			'eq',
-			`/${URL_PREFIX}/catalogue/povmap-timor-leste-rollout-dataset`
+			`${URL_PREFIX}/catalogue/povmap-timor-leste-rollout-dataset`
 		)
 	})
 
 	it('should navigate to the main page', () => {
 		cy.contains('AI4D Research Bank').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}/`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/`)
 	})
 })

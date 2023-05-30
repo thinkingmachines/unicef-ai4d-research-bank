@@ -1,6 +1,5 @@
-// const url_prefix = "unicef-ai4d-research-bank"
-const URL_PREFIX = 'my-ai4d-research-bank'
-
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The catalog item sub components display correctly', () => {
 	before(() => {
 		cy.visit('/')
@@ -9,14 +8,14 @@ describe('The catalog item sub components display correctly', () => {
 
 	it('should visit the catalog search page', () => {
 		cy.contains('Catalogue').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 	})
 
 	it('should visit the specific catalog item page', () => {
 		cy.contains('Poverty Mapping Model for Philippines (2017)').click()
 		cy.location('pathname').should(
 			'eq',
-			`/${URL_PREFIX}/catalogue/povmap-philippines`
+			`${URL_PREFIX}/catalogue/povmap-philippines`
 		)
 	})
 
@@ -66,7 +65,7 @@ describe('The data columns should render correctly', () => {
 
 	it('should visit the catalog search page', () => {
 		cy.contains('Catalogue').click()
-		cy.location('pathname').should('eq', `/${URL_PREFIX}/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 	})
 
 	it('should visit the specific catalog item page', () => {
@@ -75,7 +74,7 @@ describe('The data columns should render correctly', () => {
 		).click()
 		cy.location('pathname').should(
 			'eq',
-			`/${URL_PREFIX}/catalogue/povmap-timor-leste-rollout-dataset`
+			`${URL_PREFIX}/catalogue/povmap-timor-leste-rollout-dataset`
 		)
 	})
 

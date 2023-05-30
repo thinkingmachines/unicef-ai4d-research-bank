@@ -1,3 +1,4 @@
+const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The search input needs at least 3 characters before displaying search results', () => {
 	it('should not display search results', () => {
 		cy.visit('/')
@@ -41,7 +42,7 @@ describe('Clicking on a search suggestion should auto-populate the search in the
 
 		cy.location('pathname').should(
 			'eq',
-			`/${URL_PREFIX}/catalogue/airquality-thailand-model`
+			`${URL_PREFIX}/catalogue/airquality-thailand-model`
 		)
 
 		cy.contains('Catalogue').click()
