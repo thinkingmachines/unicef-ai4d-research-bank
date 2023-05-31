@@ -22,7 +22,7 @@ const CustomSelect = ({ updateParentOptions }: CustomSelectProps) => {
 				options={[
 					{
 						value: SELECT_OPTIONS.none,
-						label: 'none'
+						label: 'None'
 					},
 					{
 						value: SELECT_OPTIONS.yearAsc,
