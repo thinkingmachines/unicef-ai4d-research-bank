@@ -1,47 +1,48 @@
 # Contributing Datasets and Models to the Research Bank
 
-Submitting a pull request (PR) is a way for contributors to add models and datasets to the UNICEF AI4D Research Bank.
-This guide will walk you through the steps to submit a PR to the UNICEF AI4D Research Bank Github repository.
+To contribute models and datasets to the UNICEF AI4D Research Bank, follow these steps to submit a pull request (PR) on the Github repository.
 
-- Fork the Github repository by clicking on the "Fork" button located in the top-right corner of the repository's main page. This will create a copy of the repository in your own Github account.
+1. **Fork the Repository**: Click on the "Fork" button in the top-right corner of the repository's main page to create a copy of the repository in your own Github account.
 
-- Clone your forked repository to your local directory or to a codespace. You can use the following command in your terminal to clone the repository:
+2. **Clone the Repository**: Clone your forked repository to your local directory or codespace using the following command in your terminal:
 
-```bash
-git clone https://github.com/<your-username>/<repository-name>.git
-```
+   ```bash
+   git clone https://github.com/<your-username>/<repository-name>.git
+   ```
 
-- Copy the sample file `catalog-item.yml.sample` in provided in the `catalog` folder and rename it to a unique file name with a `.yml` file extension. This file will be used to add your item's data. Please make sure the file name is in lowercase with no spaces and no special characters (except possibly for a dash(`-`), no underscores).
+3. **Create a YAML File**: Locate the `catalog` folder and make a copy of the `catalog-item.yml.sample` file. Rename the copied file with a unique lowercase name and a `.yml` file extension. Ensure that the file name contains no spaces or special characters (except a dash `-`).
 
-- Edit the yml file you created and add your item's data. Follow the instructions in the comments in the file. If you are not providing data for any optional fields, remove them from the file.
+4. **Edit the YAML File**: Open the YAML file you created and add the relevant data for your item. Follow the instructions provided in the file's comments. Remove any optional fields if you are not providing data for them.
 
-- Save the yml file and do a git commit to your local git repository. Run the following command.
+5. **Commit Changes**: Save the YAML file and commit your changes to your local git repository using the following commands:
 
-```bash
-git add .
-git commit -m "<your-git-commit-message"
-```
+   ```bash
+   git add .
+   git commit -m "<your-git-commit-message>"
+   ```
 
-Your git commit message should be a short description of what items you are adding or updating"
+   Your commit message should briefly describe the items you are adding or updating.
 
-- Push the changes you made in your local repository to your forked repository on Github using the following command in your terminal:
+6. **Push Changes**: Push the changes from your local repository to your forked repository on Github using the following command in your terminal:
 
-```bash
-git push
-```
+   ```bash
+   git push
+   ```
 
-- Create a Pull Request to the main UNICEF AI4D Research Bank repository. This can be done by clicking on the "New Pull Request" button located in the main page of your forked repository. The source of the pull request is whatever git branch you used to create your changes in (default `main`).
+7. **Create a Pull Request**: Go to the main page of your forked repository and click on the "New Pull Request" button. This will create a pull request to merge your changes into the main UNICEF AI4D Research Bank repository. The source of the pull request should be the git branch you used to make your changes (default `main`).
 
-- Check that the Pull Request passes the validation (it should have a green check on your PR). If it fails, fix the errors in your local repository and push the changes again.
+8. **Validate the Pull Request**: Check that the Pull Request passes validation (indicated by a green checkmark). If it fails, address the errors in your local repository and push the changes again.
 
-- Once the Pull Request passes validation, notify the maintainers of your request (optional). Github will already notify the maintainers of your Pull Request via email.
+9. **Notify the Maintainers**: Optionally, you can notify the maintainers of your request. However, Github will already notify them via email about your Pull Request.
 
-- If you wish to validate if your entries are correct before pushing it to the repo, install the development environment. Follow the [instructions for a local development setup](SETUP.md). Run the command to run the validation script:
+10. **Validate Entries (Optional)**: If you want to validate your entries before pushing them to the repository, install the development environment and follow the instructions for a local development setup. Run the validation script using the command:
 
-```
-pnpm validate-catalog
-```
+    ```bash
+    pnpm validate-catalog
+    ```
 
-Fix any errors that are flagged. If no errors are flagged, you may submit the entries for merging into the UNICEF AI4D Research Bank
+    Fix any flagged errors. If no errors are flagged, your entries can be submitted for merging into the UNICEF AI4D Research Bank.
 
-- Once your Pull Request has been approved and merged by the maintainers of the UNICEF AI4D Research Bank, you will get notified via email.
+11. **Confirmation and Notification**: Once your Pull Request is approved and merged by the maintainers of the UNICEF AI4D Research Bank, you will receive an email notification.
+
+Please note that this guide provides a step-by-step process for contributing datasets and models to the UNICEF AI4D Research Bank via pull requests on Github.
