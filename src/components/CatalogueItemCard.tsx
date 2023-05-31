@@ -47,7 +47,7 @@ const CatalogueItemCard = ({ catalogueItemData }: CatalogueItemProperties) => {
 	}
 
 	return (
-		<Link to={`${HOME_PATH}/catalogue/${id}`}>
+		<Link to={`${HOME_PATH}/catalogue/${id}`} data-cy='catalogue-item'>
 			<div className='my-3 flex flex-col rounded p-3 hover:bg-gray-100 hover:duration-300'>
 				<span className='text-xs text-gray-600'>{organization.name}</span>
 				<div className='text-base font-semibold text-cloud-burst'>
