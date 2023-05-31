@@ -251,11 +251,13 @@ const CataloguePage = () => {
 							<div className='mx-6 py-1 text-sm font-normal text-[#82838D]'>
 								Sort by:
 							</div>
-							<CustomSelect
-								updateParentOptions={(value: SelectOption) => {
-									setSelectOptions(value)
-								}}
-							/>
+							<div data-cy='catalogue-dropdown-filter'>
+								<CustomSelect
+									updateParentOptions={(value: SelectOption) => {
+										setSelectOptions(value)
+									}}
+								/>
+							</div>
 						</div>
 
 						<div className='my-3  text-cloud-burst'>
