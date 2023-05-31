@@ -3398,5 +3398,72 @@
 			]
 		],
 		"detail-image-url": "assets/items/povmap-timor-leste.png"
+	},
+	{
+		"name": "poverty mapping thailand",
+		"description": "Test of poverty mapping model upload for thailand",
+		"card-type": "model",
+		"organization": { "name": "UNICEF", "url": "https://www.unicef.org/" },
+		"date-added": "2022-05-17",
+		"date-modified": "2022-05-17",
+		"tags": [
+			"poverty-mapping",
+			"test",
+			"sklearn-model-test",
+			"machine-learning-test"
+		],
+		"country-region": ["thailand"],
+		"year-period": 2019,
+		"links": [
+			{
+				"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping",
+				"description": "UNICEF AI4D Poverty Mapping Project Github Repository",
+				"type": "repository"
+			},
+			{
+				"url": "https://drive.google.com/file/d/1GK_BxaMC2g7z7XJh5qkKf3xFlJ3Z3qqN/view?usp=share_link",
+				"description": "Cross Country Poverty Mapping Model Weights (.pkl). See related notebooks for usage",
+				"type": "model-weights"
+			},
+			{
+				"url": "https://drive.google.com/uc?id=1hgFoH3ph5LqGfGLJREAgqAb8zXfQQRyc",
+				"description": "Grids of the Poverty Mapping Model on Thailand using 2.4km grids (bingtile quadkey level 14) as CSV",
+				"type": "dataset-raw-geojson",
+				"alt-format": [
+					{
+						"url": "https://drive.google.com/uc?id=1hgFoH3ph5LqGfGLJREAgqAb8zXfQQRyc",
+						"type": "dataset-raw-geojson"
+					}
+				]
+			},
+			{
+				"url": "https://drive.google.com/uc?id=12HDjIWKLbau7Hmnk7zdR4kRqxA-y7VSb",
+				"description": "Output (including feaures) of the Poverty Mapping Model on Thailand using 2.4km grids (bingtile quadkey level 14) as CSV",
+				"type": "dataset-raw-geojson",
+				"alt-format": [
+					{
+						"url": "https://drive.google.com/uc?id=12HDjIWKLbau7Hmnk7zdR4kRqxA-y7VSb",
+						"type": "dataset-raw-geojson"
+					}
+				]
+			},
+			{
+				"url": "https://github.com/huruizverastegui/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-cross-country-rollouts/1_cross_country_model_train_model.ipynb",
+				"description": "Thailand Rollout Part 1 (Train Multi-country Model)",
+				"type": "code-notebook"
+			},
+			{
+				"url": "https://github.com/huruizverastegui/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-cross-country-rollouts/th/2_th_generate_grids.ipynb",
+				"description": "Thailand Model Rollout Part 2 (Generate Roll-out Grids)",
+				"type": "code-notebook"
+			},
+			{
+				"url": "https://github.com/huruizverastegui/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-cross-country-rollouts/th/3_th_rollout_model.ipynb",
+				"description": "Thailand Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)",
+				"type": "code-notebook"
+			}
+		],
+		"id": "poverty-mapping-test",
+		"detail-image-url": "assets/regions/thailand.png"
 	}
 ]
