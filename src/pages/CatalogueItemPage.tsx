@@ -135,14 +135,13 @@ const CatalogueItemPage = () => {
 					/>
 				) : null}
 				<div className='absolute z-10 h-full w-full bg-cloud-burst opacity-80 brightness-75' />
-
-				<span className='z-20 self-start pl-28 text-3xl font-medium tracking-tighter'>
+				<span className='z-20 self-start text-xl font-medium tracking-tighter sm:pl-28 sm:text-3xl'>
 					{name} {yearPeriodTitle}
 				</span>
-				<div className='z-20 mt-2 flex flex-row gap-3 self-start pl-28 text-sm'>
+				<div className='z-20 mt-2 flex w-full flex-row gap-3 self-start text-xs sm:pl-28 sm:text-sm'>
 					<a
 						href={organization.url}
-						className='z-20 self-start text-sm hover:underline'
+						className='w-50 z-20 self-start text-xs hover:underline  sm:w-auto sm:text-sm'
 						target='_blank'
 						rel='noreferrer'
 					>
@@ -153,7 +152,7 @@ const CatalogueItemPage = () => {
 				</div>
 			</div>
 
-			<div className='flex flex-col pl-28 md:flex-row'>
+			<div className='flex flex-col sm:pl-28 md:flex-row'>
 				<div className='flex w-full flex-col gap-4 p-10 text-cloud-burst md:w-2/3'>
 					<Tabs defaultActiveKey='1' items={tabItems} />
 				</div>

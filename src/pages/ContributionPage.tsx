@@ -27,7 +27,7 @@ const ContributionPage = () => {
 	return (
 		<div className='markdown-body flex justify-center border-t-[1px] bg-white p-12'>
 			{markdown ? (
-				<div className=' max-w-[850px] text-black'>
+				<div className='w-full max-w-[850px] text-black sm:w-auto'>
 					<ReactMarkdown
 						components={{
 							h1: ({ children }) => (
