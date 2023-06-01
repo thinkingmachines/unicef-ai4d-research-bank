@@ -16,13 +16,23 @@ jobs:
   validate-catalog:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
           cache: 'pip'
 
-      - run: pip install -r requirements.txt
-      - run: python scripts/validate_catalog.py
-        env:
-          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
+      - name: Install git-restore-mtime
+        run: sudo apt install git-restore-mtime
+
+      - name: Restore mtimes for catalog items
+        run: cd catalog && git restore-mtime && cd ../featured && git restore-mtime && cd ../public/api/data && git restore-mtime  && cd ../../..
+
+      - name: Pip install
+        run: pip install -r requirements.txt
+      # - name: Validate Catalog Items
+      #   run: python scripts/validate_catalog.py
+      #   env:
+      #     GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}

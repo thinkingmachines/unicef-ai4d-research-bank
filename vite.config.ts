@@ -6,7 +6,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => ({
-	base: '/unicef-ai4d-research-bank',
+	base: '/my-ai4d-research-bank',
 	test: {
 		css: false,
 		include: ['src/**/__tests__/*'],

@@ -1,3 +1,8 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+// const URL_PREFIX = Cypress.env('VITE_HOME_URL')
+import type { CatalogueItemType } from '../../src/types/CatalogueItem.type'
+
+const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The catalog page renders', () => {
 	before(() => {
 		cy.visit('/catalogue')
@@ -44,7 +49,7 @@ describe('all models and datasets should be displayed by default', () => {
 		cy.visit('/')
 
 		cy.contains('Catalogue').click()
-		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 
 		cy.get('span')
 			.contains('results available')
@@ -55,13 +60,19 @@ describe('all models and datasets should be displayed by default', () => {
 })
 
 describe('clicking on a search result should redirect the user to the selected catalogue item page', () => {
+	let catalogData: CatalogueItemType[]
+	before(() => {
+		cy.fixture('catalog.json').then((data: CatalogueItemType[]) => {
+			catalogData = data
+		})
+	})
 	it('renders the main page ', () => {
 		cy.visit('/')
 	})
 
 	it('should navigate to the catalog page on click', () => {
 		cy.contains('Catalogue').click()
-		cy.location('pathname').should('eq', `/unicef-ai4d-research-bank/catalogue`)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 
 		cy.get('span')
 			.contains('results available')
@@ -72,7 +83,7 @@ describe('clicking on a search result should redirect the user to the selected c
 
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/povmap-philippines`
+			`${URL_PREFIX}/catalogue/${catalogData[0].id}`
 		)
 	})
 })

@@ -1,3 +1,7 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+// const URL_PREFIX = Cypress.env('VITE_HOME_URL')
+const URL_PREFIX = '/my-ai4d-research-bank'
+
 describe('There should only be a maximum of 3 featured datasets', () => {
 	before(() => {
 		cy.visit('/catalogue')
@@ -54,7 +58,8 @@ describe('Clicking on a featured dataset should redirect to the catalogue item p
 
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/airquality-thailand-model`
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+			`${URL_PREFIX}/catalogue/airquality-thailand-model`
 		)
 	})
 })
