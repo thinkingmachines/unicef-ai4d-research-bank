@@ -77,8 +77,26 @@ const ContributionPage = () => {
 									{children}
 								</code>
 							),
-							tr: ({ children }) => (
-								<tr className='!bg-white text-[#82838D] '>{children}</tr>
+							th: ({ children, ...props }) => (
+								<th
+									className='!border-[#82838D] !bg-white text-[#82838D]'
+									{...props}
+								>
+									{children}
+								</th>
+							),
+							tr: ({ children, ...props }) => (
+								<tr
+									className='text-[#82838D] odd:!bg-white even:!bg-[#f6f6f6]'
+									{...props}
+								>
+									{children}
+								</tr>
+							),
+							td: ({ children, ...props }) => (
+								<td className='!border-[#82838D]' {...props}>
+									{children}
+								</td>
 							)
 						}}
 						remarkPlugins={[remarkGfm] as PluggableList}
