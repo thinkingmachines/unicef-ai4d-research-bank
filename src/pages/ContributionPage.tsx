@@ -62,8 +62,10 @@ const ContributionPage = () => {
 							ul: ({ children }) => (
 								<ul className='list-disc  text-[#82838D]'>{children}</ul>
 							),
-							ol: ({ children }) => (
-								<ol className='list-disc  text-[#82838D]'>{children}</ol>
+							ol: ({ children, ...props }) => (
+								<ol className='list-disc text-[#82838D]' {...props}>
+									{children}
+								</ol>
 							),
 							pre: ({ children }) => (
 								<pre className='!text-md  !bg-[#f6f6f6] font-normal text-[#24295C]'>
