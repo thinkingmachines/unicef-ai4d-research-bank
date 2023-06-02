@@ -1,4 +1,5 @@
-const URL_PREFIX = '/my-ai4d-research-bank'
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
 describe('The search input needs at least 3 characters before displaying search results', () => {
 	it('should not display search results', () => {
 		cy.visit('/')

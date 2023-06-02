@@ -1,6 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-// const URL_PREFIX = Cypress.env('VITE_HOME_URL')
-const URL_PREFIX = '/my-ai4d-research-bank'
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
 
 describe('There should only be a maximum of 3 featured datasets', () => {
 	before(() => {

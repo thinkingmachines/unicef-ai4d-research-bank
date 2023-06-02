@@ -1,4 +1,5 @@
-const URL_PREFIX = '/my-ai4d-research-bank'
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
 describe('Access all resources', () => {
 	it('renders the main page ', () => {
 		cy.visit('/')

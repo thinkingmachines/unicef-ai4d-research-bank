@@ -1,8 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-// const URL_PREFIX = Cypress.env('VITE_HOME_URL')
 import type { CatalogueItemType } from '../../src/types/CatalogueItem.type'
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
 
-const URL_PREFIX = '/my-ai4d-research-bank'
 describe('The catalog page renders', () => {
 	before(() => {
 		cy.visit('/catalogue')

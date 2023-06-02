@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
+
 describe('Catalogue item page', () => {
 	it('should render the footer in the home page', () => {
 		cy.visit('/')
@@ -19,10 +22,7 @@ describe('Catalogue item page', () => {
 		cy.visit('/')
 		cy.get('[data-cy="footer"]').find('a').click()
 
-		cy.location('pathname').should(
-			'eq',
-			`/unicef-ai4d-research-bank/contribute`
-		)
+		cy.location('pathname').should('eq', `${URL_PREFIX}/contribute`)
 	})
 
 	it('should assert that the imported markdown file is working', () => {

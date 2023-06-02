@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-const URL_PREFIX = '/my-ai4d-research-bank'
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
+
 describe('The catalog item sub components display correctly', () => {
 	before(() => {
 		cy.visit('/')
