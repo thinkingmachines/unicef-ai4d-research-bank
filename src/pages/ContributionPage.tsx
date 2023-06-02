@@ -47,17 +47,9 @@ const ContributionPage = () => {
 									{children}
 								</a>
 							),
-							img: ({ children, ...props }) => {
-								let rawUrl = props.src ?? ''
-
-								if (rawUrl.includes('github.com') && rawUrl.includes('/blob')) {
-									rawUrl = rawUrl
-										.replace('github.com', 'raw.githubusercontent.com')
-										.replace('/blob', '')
-								}
-
-								return <img className='' src={rawUrl} alt={props.alt} />
-							},
+							img: ({ children, ...props }) => (
+								<img src={props.src} alt={props.alt} />
+							),
 							p: ({ children }) => <p className='text-[#82838D]'>{children}</p>,
 							ul: ({ children }) => (
 								<ul className='list-disc  text-[#82838D]'>{children}</ul>
