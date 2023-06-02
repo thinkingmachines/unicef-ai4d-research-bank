@@ -3,8 +3,26 @@ name: Test application
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/'
+      - 'public/'
+      # - 'scripts/'
+      # - 'tests/'
+    paths-ignore:
+      - 'public/api'
+      - 'public/assets/items'
+      - 'public/assets/regions'
+      - 'public/assets/multiregions'
   pull_request:
     branches: [main]
+    paths:
+      - 'src/'
+      - 'public/'
+    paths-ignore:
+      - 'public/api'
+      - 'public/assets/items'
+      - 'public/assets/regions'
+      - 'public/assets/multiregions'
 
 jobs:
   Test:
@@ -34,6 +52,11 @@ jobs:
 
       - name: Install dependencies
         run: pnpm i && pnpm cypress install && cp .env.github .env
+
+      # - name: Validate scripts
+      #   run: pytest -c all-pytest.ini
+      #   env:
+      #     GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
       - name: Validate format
         run: pnpm run-p lint
