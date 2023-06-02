@@ -5,14 +5,8 @@ on:
     branches: [main]
     paths:
       - 'src/'
-      - 'public/'
       # - 'scripts/'
       # - 'tests/'
-    paths-ignore:
-      - 'public/api'
-      - 'public/assets/items'
-      - 'public/assets/regions'
-      - 'public/assets/multiregions'
   pull_request:
     branches: [main]
     paths:
