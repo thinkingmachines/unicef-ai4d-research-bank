@@ -6,7 +6,7 @@ on:
       - 'catalog/**.yml'
 
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - 'catalog/**.yml'
 
@@ -32,7 +32,7 @@ jobs:
 
       - name: Pip install
         run: pip install -r requirements.txt
-      # - name: Validate Catalog Items
-      #   run: python scripts/validate_catalog.py
-      #   env:
-      #     GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
+      - name: Validate Catalog Items
+        run: python scripts/validate_catalog.py
+        env:
+          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}

@@ -2,6 +2,7 @@ import csv
 import glob
 import io
 import json
+import os
 import sys
 import typing
 from decimal import Decimal
@@ -12,12 +13,23 @@ import ijson
 import pandas as pd
 import requests
 import yaml
-from image_generation_utils import (get_admin_gdf, get_gdf_data, make_image,
-                                    make_multi_image)
+from image_generation_utils import (
+    get_admin_gdf,
+    get_gdf_data,
+    make_image,
+    make_multi_image,
+)
 
-from utils import (extract_column_metadata, get_gdown_response,
-                   get_link_filename, get_session, is_dataset_file,
-                   is_gdrive_url, is_hxltagged, transform_dataset_file_link)
+from utils import (
+    extract_column_metadata,
+    get_gdown_response,
+    get_link_filename,
+    get_session,
+    is_dataset_file,
+    is_gdrive_url,
+    is_hxltagged,
+    transform_dataset_file_link,
+)
 
 CATALOG_DIR = "./catalog"
 OUTPUT_PATH = "./public/api/data/catalog.json"
@@ -262,7 +274,7 @@ def check_size(url):
 
 
 def generate_detail_image(geojson_url, item_id):
-    data_gdf = get_gdf_data(geojson_url,item_id)
+    data_gdf = get_gdf_data(geojson_url, item_id)
     if data_gdf is not None:
         make_image(item_id, None, data_gdf, output_dir=Path("public/assets/items"))
 
@@ -333,10 +345,47 @@ def transform(filename: str):
 
 
 def main():
+    if os.path.exists(OUTPUT_PATH):
+        catalog_mtime = os.path.getmtime(OUTPUT_PATH)
+        with open(OUTPUT_PATH) as f:
+            catalog_items = json.load(f)
+    else:
+        catalog_items = []
+        catalog_mtime = None
+    catalog_lookup = {item["id"]: item for item in catalog_items}
+
     files = glob.glob(f"{CATALOG_DIR}/*.yml")
-    items = [transform(f) for f in files if not f.endswith("sample-catalog-item.yml")]
-    with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        json.dump(items, f, cls=JSONEncoder)
+    valid_files = [f for f in files if not f.endswith("sample-catalog-item.yml")]
+    deleted_items = [
+        item
+        for item in catalog_lookup.keys()
+        if not Path(f"{CATALOG_DIR}/{item}.yml").exists()
+    ]
+    if deleted_items:
+        for item in deleted_items:
+            catalog_lookup.pop(item)
+
+    changed_files = [
+        f
+        for f in valid_files
+        if Path(f).stem in catalog_lookup
+        and catalog_mtime is not None
+        and os.path.getmtime(f) > catalog_mtime
+    ]
+    if changed_files:
+        changed_items = [transform(f) for f in changed_files]
+        catalog_lookup.update({item["id"]: item for item in changed_items})
+    new_files = [f for f in valid_files if Path(f).stem not in catalog_lookup]
+    if new_files:
+        new_items = [transform(f) for f in new_files]
+        catalog_lookup.update({item["id"]: item for item in new_items})
+
+    if deleted_items or changed_files or new_files or catalog_mtime is None:
+        items = [v for _, v in catalog_lookup.items()]
+        with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
+            json.dump(items, f, cls=JSONEncoder)
+    else:
+        print("No changes detected, skipping update of catalog.json file")
 
 
 if __name__ == "__main__":
