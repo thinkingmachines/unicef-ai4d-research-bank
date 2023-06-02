@@ -71,6 +71,9 @@ jobs:
           git commit -m "ci:Refresh catalog items, site-generated and assets"
           git push
 
+      - name: Build project
+        run: pnpm build
+
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:
