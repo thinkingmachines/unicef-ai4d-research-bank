@@ -57,8 +57,9 @@ evaluation-metrics:
       url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#evaluate-model-training-using-cross-validation
 
 # links are the URLs to the datasets, model weights, documentation, or github repos
-# the valid types are 'model-weights','dataset-geojson', 'dataset-csv', 'dataset-raw-csv', 'dataset-raw-geojson',
-# 'code-notebook','repository', 'documentation', 'dataset-shapefile', 'dataset-raw-shapefile', 'dataset-tif', 'dataset-raw-tif'
+# the valid types are 'model-weights','dataset-geojson', 'dataset-csv',
+# 'code-notebook','repository', 'documentation', 'research-paper', 'limitations',
+# 'training-dataset-csv','training-dataset-geojson'
 # at least one link must be provided
 links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
