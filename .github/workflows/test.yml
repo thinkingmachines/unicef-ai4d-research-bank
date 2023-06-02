@@ -11,12 +11,8 @@ on:
     branches: [main]
     paths:
       - 'src/'
-      - 'public/'
-    paths-ignore:
-      - 'public/api'
-      - 'public/assets/items'
-      - 'public/assets/regions'
-      - 'public/assets/multiregions'
+      # - 'scripts/'
+      # - 'tests/'
 
 jobs:
   Test:
