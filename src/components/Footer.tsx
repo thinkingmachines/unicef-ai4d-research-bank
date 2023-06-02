@@ -3,7 +3,7 @@ import HOME_PATH from '../constants'
 
 const Footer = () => (
 	<div
-		className='flex h-12 justify-center bg-[#F9FAFB] p-3 px-10 text-[#82838D]'
+		className='flex justify-center bg-[#F9FAFB] p-2 px-10 text-xs text-[#82838D] sm:h-12 sm:p-3 sm:text-base'
 		data-cy='footer'
 	>
 		<div>

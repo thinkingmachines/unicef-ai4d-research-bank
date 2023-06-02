@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
 /* eslint-disable react/jsx-props-no-spreading  */
+/* eslint-disable react/prop-types  */
 
 import { Skeleton } from 'antd'
 import 'github-markdown-css'
@@ -26,7 +27,7 @@ const ContributionPage = () => {
 	return (
 		<div className='markdown-body flex justify-center border-t-[1px] bg-white p-12'>
 			{markdown ? (
-				<div className=' max-w-[850px] text-black'>
+				<div className='w-full max-w-[850px] text-black sm:w-auto'>
 					<ReactMarkdown
 						components={{
 							h1: ({ children }) => (
@@ -46,12 +47,17 @@ const ContributionPage = () => {
 									{children}
 								</a>
 							),
+							img: ({ children, ...props }) => (
+								<img src={props.src} alt={props.alt} />
+							),
 							p: ({ children }) => <p className='text-[#82838D]'>{children}</p>,
 							ul: ({ children }) => (
 								<ul className='list-disc  text-[#82838D]'>{children}</ul>
 							),
-							ol: ({ children }) => (
-								<ol className='list-disc  text-[#82838D]'>{children}</ol>
+							ol: ({ children, ...props }) => (
+								<ol className='list-disc text-[#82838D]' {...props}>
+									{children}
+								</ol>
 							),
 							pre: ({ children }) => (
 								<pre className='!text-md  !bg-[#f6f6f6] font-normal text-[#24295C]'>
@@ -63,8 +69,26 @@ const ContributionPage = () => {
 									{children}
 								</code>
 							),
-							tr: ({ children }) => (
-								<tr className='!bg-white text-[#82838D] '>{children}</tr>
+							th: ({ children, ...props }) => (
+								<th
+									className='!border-[#82838D] !bg-white text-[#82838D]'
+									{...props}
+								>
+									{children}
+								</th>
+							),
+							tr: ({ children, ...props }) => (
+								<tr
+									className='text-[#82838D] odd:!bg-white even:!bg-[#f6f6f6]'
+									{...props}
+								>
+									{children}
+								</tr>
+							),
+							td: ({ children, ...props }) => (
+								<td className='!border-[#82838D]' {...props}>
+									{children}
+								</td>
 							)
 						}}
 						remarkPlugins={[remarkGfm] as PluggableList}

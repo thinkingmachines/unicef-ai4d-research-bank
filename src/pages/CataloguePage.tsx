@@ -163,7 +163,7 @@ const CataloguePage = () => {
 	}
 
 	return (
-		<div className='min-h-[calc(100vh_-_3rem)] bg-white'>
+		<div className='min-h-[calc(100vh_-_3rem)] w-full bg-white'>
 			<div className='relative flex flex-col items-center justify-center py-10 px-10 '>
 				<img
 					src={CatalogueHeroImg}
@@ -180,7 +180,7 @@ const CataloguePage = () => {
 					<SearchInput onSearchBtnClick={onSearchBtnClick} path='' />
 				</div>
 
-				<div className='flex'>
+				<div className='flex w-full flex-col md:flex-row'>
 					<div className='mr-16 w-full self-start rounded-md bg-gray-50 p-6 md:w-1/3'>
 						<span className='font-semibold text-cloud-burst'>FILTERS</span>
 						<Space style={{ width: '100%' }} direction='vertical'>
@@ -241,14 +241,16 @@ const CataloguePage = () => {
 							</div>
 						</Space>
 					</div>
-					<div className='my-5 flex w-full flex-col md:my-0 md:w-2/3'>
-						<div className='flex'>
-							<CustomRadio
-								updateParentOptions={(value: ToggleOption) => {
-									setRadioOptions(value)
-								}}
-							/>
-							<div className='mx-6 py-1 text-sm font-normal text-[#82838D]'>
+					<div className='my-5 w-full flex-col md:my-0 md:w-2/3'>
+						<div className='flex flex-col md:flex-row'>
+							<div className='mb-5 md:mb-auto'>
+								<CustomRadio
+									updateParentOptions={(value: ToggleOption) => {
+										setRadioOptions(value)
+									}}
+								/>
+							</div>
+							<div className='py-1 text-sm font-normal text-[#82838D] md:mx-6'>
 								Sort by:
 							</div>
 							<div data-cy='catalogue-dropdown-filter'>
