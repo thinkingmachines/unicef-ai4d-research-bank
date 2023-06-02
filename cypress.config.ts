@@ -6,10 +6,10 @@ export default defineConfig({
 	projectId: 'ivvovd',
 	e2e: {
 		chromeWebSecurity: false,
-		// baseUrl: 'https://thinkingmachines.github.io/unicef-ai4d-research-bank/',
-		baseUrl: 'http://127.0.0.1:4173/my-ai4d-research-bank/',
+		baseUrl: 'https://thinkingmachines.github.io/unicef-ai4d-research-bank/',
 		env: {
-			URL_PREFIX: '/my-ai4d-research-bank'
+			// override-prefix
+			URL_PREFIX: '/unicef-ai4d-research-bank'
 		},
 		supportFile: false,
 		specPattern: 'cypress/e2e/**/*.ts'

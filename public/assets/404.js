@@ -41732,7 +41732,7 @@ function OL(e, t) {
 		[s, l, c, r, o, n, e, a, i]
 	)
 }
-const Yr = '/my-ai4d-research-bank',
+const Yr = '/unicef-ai4d-research-bank',
 	NL = () =>
 		ce('div', {
 			className:
@@ -42895,7 +42895,7 @@ const GL = {
 		})
 	}
 xg.defaultProps = { inputWidth: '100%' }
-const iA = '/my-ai4d-research-bank/assets/catalogue-hero-bg-ce53187f.jpg',
+const iA = '/unicef-ai4d-research-bank/assets/catalogue-hero-bg-ce53187f.jpg',
 	{ RangePicker: lA } = M5,
 	sA = () => {
 		const { setSearchInput: e } = jd(),
@@ -43150,8 +43150,8 @@ const iA = '/my-ai4d-research-bank/assets/catalogue-hero-bg-ce53187f.jpg',
 				]
 			})
 		}),
-	cA = '/my-ai4d-research-bank/assets/default-featured-image-77fad507.jpg',
-	dA = '/my-ai4d-research-bank/assets/landing-hero-bg-a6a24130.jpg',
+	cA = '/unicef-ai4d-research-bank/assets/default-featured-image-77fad507.jpg',
+	dA = '/unicef-ai4d-research-bank/assets/landing-hero-bg-a6a24130.jpg',
 	pv = {
 		countryFilter: [],
 		organizationFilter: [],
@@ -43349,7 +43349,7 @@ var UE,
 ;(UE = nb.createRoot), nb.hydrateRoot
 const mA = 'modulepreload',
 	hA = function (e) {
-		return '/my-ai4d-research-bank/' + e
+		return '/unicef-ai4d-research-bank/' + e
 	},
 	rb = {},
 	gA = function (t, n, r) {
@@ -43403,8 +43403,8 @@ function yA(e = {}) {
 				() => import('./workbox-window.prod.es5-295a6886.js'),
 				[]
 			)
-			;(l = new d('/my-ai4d-research-bank/sw.js', {
-				scope: '/my-ai4d-research-bank/',
+			;(l = new d('/unicef-ai4d-research-bank/sw.js', {
+				scope: '/unicef-ai4d-research-bank/',
 				type: 'classic'
 			})),
 				l.addEventListener('activated', v => {
@@ -43416,7 +43416,7 @@ function yA(e = {}) {
 				l
 					.register({ immediate: t })
 					.then(v => {
-						a ? a('/my-ai4d-research-bank/sw.js', v) : o == null || o(v)
+						a ? a('/unicef-ai4d-research-bank/sw.js', v) : o == null || o(v)
 					})
 					.catch(v => {
 						i == null || i(v)
