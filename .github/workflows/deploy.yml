@@ -54,6 +54,10 @@ jobs:
         env:
           GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
+      # ensure that at least 1 file gets committed
+      - name: Update site-generated.txt
+        run: date > public/api/data/site-generated.txt
+
       - name: Update catalog items if needed
         run: cd public/api/data && git add . && cd ../../..
 
@@ -64,7 +68,7 @@ jobs:
         run: |
           git config --global user.name 'CI:Butch Landingin'
           git config --global user.email 'butchtm@users.noreply.github.com'
-          git commit -m "ci:Refresh catalog item and assets"
+          git commit -m "ci:Refresh catalog items, site-generated and assets"
           git push
 
       - name: Upload production-ready build files
