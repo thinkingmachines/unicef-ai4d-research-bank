@@ -17,7 +17,7 @@ year-period: 2020-2023
 evaluation-metrics:
   - link:
       description: 'Manuscript - see Section 3.3 Evaluation and Metrics'
-      url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+      url: https://drive.google.com/file/d/169_VNYuXybWJzmv8PSliDZFeHxX3Ji5K/view?usp=sharing
 links:
   - url: https://drive.google.com/file/d/138zqndK07bqtUXAelzpiFqacohVxWetx/view?usp=share_link
     description: >
@@ -52,10 +52,10 @@ links:
     description: 'UNICEF AI4D Air Quality Github Repository'
     type: 'repository'
 
-  - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+  - url: https://drive.google.com/file/d/169_VNYuXybWJzmv8PSliDZFeHxX3Ji5K/view?usp=sharing
     description: 'Modelling of Daily PM2.5 in Thailand using Machine Learning on Remote Sensing Datasets'
     type: research-paper
 
-  - url: https://drive.google.com/file/d/1lzGiUWpQ_vzyvY9FfDjWEH21Hiu-H9lz/view
+  - url: https://drive.google.com/file/d/169_VNYuXybWJzmv8PSliDZFeHxX3Ji5K/view?usp=sharing
     description: 'Limitations of using the model'
     type: limitations
