@@ -68,7 +68,7 @@ jobs:
           git config --global user.name 'CI:Butch Landingin'
           git config --global user.email 'butchtm@users.noreply.github.com'
           git diff --cached > /dev/null 2>&1 && git commit -m "ci:Refresh catalog items, site-generated and assets"
-          git log origin/main..HEAD > /dev/null 2&1 && git push
+          git log origin/main..HEAD > /dev/null 2>&1 && git push
 
       - name: Build project
         run: pnpm build
