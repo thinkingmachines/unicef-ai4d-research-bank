@@ -6,7 +6,7 @@
 		"source.fixAll",
 		"source.organizeImports"
 	],
-	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.defaultFormatter": null,
 	"editor.foldingImportsByDefault": true,
 	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
@@ -26,16 +26,22 @@
 	},
 	"git.enableCommitSigning": true,
 	"javascript.format.enable": false,
-	"stylelint.validate": ["css"],
+	"stylelint.validate": [
+		"css"
+	],
 	"typescript.disableAutomaticTypeAcquisition": true,
 	"typescript.tsdk": "node_modules/typescript/lib",
 	"[javascript]": {
 		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
-	"python.testing.pytestArgs": ["tests"],
+	"python.testing.pytestArgs": [
+		"tests"
+	],
 	"python.testing.unittestEnabled": false,
 	"python.testing.pytestEnabled": true,
-	"python.analysis.extraPaths": ["./scripts"],
+	"python.analysis.extraPaths": [
+		"./scripts"
+	],
 	"python.formatting.provider": "black",
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.black-formatter"
