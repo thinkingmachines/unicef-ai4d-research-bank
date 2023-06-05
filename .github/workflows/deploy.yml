@@ -6,12 +6,17 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v2.2.4
         with:
@@ -26,6 +31,12 @@ jobs:
         with:
           python-version: 3.9
           cache: 'pip'
+
+      - name: Install git-restore-mtime
+        run: sudo apt install git-restore-mtime
+
+      - name: Restore mtimes for catalog items
+        run: cd catalog && git restore-mtime && cd ../featured && git restore-mtime cd ../public/api/data && git restore-mtime  && cd ../../..
 
       - name: Setup python
         run: pip install -r requirements.txt
@@ -42,6 +53,23 @@ jobs:
         run: python scripts/transform_catalog.py && python scripts/transform_featured.py
         env:
           GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
+
+      # ensure that at least 1 file gets committed
+      - name: Update site-generated.txt
+        run: date > public/api/data/site-generated.txt
+
+      - name: Update catalog items if needed
+        run: cd public/api/data && git add . && cd ../../..
+
+      - name: Update detail images
+        run: cd public/assets && git add . && cd ../..
+
+      - name: Commit changes if there are any pending
+        run: |
+          git config --global user.name 'CI:Butch Landingin'
+          git config --global user.email 'butchtm@users.noreply.github.com'
+          git commit -m "ci:Refresh catalog items, site-generated and assets"
+          git push
 
       - name: Build project
         run: pnpm build

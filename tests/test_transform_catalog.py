@@ -18,6 +18,7 @@ def valid_catalog_item():
 # @pytest.mark.webtest
 def test_transform(mocker):
     mocker.patch("transform_catalog.make_image", return_value=None)
+    mocker.patch("transform_catalog.generate_detail_image", return_value=None)
     item = tc.transform("tests/testdata/valid-hxltag-catalog-item.yml")
     assert item["id"] == "valid-hxltag-catalog-item"
     assert "data-columns" in item
@@ -31,7 +32,8 @@ def test_transform(mocker):
 
 
 @pytest.mark.webtest
-def test_transform_gdrive():
+def test_transform_gdrive(mocker):
+    mocker.patch("transform_catalog.generate_detail_image", return_value=None)
     item = tc.transform("tests/testdata/valid-gdrive-catalog-item.yml")
     assert item["id"] == "valid-gdrive-catalog-item"
     assert "data-columns" in item
@@ -61,7 +63,8 @@ def test_find_qualified_link(valid_catalog_item):
 
 
 @pytest.mark.webtest
-def test_find_hxltag_qualified_link():
+def test_find_hxltag_qualified_link(mocker):
+    mocker.patch("transform_catalog.generate_detail_image", return_value=None)
     item = tc.transform("tests/testdata/valid-hxltag-catalog-item.yml")
     item = tc.find_qualified_link(item["links"])
     assert item is not None

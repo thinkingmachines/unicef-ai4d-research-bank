@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
+
 describe('There should only be a maximum of 3 featured datasets', () => {
 	before(() => {
 		cy.visit('/catalogue')
@@ -54,7 +57,8 @@ describe('Clicking on a featured dataset should redirect to the catalogue item p
 
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/airquality-thailand-model`
+			// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+			`${URL_PREFIX}/catalogue/airquality-thailand-model`
 		)
 	})
 })

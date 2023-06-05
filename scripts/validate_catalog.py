@@ -1,6 +1,8 @@
 import glob
+import os
 import string
 from contextlib import closing
+from datetime import datetime
 from pathlib import Path
 
 import hxl
@@ -304,20 +306,32 @@ def validate_yaml(file, fname):
     return all(ok)
 
 
-def validate_file(fname):
+def validate_file(fname, catalog_mtime=None):
     fpath = Path(fname)
     if fpath.suffix != ".yml":
         print(
             f"Invalid file {fpath.name}: Only catalog items with a .yml file extension are allowed"
         )
         return False
+
+    file_mtime = os.path.getmtime(fname) if catalog_mtime is not None else None
+    if catalog_mtime is not None and catalog_mtime > file_mtime:
+        print(
+            f"Skipping validation for file {fname} mtime {datetime.fromtimestamp(file_mtime).strftime('%Y-%m-%d %H:%M:%S')} < catalog mtime {datetime.fromtimestamp(catalog_mtime).strftime('%Y-%m-%d %H:%M:%S')}"
+        )
+        return True
+
     with open(fpath) as f:
         return validate_yaml(f, fpath.name)
 
 
+CATALOG_JSON_PATH = "public/api/data/catalog.json"
+
+
 def main():
+    catalog_mtime = os.path.getmtime(CATALOG_JSON_PATH)
     fnames = glob.glob(f"{CATALOG_DIR}/*")
-    valid = [validate_file(fname) for fname in fnames]
+    valid = [validate_file(fname, catalog_mtime) for fname in fnames]
     if all(valid):
         return 0
     return 1

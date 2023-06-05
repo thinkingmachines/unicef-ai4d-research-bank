@@ -1,10 +1,18 @@
-name: Test
+name: Test application
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'src/'
+      # - 'scripts/'
+      # - 'tests/'
   pull_request:
     branches: [main]
+    paths:
+      - 'src/'
+      # - 'scripts/'
+      # - 'tests/'
 
 jobs:
   Test:
@@ -12,6 +20,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@v2.2.4
         with:
@@ -33,6 +43,11 @@ jobs:
       - name: Install dependencies
         run: pnpm i && pnpm cypress install && cp .env.github .env
 
+      # - name: Validate scripts
+      #   run: pytest -c all-pytest.ini
+      #   env:
+      #     GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
+
       - name: Validate format
         run: pnpm run-p lint
 
@@ -44,5 +59,3 @@ jobs:
 
       - name: Validate e2e
         run: pnpm test:e2e:ci
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
