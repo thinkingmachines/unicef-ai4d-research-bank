@@ -53,6 +53,7 @@ describe('The country/regions filter should clear upon pressing x', () => {
 	})
 
 	it('should clear out the selected filters', () => {
+		cy.wait(3000)
 		cy.get('.ant-select').eq(1).click()
 
 		cy.contains('.ant-select-selector', 'Thailand')

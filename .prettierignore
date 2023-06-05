@@ -1,4 +1,6 @@
 pnpm-lock.yaml
+public/api/data/*
+.vscode/*
 public/assets/404.css
 public/404.html
 htmlcov/*

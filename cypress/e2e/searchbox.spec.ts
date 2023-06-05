@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+const URL_PREFIX = Cypress.env('URL_PREFIX') as string
 describe('The search input needs at least 3 characters before displaying search results', () => {
 	it('should not display search results', () => {
 		cy.visit('/')
@@ -41,7 +43,7 @@ describe('Clicking on a search suggestion should auto-populate the search in the
 
 		cy.location('pathname').should(
 			'eq',
-			`/unicef-ai4d-research-bank/catalogue/airquality-thailand-model`
+			`${URL_PREFIX}/catalogue/airquality-thailand-model`
 		)
 
 		cy.contains('Catalogue').click()
