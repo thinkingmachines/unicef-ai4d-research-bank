@@ -7,6 +7,7 @@ import { useSearchContext } from 'context/SearchContext'
 import { useNavigate } from 'react-router-dom'
 import DefaultFeaturedImg from '../assets/default-featured-image.jpg'
 import LandingHeroImg from '../assets/landing-hero-bg.jpg'
+import UnicefLogo from '../assets/unicefLogo_allWhite.png'
 import Tag from '../components/Tag'
 
 const defaultFilters = {
@@ -71,6 +72,9 @@ const LandingPage = () => {
 					alt='BannerImage'
 					className='absolute z-0 h-full w-full object-cover'
 				/>
+				<div className='absolute top-2 right-3 z-20 flex h-16 w-auto rounded-full bg-[#1CABE2] p-1 sm:h-20 lg:h-24 lg:p-2'>
+					<img className='h-auto w-full' src={UnicefLogo} alt='BannerImg' />
+				</div>
 				<div className='absolute z-10 h-full w-full bg-cloud-burst opacity-60' />
 				<div className='z-20 flex flex-col items-center justify-center'>
 					<span
