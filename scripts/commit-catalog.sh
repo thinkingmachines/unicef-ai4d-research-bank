@@ -1,8 +1,8 @@
 #!/usr/bin/bash
 if [[ `git status --porcelain` ]]; then
-  # git config --global user.name 'CI:Butch Landingin'
-  # git config --global user.email 'butchtm@users.noreply.github.com'
-  git commit -m "chore: add commit-catalog script" 
+  git config --global user.name 'CI:Butch Landingin'
+  git config --global user.email 'butchtm@users.noreply.github.com'
+  git commit -m "ci: Update generated catalog items and detail images" 
   git push
   echo "Catalog items updated"
   true
