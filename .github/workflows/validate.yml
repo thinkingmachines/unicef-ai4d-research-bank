@@ -5,10 +5,10 @@ on:
     paths:
       - 'catalog/**.yml'
 
-  push:
-    branches: [main]
-    paths:
-      - 'catalog/**.yml'
+  # push:
+  #   branches: [main]
+  #   paths:
+  #     - 'catalog/**.yml'
 
   workflow_dispatch:
 

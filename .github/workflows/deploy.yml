@@ -63,12 +63,15 @@ jobs:
       - name: Update detail images
         run: cd public/assets && git add . && cd ../..
 
-      - name: Commit changes if there are any pending
+      - name: Setup git config
         run: |
           git config --global user.name 'CI:Butch Landingin'
           git config --global user.email 'butchtm@users.noreply.github.com'
-          git diff --cached > /dev/null 2>&1 && git commit -m "ci:Refresh catalog items, site-generated and assets"
-          git log origin/main..HEAD > /dev/null 2>&1 && git push
+
+      - name: Commit changes if there are any pending
+        run: |
+          git diff --cached > /dev/null 2>&1 && git commit -m "ci:Refresh catalog items, site-generated and assets" && git push && echo "Catalog items updated"
+          ! git diff --cached > /dev/null 2>&1 && echo "No catalog item updates"
 
       - name: Build project
         run: pnpm build
