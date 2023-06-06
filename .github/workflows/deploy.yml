@@ -3,6 +3,11 @@ name: Deploy-GH-Pages
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'public/api/data/catalog.json'
+      - 'public/api/data/featured.json'
+      - 'public/assets/items/*.png'
+      - 'public/assets/multiregions/*.png'
 
   workflow_dispatch:
 
@@ -63,15 +68,8 @@ jobs:
       - name: Update detail images
         run: cd public/assets && git add . && cd ../..
 
-      - name: Setup git config
-        run: |
-          git config --global user.name 'CI:Butch Landingin'
-          git config --global user.email 'butchtm@users.noreply.github.com'
-
       - name: Commit changes if there are any pending
-        run: |
-          git diff --cached > /dev/null 2>&1 && git commit -m "ci:Refresh catalog items, site-generated and assets" && git push && echo "Catalog items updated"
-          ! git diff --cached > /dev/null 2>&1 && echo "No catalog item updates"
+        run: ./scripts/commit-catalog.sh
 
       - name: Build project
         run: pnpm build
