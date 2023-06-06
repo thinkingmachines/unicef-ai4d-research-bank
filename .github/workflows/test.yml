@@ -5,14 +5,13 @@ on:
     branches: [main]
     paths:
       - 'src/'
-      # - 'scripts/'
-      # - 'tests/'
+      - 'public/fixtures'
   pull_request:
     branches: [main]
     paths:
       - 'src/'
-      # - 'scripts/'
-      # - 'tests/'
+
+  workflow_dispatch:
 
 jobs:
   Test:
@@ -32,21 +31,8 @@ jobs:
           node-version: '16'
           cache: 'pnpm'
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-          cache: 'pip'
-
-      - name: Setup python
-        run: pip install -r requirements.txt
-
       - name: Install dependencies
         run: pnpm i && pnpm cypress install && cp .env.github .env
-
-      # - name: Validate scripts
-      #   run: pytest -c all-pytest.ini
-      #   env:
-      #     GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
 
       - name: Validate format
         run: pnpm run-p lint

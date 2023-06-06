@@ -4,6 +4,8 @@ on:
   push:
     branches: [main]
     paths-ignore:
+      # prevent double trigger of deploy on push to branch triggered
+      # by update of catalog.json, or generation of images during merge
       - 'public/api/data/catalog.json'
       - 'public/api/data/featured.json'
       - 'public/assets/items/*.png'
