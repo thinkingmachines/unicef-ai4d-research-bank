@@ -1,0 +1,38 @@
+name: Test scripts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/'
+      - 'tests/'
+
+  pull_request:
+    branches: [main]
+    paths:
+      - 'scripts/'
+      - 'tests/'
+
+  workflow_dispatch:
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+          cache: 'pip'
+
+      - name: Setup python
+        run: pip install -r requirements.txt
+
+      - name: Validate python scripts
+        run: pytest -c all-pytest.ini
+        env:
+          GSTORAGE_API_KEY: ${{ secrets.GSTORAGE_API_KEY }}
