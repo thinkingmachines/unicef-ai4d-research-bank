@@ -31,6 +31,10 @@ Local developmentt [installation instructions here](SETUP.md)
 
 - Instructions on adding models and datasets are [provided here](catalog-contribution.md).
 
+### Deploying
+
+- Instructions for forking and deploying your own copy of the project can be [found here](https://github.com/thinkingmachines/unicef-ai4d-research-bank/blob/main/SETUP.md#deploying)
+
 ## Scripts
 
 - `pnpm dev` - start a development server with hot reload.
