@@ -38,6 +38,7 @@ links:
     type: model-weights
 
   - url: https://drive.google.com/file/d/14i_k2xhnuuVkQJJL9Mt8l3QhzLDDOtXQ/view?usp=share_link
+    name: 2023-02-21-ph-rollout-output.csv
     description: 'Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-csv'
     alt-format:
