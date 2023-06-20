@@ -2,12 +2,11 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading  */
 
-import { DownloadOutlined } from '@ant-design/icons'
 import type { TabsProps } from 'antd'
 import { Tabs } from 'antd'
 import type { CatalogueItemType } from 'types/CatalogueItem.type'
 import { getFileFormat } from 'utils/String.util'
-import { TEMP_REDIRECT_FORM } from '../constants/index'
+import CopyLinkButton from './CopyLinkButton'
 
 interface Props {
 	catalogueItem: CatalogueItemType
@@ -16,7 +15,7 @@ interface Props {
 const CatalogueItemData = ({ catalogueItem }: Props) => {
 	const {
 		links,
-		id,
+
 		'data-columns': dataColumns,
 		'sample-data': sampleData
 	} = catalogueItem
@@ -33,44 +32,28 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 				<span className='mb-1 font-semibold text-gray-700'>
 					Training Datasets
 				</span>
-				{trainingDatasets.map((dataset, datasetIndex) => (
-					<div className='mb-11 flex flex-row items-center' key={dataset.name}>
-						<div className='flex flex-col'>
-							<div className='mb-2 text-sm font-bold text-gray-700'>
-								{dataset.name}
-							</div>
+				{trainingDatasets.map(dataset => (
+					<div className='flex flex-col ' key={dataset.description}>
+						<div className='mb-2 w-2/3'>
 							<a
 								href={dataset.url}
-								key={datasetIndex}
+								key={`${dataset.description}`}
 								target='_blank'
 								rel='noreferrer'
-								className='mb-2 hover:underline'
+								className='hover:underline'
 							>
 								{dataset.description}
 							</a>
-							<div className='flex'>
-								{dataset['alt-format']
-									? dataset['alt-format'].map((altFormat, altFormatIndex) => (
-											<div key={altFormatIndex} className='mr-2'>
-												<a
-													href={`${TEMP_REDIRECT_FORM}?item=${id}&url=${encodeURIComponent(
-														altFormat.url
-													)}`}
-													key={altFormatIndex}
-													target='_blank'
-													rel='noreferrer'
-													className='my-3 rounded-md bg-gray-200  p-10 py-1 pl-2 pr-4 text-left text-xs font-semibold tracking-tight text-gray-600 hover:bg-black hover:bg-opacity-20'
-												>
-													<DownloadOutlined style={{ marginRight: '8px' }} />
-													{getFileFormat(
-														altFormat.type,
-														'training-dataset-'
-													).toUpperCase()}
-												</a>
-											</div>
-									  ))
-									: undefined}
-							</div>
+						</div>
+						<div>
+							<CopyLinkButton
+								url={dataset.url ?? ''}
+								placeholder={
+									dataset.type.includes('raw')
+										? getFileFormat(dataset.type, 'dataset-raw-').toUpperCase()
+										: getFileFormat(dataset.type, 'dataset-').toUpperCase()
+								}
+							/>
 						</div>
 					</div>
 				))}
@@ -99,33 +82,27 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 									rel='noreferrer'
 									className='hover:underline'
 								>
-									{dataset.description}
+									{dataset.description}xxxx
 								</a>
 							</div>
 							<div className='flex'>
 								{dataset['alt-format']
 									? dataset['alt-format'].map((altFormat, index) => (
 											<div key={index} className='mr-2 mb-4'>
-												<a
-													href={`${TEMP_REDIRECT_FORM}?item=${id}&url=${encodeURIComponent(
-														altFormat.url
-													)}`}
-													key={`${altFormat.type}`}
-													target='_blank'
-													rel='noreferrer'
-													className='my-3 rounded-md bg-gray-200  p-10 py-1 pl-2 pr-4 text-left text-xs font-semibold tracking-tight text-gray-600 hover:bg-black hover:bg-opacity-20'
-												>
-													<DownloadOutlined style={{ marginRight: '8px' }} />
-													{altFormat.type.includes('raw')
-														? getFileFormat(
-																altFormat.type,
-																'dataset-raw-'
-														  ).toUpperCase()
-														: getFileFormat(
-																altFormat.type,
-																'dataset-'
-														  ).toUpperCase()}
-												</a>
+												<CopyLinkButton
+													url={altFormat.url}
+													placeholder={
+														altFormat.type.includes('raw')
+															? getFileFormat(
+																	altFormat.type,
+																	'dataset-raw-'
+															  ).toUpperCase()
+															: getFileFormat(
+																	altFormat.type,
+																	'dataset-'
+															  ).toUpperCase()
+													}
+												/>
 											</div>
 									  ))
 									: undefined}
