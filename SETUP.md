@@ -60,6 +60,30 @@ pnpm merge-catalog
 3. **_[Optional for WSL users]_** You may need to install some extra dependencies in your linux system as show in [**_the cypress docs_**](https://docs.cypress.io/guides/getting-started/installing-cypress#Linux-Prerequisites). In case you get weird issues like `gpu_memory_buffer_support_x11.cc(44)]`, you may need to [reset your wsl instance](https://github.com/cypress-io/cypress/issues/23343#issuecomment-1379954648) by typing `wsl --shutdown` in powershell or by restarting your device.
 4. Run `pnpm test:e2e:headless` to run all the current tests or `pnpm test:e2e` to run the GUI which allows you to run tests on a per file basis and visualize how your tests run.
 
+## Validating Google Drive URLs (Optional)
+
+**IMPORTANT**: If you plan to _host, add or update_ catalog items with datasets stored on **Google Drive**, you will need to setup a GCP Project and
+create a Google Storage API Key within that project with access to the Google Drive API.
+
+> Note: This is due to a work around done in order to allow  Google Drive URLs to be downloaded without triggering
+an download screen for large files as [documented here](https://bytesbin.com/skip-google-drive-virus-scan-warning-large-files/)
+
+Don't worry, as of the time of this writing, the Google Drive API is free and is used only for rate-limiting access
+to your Google Drive datasets.
+
+
+This is a requirement in order for the validation (i.e. `pnpm validate-catalog`) process to automatically check if your google drive URLs for your datasets are accessible to the public.
+
+* An overview of the process to setup your GCP Project and API key is [discussed here](https://bytesbin.com/skip-google-drive-virus-scan-warning-large-files/#Method_1_Using_Google_Drive_API).
+
+* To setup a GCP Project here are some [useful links](https://cloud.google.com/resource-manager/docs/creating-managing-projects#before_you_begin)
+
+* To create a Google Drive API Key, you will need to enable the [Google Drive API](https://console.cloud.google.com/apis/api/drive.googleapis.com/) in your project and [create a Google Drive API Key](https://cloud.google.com/api-keys/docs/create-manage-api-keys) for it.
+
+* Next, add an environment variable `GSTORAGE_API_KEY` with the value of the Google Drive API Key in your local environment.
+
+* You will also need to add this `GSTORAGE_API_KEY`  as a secret to your Github Deploy Actions environment. Place the `GSTORAGE_API_KEY` secret in `your_forked_repo->settings->Secrets and Variables->Actions`
+
 ## Customizations
 
 - Deploy to github pages instead of vercel (see [deploy workflow](.github/workflows/deploy.yml))
