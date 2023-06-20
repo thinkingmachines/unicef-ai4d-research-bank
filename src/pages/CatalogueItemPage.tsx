@@ -17,10 +17,6 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { formatString } from 'utils/String.util'
 import Tag from '../components/Tag'
-import {
-	TEMP_NUMBER_OF_DOWNLOADS,
-	TEMP_WHO_DOWNLOADED
-} from '../constants/index'
 import type { CatalogueItemType } from '../types/CatalogueItem.type'
 
 const defaultFilters = {
@@ -147,8 +143,8 @@ const CatalogueItemPage = () => {
 					>
 						{organization.name}
 					</a>
-					<div>&#8226;</div>
-					<div>{TEMP_NUMBER_OF_DOWNLOADS} downloads</div>
+					{/* <div>&#8226;</div>  // citation number of downloads */}
+					{/* <div>{TEMP_NUMBER_OF_DOWNLOADS} downloads</div> */}
 				</div>
 			</div>
 
@@ -226,7 +222,7 @@ const CatalogueItemPage = () => {
 							) : undefined}
 						</div>
 					</div>
-					<div className='rounded bg-gray-50 p-5'>
+					{/* <div className='rounded bg-gray-50 p-5'>
 						<span className='text-sm font-semibold'>
 							This dataset has been downloaded by:
 						</span>
@@ -235,7 +231,7 @@ const CatalogueItemPage = () => {
 								{data}
 							</div>
 						))}
-					</div>
+					</div> */}
 					<div
 						className='bg-gray-50p-5 rounded'
 						data-cy='catalog-item-aside-tags'
