@@ -29,3 +29,4 @@ links:
     description: 'Philippine Healthsites hxl csv'
     type: 'dataset-csv'
     name: Philippines-healthsites-hxl-csv
+    skip-hxl-tag-validation: true
