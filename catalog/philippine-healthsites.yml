@@ -25,7 +25,7 @@ links:
     type: 'dataset-geojson'
     name: Philippines-healthsites-geojson
 
-   - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/8ab0707b-09ec-43d1-86a0-4e29a6e652d6/download/philippines_hxl.csv
+  - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/8ab0707b-09ec-43d1-86a0-4e29a6e652d6/download/philippines_hxl.csv
     description: 'Philippine Healthsites hxl csv'
     type: 'dataset-csv'
     name: Philippines-healthsites-hxl-csv
