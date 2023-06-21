@@ -20,12 +20,12 @@ country-region: philippines
 year-period: 2022
 
 links:
-  - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/ca65b30e-02c8-4fad-8771-fb220ddc444f/download/philippines.geojson
+  - url: https://drive.google.com/file/d/1_nnNephusb7l5l7zviwJoDNzhmIFGFG2/view?usp=sharing
     description: 'Philippine Healthsites geoJSON format'
     type: 'dataset-geojson'
     name: Philippines-healthsites-geojson
 
-  - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/8ab0707b-09ec-43d1-86a0-4e29a6e652d6/download/philippines_hxl.csv
+  - url: https://drive.google.com/file/d/1J3sTRSkwJxgL5J1x047X_dlZ546NhoEV/view?usp=sharing
     description: 'Philippine Healthsites hxl csv'
     type: 'dataset-csv'
     name: Philippines-healthsites-hxl-csv
