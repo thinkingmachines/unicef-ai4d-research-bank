@@ -7,7 +7,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => ({
 	// override-prefix
-	base: '/unicef-ai4d-research-bank-dev',
+	base: '/unicef-ai4d-research-bank',
 	test: {
 		css: false,
 		include: ['src/**/__tests__/*'],
