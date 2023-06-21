@@ -1,0 +1,31 @@
+name: 'Philippine Healthsites'
+
+description: 'This dataset shows the list of operating health facilities. Attributes included: Name,Nature of Facility, Activities, Lat, Long'
+
+card-type: dataset
+
+organization:
+  name: 'Thinking Machines'
+  url: 'https://thinkingmachin.es/'
+
+date-added: '2023-06-21'
+
+tags:
+  - healthsites
+  - philippines
+  - health-facilities
+
+country-region: philippines
+
+year-period: 2022
+
+links:
+  - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/ca65b30e-02c8-4fad-8771-fb220ddc444f/download/philippines.geojson
+    description: 'Philippine Healthsites geoJSON format'
+    type: 'dataset-geojson'
+    name: Philippines-healthsites-geojson
+
+   - url: https://data.humdata.org/dataset/20e5069f-1eb8-465b-98c8-3442a62cd3f0/resource/8ab0707b-09ec-43d1-86a0-4e29a6e652d6/download/philippines_hxl.csv
+    description: 'Philippine Healthsites hxl csv'
+    type: 'dataset-csv'
+    name: Philippines-healthsites-hxl-csv
