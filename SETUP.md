@@ -38,25 +38,26 @@ which node  //checks current node version
 
 3. Activate [corepack to install pnpm](https://pnpm.io/installation#using-corepack)
 
+> For Ubuntu
 ```
-// ubuntu
 corepack enable
 corepack prepare pnpm@latest --activate
-
-// macOS
+```
+> For MacOS
+```
 brew install corepack
 corepack prepare pnpm@latest --activate
+```
 
-
-// if both do not work and you have a node version beyond 18.04
-// you can try manually installing pnpm via npm
-
-// ubuntu/macOS
+> If both do not work and you have a node version beyond 18.04
+> you can try manually installing pnpm via npm (Ubuntu/MacOS)
+```
 npm install -g pnpm
+````
 
-// if it still doesn't work for macOS, try manually installing pnpm through homebrew
+> If it still doesn't work for macOS, try manually installing pnpm through homebrew
+```
 brew install pnpm
-
 ```
 
 4. Fork the project and install project dependencies
