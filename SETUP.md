@@ -4,24 +4,35 @@ To get the website running locally, you will need to do the following:
 
 1. Install `git-restore-mtime`, which provides some [git utilities](https://github.com/MestreLion/git-tools). On Ubuntu, you can run:
 
+> For Ubuntu
+
 ```
-sudo apt install git-restore-mtime  //ubuntu
-brew install git-tools              //macOS
+sudo apt install git-restore-mtime
+```
+
+> For Mac OS (Homebrew)
+
+```
+brew install git-tools
 ```
 
 2. Use nvm (node version manager) to install node v18.14.2 (latest stable)
 
+> For Ubuntu
+
 ```
-// ubuntu
+
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash     //install nvm
 nvm install v18.14.2
 nvm alias default v18.14.2
+which node  //checks current node version
+```
 
-//macOS
+> For Mac OS
+
+```
 brew install nvm
 source $(brew --prefix nvm)/nvm.sh     // Add nvm to your shell profile (restart terminal after running)
-
-
 which node  //checks current node version
 ```
 
@@ -101,17 +112,29 @@ Forking the project will copy all the build and deploy scripts, but you will nee
 
 ![genrate token](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/generate-token.png)
 
-![new token](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/new-token-settings.png)
+![new-token-settings](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/new-token-settings.png)
+
+![your-secret-here](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/your-secret-here.png)
+
+![secrets-and-variables](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/secrets-and-variables.png)
 
 - This will allow the github actions runner to run some of the build actions which normally require authentication
 
-2. Re-run the failing `build` and `deploy` checks via `commits->the little red x button->details->Re-run all jobs`
+2. Go to `your_repo->actions` and run `Deploy-GH-Pages`. This will create a new branch called `gh-pages` where the compiled website will reside.
+
+![workflows](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/workflows.png)
+![run-workflow](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/run-workflow.png)
+
 3. Go to `repo->settings->code and automation->pages` and update the following settings:
-   1. Change `Build and Deployment` source to `deploy from a branch`
-   2. Set the deploy branch to be `gh-pages` branch `/(root)` directory
-   3. Rerun build and deploy checks
-4. Update the prefixes which are commented with `// override-prefix` in the `vite.config.ts` `.env.github` files. An example commit which does this is found here [found here](https://github.com/butchland/my-ai4d-research-bank/commit/ae92fb66e88edabf9ef47ed5ca3a68a50f20a0cf)
-5. Wait for final automated build and deploy checks and the final link to the live site should be available in `settings->pages`
+
+   a. Change `Build and Deployment` source to `deploy from a branch`. Note that you can also find the actual link to the deployed website here
+
+   ![deploy-from-branch](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/deploy-from-branch.png)
+
+   b. Set the deploy branch to be `gh-pages` branch `/(root)` directory
+   c. Run the `pages-build-deployment` workflow in order for github to deploy the site
+
+4. The after all workflows have been run, the deployed site should show up in the link in step 3
 
 ## Validating Google Drive URLs (Optional)
 
