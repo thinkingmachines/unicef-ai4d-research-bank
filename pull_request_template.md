@@ -1,33 +1,22 @@
-## PR Title Convention
+# Description
 
-Copy paste to PR title, remove this section after complying
+Please include a summary of the changes and the related issue. Please also include relevant motivation and context.
 
-- <pr-type>: pr title
+## Type of change
 
-example:
+Please delete options that are not relevant.
 
-- `feat: add button`
-- `chore: sort folders`
-- `tests: add tests`
+- [ ] Catalog item contribution/update
+- [ ] Bug fix (non-breaking change which fixes an issue)
+- [ ] New feature (non-breaking change which adds functionality)
+- [ ] This change requires a documentation update
 
-## Extra details
+If this is a catalog item contribution please check that:
 
-Add any extra details, or provide context to the person who will be reviewing the PR or future
-developers who may need to use the PR as context
+- [ ] The filename is short, concise and descriptive of the item
+- [ ] All the required fields have been filled out
+- [ ] You as the contributor is authorized by the organization specified
+- [ ] All the links are accessible by the public
 
-## Changelog
+**Remove this template before submitting**
 
-Add a summary of the things that were changed
-
-- [x] Move search bar to the top
-- [x] Add toggle filter
-- [ ] Optional: add fitler sort
-
-## How to test
-
-Add a numbered list of steps to make in order to verify that the feature is working. Ideally add a video of you
-running the new features you have added. You can use a capturing tool like [ShareX](https://getsharex.com)
-
-0. Do this setup step in case
-1. Do certain actions
-2. Assert that feature does thing

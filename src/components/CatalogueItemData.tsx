@@ -82,7 +82,7 @@ const CatalogueItemData = ({ catalogueItem }: Props) => {
 									rel='noreferrer'
 									className='hover:underline'
 								>
-									{dataset.description}xxxx
+									{dataset.description}
 								</a>
 							</div>
 							<div className='flex'>
