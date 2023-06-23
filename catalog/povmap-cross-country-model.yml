@@ -1,60 +1,117 @@
-name: 'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar'
+name: 'Cross Country Poverty Mapping Model for Indonesia, Malaysia, Thailand, Laos and Vietnam'
 description: >
-  This is a single cross-country sklearn Random Forest regressor model for predicting relative wealth for Indonesia, Timor Leste and Myanmar.
+  This is a cross-country sklearn Random Forest regressor model for predicting relative wealth for Indonesia, Malaysia, Thailand, Laos and Vietnam.
   Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
-  It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
+  It is a cross-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
   as well as Domestic and Health Survey (DHS) data from USAID. 
+  Since DHS data is not available for Indonesia, Malaysia, Thailand, Laos and Vietnam, DHS data from the Philippines, Cambodia, Myanmar and Timor Leste were combined 
+  to train the model to be rolled out across these countries.
   It was built as part of the UNICEF AI4D Poverty Mapping Project which aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries 
   in Southeast Asia (SEA).
 card-type: model
 organization:
-  name: 'Unicef East Asia and Pacific Regional Office'
-  url: 'https://www.unicef.org/eap/'
+  name: 'Thinking Machines Data Sciences Inc'
+  url: 'https://thinkingmachin.es'
 date-added: '2022-03-02'
 tags:
   - poverty-mapping
-  - timor-leste
+  - indonesia
+  - thailand
+  - malaysia
+  - vietnam
+  - laos
   - sklearn-model
   - machine-learning
+  - relative-wealth
+  - unicef-ai4d-poverty-mapping
+  - cross-country
+
 country-region:
-  - timor-leste
+  - vietnam
   - indonesia
-  - myanmar
-year-period: 2016
+  - laos
+  - malaysia
+  - thailand
+
+year-period: 2016-2021
 evaluation-metrics:
   - metric:
       metric-type: rsquared
-      value: 0.6
+      value: 0.5261 (+/- 0.0383)
     link:
-      description: 'Model evaluation using cross-validation'
-      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#evaluate-model-training-using-cross-validation
-  - link:
-      description: 'SHAP Feature Importance Plots'
-      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_tl.html#shap-feature-importance
+      description: 'Cross Country Model evaluation using Leave One Out Cross Country Country Validation (LOOC)'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html#evaluate-model-training-using-cross-validation
 
 links:
+  - url: https://drive.google.com/file/d/1VLI-6qo1BM_8dB6CXBse2DoBnxItherL/view?usp=drive_link
+    description: 'Cross Country Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+    type: model-weights
+
+  - url: https://drive.google.com/file/d/15Vn0t-_hNhUNxNGYKw9IlVJ3TUuLPM12/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Cross Country Poverty Mapping Model on Indonesia using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
+    name: '2023-02-21-id-rollout-output-features.csv'
+    alt-format:
+      url: https://drive.google.com/file/d/11p4Raax9U-J8Xx47p4WSiQqHgjKvh4BC/view?usp=drive_link
+      type: 'dataset-geojson'
+
+  - url: https://drive.google.com/file/d/157Nk-aZaGj5WAxxFT8WH6B_Y10g9qktx/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Cross Country Poverty Mapping Model on Malaysia using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
+    name: '2023-02-21-my-rollout-output-features.csv'
+    alt-format:
+      url: https://drive.google.com/file/d/1Ae-fgxlq-RnNgMDJaaiBuIX7u6ygZ0qh/view?usp=drive_link
+      type: 'dataset-geojson'
+
+  - url: https://drive.google.com/file/d/14glvAqFjnzZqtVxy40HEPQ_EsWS-1XN_/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Cross Country Poverty Mapping Model on Vietnam using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
+    name: '2023-02-21-vn-rollout-output-features.csv'
+    alt-format:
+      url: https://drive.google.com/file/d/1oCyYxAQTzqvIWeEeKK2jTu9-xYZm2zzF/view?usp=drive_link
+      type: 'dataset-geojson'
+
+  - url: https://drive.google.com/file/d/15bL6Ph7Jie-IewGgqWdcyizesI2sP-mS/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Cross Country Poverty Mapping Model on Thailand using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
+    name: '2023-02-21-th-rollout-output-features.csv'
+    alt-format:
+      url: https://drive.google.com/file/d/1lOix_2NKqcDTjf7rfFvTfMZKWcZbLWYG/view?usp=drive_link
+      type: 'dataset-geojson'
+
+  - url: https://drive.google.com/file/d/15MDn_phwcGN2tfaTjLm6FPYUU0AnuULD/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Cross Country Poverty Mapping Model on Laos using 2.4km grids (bingtile quadkey level 14) as CSV'
+    type: 'dataset-csv'
+    name: '2023-02-21-la-rollout-output-features.csv'
+    alt-format:
+      url: https://drive.google.com/file/d/10nh1Z4RYc9Xvb9y3Zklvi8-HrRgwoRUz/view?usp=drive_link
+      type: 'dataset-geojson'
+
+  - url: https://drive.google.com/file/d/1lIZzSX2kZnRV0Wx2ryaATA6zi1nuTtXn/view?usp=drive_link
+    description: 'Combined Training dataset for Poverty Mapping Model on Philippines, Cambodia, Myanmar and Timor Leste as geojson'
+    name: 'sea_wealth_map_with_features.geojson'
+    type: 'training-dataset-geojson'
+
+  - url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-24-dhs-cross-country-experiments/2023-02-06_crosscountry_normalized.html
+    description: 'Cross Country Model Rollout Part 1 (Train Cross Country Model)'
+    type: 'code-notebook'
+
+  - url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/sprint-3-report.html
+    description: 'Cross country model rollout and validation summary'
+    type: 'documentation'
+
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
     description: UNICEF AI4D Poverty Mapping Project Github Repository
     type: repository
-  - url: https://drive.google.com/file/d/1q9ev9qlXf5p0-CTuJ8IO6Qi-tEIuRqCp/view?usp=share_link
-    description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
-    type: model-weights
-  - url: https://drive.google.com/file/d/14nejv32UOBJK6fUzOJamMvn172vZN_WB/view?usp=share_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV'
-    type: 'dataset-csv'
 
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/1_tl_train_model.ipynb
-    description: 'Timor Leste Model Rollout Part 1 (Train Single-country Model)'
-    type: 'code-notebook'
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8F-local-setup-for-development
+    type: 'documentation'
+    description: >
+      You can setup a local development environment to view and run the jupyter notebooks used to develop the 
+      model and roll it out country-wide.
 
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/2_tl_generate_grids.ipynb
-    description: 'Timor Leste Model Rollout Part 2 (Generate Roll-out Grids)'
-    type: 'code-notebook'
-
-  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/tl/3_tl_rollout_model.ipynb
-    description: 'Timor Leste Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
-    type: 'code-notebook'
-
-  - url: https://drive.google.com/file/d/15xrSAyWkFZRwVuGtECTRwNz06amRsjew/view?usp=share_link
-    description: 'Training dataset for Poverty Mapping Model on Timor Leste as CSV'
-    type: 'training-dataset-csv'
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8Frunning-in-docker
+    type: 'documentation'
+    description: >
+      You can run an interactive dialog that will rollout the poverty mapping model for different time periods using this model by 
+      running it via docker. Follow the instructions on the item for "Country-wide rollout".
