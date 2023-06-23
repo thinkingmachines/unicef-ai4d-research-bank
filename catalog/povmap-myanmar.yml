@@ -1,0 +1,79 @@
+name: 'Poverty Mapping Model for Myanmar'
+description: >
+  This is an sklearn Random Forest (RF) regressor model for predicting relative wealth for Myanmar.
+  Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
+  It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
+  as well as Domestic and Health Survey (DHS) data from USAID. 
+  It was built as part of the UNICEF AI4D Poverty Mapping Project which aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries 
+  in Southeast Asia (SEA).
+card-type: model
+organization:
+  name: 'Thinking Machines Data Sciences Inc'
+  url: 'https://thinkingmachin.es'
+date-added: '2022-03-02'
+tags:
+  - poverty-mapping
+  - myanmar
+  - sklearn-model
+  - machine-learning
+  - relative-wealth
+  - unicef-ai4d-poverty-mapping
+
+country-region: myanmar
+year-period: 2015
+evaluation-metrics:
+  - metric:
+      metric-type: rsquared
+      value: 0.49 (+/- 0.09)
+    link:
+      description: 'Model evaluation using cross-validation'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html#evaluate-model-training-using-cross-validation
+  - link:
+      description: 'SHAP Feature Importance Plots'
+      url: https://thinkingmachines.github.io/unicef-ai4d-poverty-mapping/notebooks/2023-01-17-initial-model-ph-mm-tl-kh/model_mm.html#shap-feature-importance
+
+links:
+  - url: https://drive.google.com/file/d/1P4ND4OxhfkZ9DnTSbLMBDwSsSe6ICIxv/view?usp=drive_link
+    description: 'Myanmar Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+    type: model-weights
+
+  - url: https://drive.google.com/file/d/13zoUz6466PISP6wjwinyJ5nazaqRPs6n/view?usp=drive_link
+    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Myanmar using 2.4km grids (bingtile quadkey level 14)'
+    type: 'dataset-geojson'
+    name: 2023-02-21-mm-rollout-output-with-features.geojson
+    alt-format:
+      url: https://drive.google.com/file/d/15_HpCpEvdxkHrpPRv3vf9t1pP6fPHaAU/view?usp=drive_link
+      type: 'dataset-csv'
+
+  - url: https://drive.google.com/file/d/15s46pKnHO0KD95IPzlnsuVnpdi5fjs4v/view?usp=drive_link
+    description: 'Training dataset for Poverty Mapping Model on Myanmar as CSV'
+    type: 'training-dataset-csv'
+    name: '2023-02-21-mm-dhs-cluster-features-all.csv'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/mm/1_mm_train_model.ipynb
+    description: 'Myanmar Model Rollout Part 1 (Train Single-country Model)'
+    type: 'code-notebook'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/mm/2_mm_generate_grids.ipynb
+    description: 'Myanmar Model Rollout Part 2 (Generate Roll-out Grids)'
+    type: 'code-notebook'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/mm/3_mm_rollout_model.ipynb
+    description: 'Myanmar Model Rollout Part 3 (Feature Engineering and Model Prediction on Rollout Grids)'
+    type: 'code-notebook'
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
+    description: UNICEF AI4D Poverty Mapping Project Github Repository
+    type: repository
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8F-local-setup-for-development
+    type: 'documentation'
+    description: >
+      You can setup a local development environment to view and run the jupyter notebooks used to develop the 
+      model and roll it out country-wide.
+
+  - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8Frunning-in-docker
+    type: 'documentation'
+    description: >
+      You can run an interactive dialog that will rollout the poverty mapping model for different time periods using this model by 
+      running it via docker. Follow the instructions on the item for "Country-wide rollout".

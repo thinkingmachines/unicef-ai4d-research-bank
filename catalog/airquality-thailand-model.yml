@@ -20,27 +20,32 @@ evaluation-metrics:
       url: https://www.googleapis.com/drive/v3/files/169_VNYuXybWJzmv8PSliDZFeHxX3Ji5K?alt=media&key=AIzaSyB5JriqHaz9gwrdN7Ly15h4lkNkC9xC8a4
 links:
   - url: https://drive.google.com/file/d/138zqndK07bqtUXAelzpiFqacohVxWetx/view?usp=share_link
+    name: predictions_chiangmai_2021.csv
     description: >
       air quality predictions for chiangmai for the year 2021
     type: dataset-csv
 
   - url: https://drive.google.com/file/d/13-wFFCCntJsLQVmyFE8Cm7Wf1dmCw2pd/view?usp=share_link
+    name: 2022-05-18-base-table-openaq-filt.csv
     description: >
       Table generated from OpenAQ PM2.5 values.This file also contains the same columns as the air4thai one, but with the additional sensor_type column. This indicated which type of sensor was used to measure PM2.5 value in each station per day.
       This is the latest, best dataset we have for ML modelling. The other datasets were preserved for replicating the experiments.
     type: training-dataset-csv
 
   - url: https://drive.google.com/file/d/12wz-BgJChgWZZyAZ97vZ6uwXPffDT2kQ/view?usp=share_link
+    name: 2022-05-31--base-table-openaq-refgrade.csv
     description: >
       Derivation of 2022-05-18-base-table-openaq-filt, filtering observations to sensor_type == "reference grade"
     type: training-dataset-csv
 
   - url: https://drive.google.com/file/d/134uGLrh3kGuymEqsM_b0jQT8InIwMWB-/view?usp=share_link
+    name: 2022-05-31-base-table-openaq-lowcost.csv
     description: >
       Derivation of 2022-05-18-base-table-openaq-filt, filtering observations to sensor_type == "low cost"
     type: training-dataset-csv
 
   - url: https://drive.google.com/file/d/1kxScRmolAA5hSd6Ig1ly85WQJ_Z6NmGc/view?usp=share_link
+    name: 2022-05-31-patched-openaq.csv
     description: >
       Table patched from the sub-regression model experiment.
       Missing MAIAC AOD values were predicted using a model trained using CAM AOD data. 
