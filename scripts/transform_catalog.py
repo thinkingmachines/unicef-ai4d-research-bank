@@ -7,6 +7,7 @@ import sys
 import typing
 from decimal import Decimal
 from pathlib import Path
+from time import sleep
 from urllib.request import urlopen
 
 import ijson
@@ -33,6 +34,8 @@ from utils import (
 
 CATALOG_DIR = "./catalog"
 OUTPUT_PATH = "./public/api/data/catalog.json"
+DELAY_GDRIVE_ACCESS = False
+DELAY_GDRIVE_TIME = 15
 
 
 def transform_alt_format(new_link, use_gstorage=True):
@@ -84,6 +87,13 @@ def find_qualified_link(links):
 
 def get_csv_reader(url):
     if is_gdrive_url(url):
+        global DELAY_GDRIVE_ACCESS
+        if DELAY_GDRIVE_ACCESS:
+            print(f"Delaying access to {url}")
+            sleep(DELAY_GDRIVE_TIME)
+        else:
+            DELAY_GDRIVE_ACCESS = True
+
         resp, sess, _ = get_gdown_response(url)
         if (
             resp is None
@@ -112,6 +122,13 @@ def get_csv_reader(url):
 
 def get_stream_json_reader(url):
     if is_gdrive_url(url):
+        global DELAY_GDRIVE_ACCESS
+        if DELAY_GDRIVE_ACCESS:
+            print(f"Delaying access to {url}")
+            sleep(DELAY_GDRIVE_TIME)
+        else:
+            DELAY_GDRIVE_ACCESS = True
+
         request_resp, _, updated_url = get_gdown_response(url)
         if (
             request_resp is None
