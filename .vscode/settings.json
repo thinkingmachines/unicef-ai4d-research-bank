@@ -8,7 +8,7 @@
 	],
 	"editor.defaultFormatter": null,
 	"editor.foldingImportsByDefault": true,
-	"editor.formatOnSave": false,
+	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
 	"files.exclude": {
 		"**/.stylelintcache": true,
@@ -46,5 +46,5 @@
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.black-formatter"
 	},
-	"json.format.enable": true
+	"json.format.enable": false
 }
