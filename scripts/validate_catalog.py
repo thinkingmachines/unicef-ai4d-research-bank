@@ -5,6 +5,7 @@ import string
 from contextlib import closing
 from datetime import datetime
 from pathlib import Path
+from time import sleep
 
 import hxl
 import hxl.validation
@@ -31,6 +32,11 @@ parser.add_argument(
     help="Force validation",
 )
 
+DELAY_GDRIVE_TIME = 15  # seconds
+
+CATALOG_JSON_PATH = "public/api/data/catalog.json"
+
+DELAY_GDRIVE_ACCESS = False
 
 CATALOG_DIR = "./catalog"
 
@@ -108,6 +114,9 @@ def validate_filename(fpath):
 
 def validate_url(url, fname):
     if is_gdrive_url(url):
+        if DELAY_GDRIVE_ACCESS:
+            print(f"Delaying access to {url} for {fname}")
+            sleep(DELAY_GDRIVE_TIME)
         resp, sess, _ = get_gdown_response(url)
         if resp is None:
             print(f"Invalid file {fname}: Could not access link with url {url}")
@@ -138,6 +147,9 @@ def has_valid_organization(organization, fname):
 
 def validate_csv_hxl(url, fname):
     if is_gdrive_url(url):
+        if DELAY_GDRIVE_ACCESS:
+            print(f"Delaying access to {url} for {fname}")
+            sleep(DELAY_GDRIVE_TIME)
         resp, sess, _ = get_gdown_response(url)
         if resp is None:
             print(f"Invalid file {fname}: Could not access link with url {url}")
@@ -210,7 +222,9 @@ def validate_alt_format(alt_format, i, j, fname):
                 "skip-hxl-tag-validation" not in alt_format
                 or not alt_format["skip-hxl-tag-validation"]
             ):
-                newlink = transform_dataset_file_link(alt_format, pop_skip_tag=False)
+                newlink = transform_dataset_file_link(
+                    alt_format, pop_skip_tag=False, use_gstorage=True
+                )
                 ok.append(validate_csv_hxl(newlink["url"], fname))
             else:
                 print(
@@ -302,7 +316,9 @@ def validate_link(link, i, fname):
                 "skip-hxl-tag-validation" not in link
                 or not link["skip-hxl-tag-validation"]
             ):
-                newlink = transform_dataset_file_link(link, pop_skip_tag=False)
+                newlink = transform_dataset_file_link(
+                    link, pop_skip_tag=False, use_gstorage=True
+                )
                 ok.append(validate_csv_hxl(newlink["url"], fname))
             else:
                 print(
@@ -383,13 +399,12 @@ def validate_file(fname, catalog_mtime=None):
         return validate_yaml(f, fpath.name)
 
 
-CATALOG_JSON_PATH = "public/api/data/catalog.json"
-
-
 def main():
     catalog_mtime = os.path.getmtime(CATALOG_JSON_PATH)
     args = parser.parse_args()
     if args.force:
+        global DELAY_GDRIVE_ACCESS
+        DELAY_GDRIVE_ACCESS = True
         print(f"Forcing validation of all catalog entries")
         catalog_mtime = None
 
