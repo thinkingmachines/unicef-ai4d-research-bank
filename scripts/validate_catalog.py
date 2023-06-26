@@ -23,7 +23,7 @@ from utils import (
 
 CATALOG_DIR = "./catalog"
 
-with open("./validation/regions.txt") as f:
+with open("./validation/regions.txt", "r") as f:
     ALL_COUNTRIES = f.read().splitlines()
 
 REQUIRED_FIELDS = set(
@@ -209,6 +209,50 @@ def validate_alt_format(alt_format, i, j, fname):
     return all(ok)
 
 
+def validate_metric_entry(metric_entry, i, fname):
+    ok = set(metric_entry.keys()) == set(["metric-type", "value"])
+    if not ok:
+        print(
+            f"Invalid file {fname}: Invalid metric entry[{i}]: {metric_entry} doesn't have the complete fields"
+        )
+    return ok
+
+
+def validate_metric_link(metric_link, i, fname):
+    all_ok = []
+    ok = set(metric_link.keys()) != set(["url", "description"])
+    if not ok:
+        print(
+            f"Invalid file {fname}: Invalid metric link[{i}]: {metric_link} doesn't have the complete fields"
+        )
+    all_ok.append(ok)
+
+    if "url" in metric_link:
+        all_ok.append(validate_url(metric_link["url"], fname))
+    return all(all_ok)
+
+
+def validate_metric(metric, i, fname):
+    ok = []
+    if "metric" in metric:
+        ok.append(validate_metric_entry(metric["metric"], i, fname))
+    if "link" in metric:
+        ok.append(validate_metric_link(metric["link"], i, fname))
+    return len(ok) > 0 and all(ok)
+
+
+def has_valid_metrics(metrics, fname):
+    if isinstance(metrics, dict):
+        return validate_metric(metrics, 0, fname)
+    elif hasattr(metrics, "__iter__"):  # is a list of dicts
+        return all([validate_metric(d, i, fname) for i, d in enumerate(metrics)])
+    else:
+        print(
+            f"Invalid file {fname}: `evaluation-metrics` {metrics} has an invalid format.Please review the `sample-catalog-item.yml` for correct format"
+        )
+        return False
+
+
 def validate_alt_formats(alt_format, i, fname):
     if isinstance(alt_format, dict):
         return validate_alt_format(alt_format, i, 0, fname)
@@ -292,7 +336,6 @@ def validate_yaml(file, fname):
                 f"Invalid file {fname}: `country-region` {region} should be a string or a list of strings"
             )
             ok.append(False)
-
     if "organization" in item:
         ok.append(has_valid_organization(item["organization"], name))
     if "links" in item:
@@ -300,6 +343,10 @@ def validate_yaml(file, fname):
     else:
         ok.append(False)
         print(f"Invalid file {fname}: No `links` field found")
+
+    if "evaluation-metrics" in item:
+        ok.append(has_valid_metrics(item("evaluation-metrics"), fname))
+
     if "sample-data" in item and "data-columns" not in item:
         ok.append(False)
         print(f"Invalid file {fname}: Sample data is missing `data-columns`")
