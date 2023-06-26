@@ -23,7 +23,8 @@
 		"lint": "run-p run-tsc run-eslint run-stylelint",
 		"validate": "run-p lint test:ci test:e2e:headless",
 		"merge-catalog": "python scripts/transform_catalog.py && python scripts/transform_featured.py",
-		"validate-catalog": "python scripts/validate_catalog.py"
+		"validate-catalog": "python scripts/validate_catalog.py",
+		"force-validate-catalog": "python scripts/validate_catalog.py -f"
 	},
 	"dependencies": {
 		"@ant-design/icons": "^5.0.1",
