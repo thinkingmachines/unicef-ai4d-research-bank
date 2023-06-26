@@ -1,3 +1,4 @@
+import argparse
 import glob
 import os
 import string
@@ -20,6 +21,16 @@ from utils import (
     is_gdrive_url,
     transform_dataset_file_link,
 )
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "-f",
+    "--force",
+    action="store_true",
+    default=False,
+    help="Force validation",
+)
+
 
 CATALOG_DIR = "./catalog"
 
@@ -220,7 +231,7 @@ def validate_metric_entry(metric_entry, i, fname):
 
 def validate_metric_link(metric_link, i, fname):
     all_ok = []
-    ok = set(metric_link.keys()) != set(["url", "description"])
+    ok = set(metric_link.keys()) == set(["url", "description"])
     if not ok:
         print(
             f"Invalid file {fname}: Invalid metric link[{i}]: {metric_link} doesn't have the complete fields"
@@ -345,7 +356,7 @@ def validate_yaml(file, fname):
         print(f"Invalid file {fname}: No `links` field found")
 
     if "evaluation-metrics" in item:
-        ok.append(has_valid_metrics(item("evaluation-metrics"), fname))
+        ok.append(has_valid_metrics(item["evaluation-metrics"], fname))
 
     if "sample-data" in item and "data-columns" not in item:
         ok.append(False)
@@ -377,6 +388,11 @@ CATALOG_JSON_PATH = "public/api/data/catalog.json"
 
 def main():
     catalog_mtime = os.path.getmtime(CATALOG_JSON_PATH)
+    args = parser.parse_args()
+    if args.force:
+        print(f"Forcing validation of all catalog entries")
+        catalog_mtime = None
+
     fnames = glob.glob(f"{CATALOG_DIR}/*")
     valid = [validate_file(fname, catalog_mtime) for fname in fnames]
     if all(valid):
