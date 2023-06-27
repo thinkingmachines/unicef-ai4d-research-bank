@@ -8,19 +8,8 @@
 	],
 	"editor.defaultFormatter": null,
 	"editor.foldingImportsByDefault": true,
-	"editor.formatOnSave": false,
+	"editor.formatOnSave": true,
 	"editor.tabSize": 2,
-	"files.exclude": {
-		"**/.stylelintcache": true,
-		"**/.eslintcache": true,
-		"**/.gitignore": true,
-		"**/.nyc_output": true,
-		"**/.vscode": true,
-		"**/dist": true,
-		"**/node_modules": true,
-		"**/yarn.lock": true,
-		"**/coverage": true
-	},
 	"files.watcherExclude": {
 		"**/dist": true
 	},
@@ -46,5 +35,5 @@
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.black-formatter"
 	},
-	"json.format.enable": true
+	"json.format.enable": false
 }
