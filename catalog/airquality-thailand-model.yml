@@ -5,8 +5,9 @@ description: >
   Using Machine Learning models to predict PM2.5 levels based on area predictors is a potential way to augment these ground stations, and allows us to monitor air quality even in areas without them.
 card-type: model
 organization:
-  name: 'Unicef East Asia and Pacific Regional Office'
-  url: 'https://www.unicef.org/eap/'
+  name: 'Thinking Machines Data Sciences Inc'
+  url: 'https://thinkingmachin.es'
+
 date-added: '2021-03-02'
 tags:
   - air-quality
