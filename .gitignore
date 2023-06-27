@@ -22,3 +22,4 @@ notebooks/region_imgs
 notebooks/multi_region_imgs
 htmlcov/*
 .coverage
+.vscode
