@@ -13,7 +13,7 @@ describe('Access all resources', () => {
 	it('should navigate to the catalog item page on click', () => {
 		cy.wait(3000)
 		cy.contains(
-			'Poverty Mapping Rollout Dataset for Timor Leste (2016)'
+			'Relative Wealth Rollout Dataset for Timor Leste (2016)'
 		).click()
 
 		cy.location('pathname').should(
@@ -23,7 +23,7 @@ describe('Access all resources', () => {
 	})
 
 	it('should navigate to the main page', () => {
-		cy.contains('AI4D Research Bank').click()
+		cy.contains('AI4D ML Web Catalog').click()
 		cy.location('pathname').should('eq', `${URL_PREFIX}/`)
 	})
 })

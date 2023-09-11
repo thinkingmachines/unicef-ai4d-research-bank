@@ -7,7 +7,7 @@ const Header = () => (
 			to={`${HOME_PATH}/`}
 			className='text-sm font-semibold hover:text-gray-600 hover:duration-500 sm:text-base'
 		>
-			AI4D Research Bank
+			AI4D ML Web Catalog
 		</Link>
 		<Link
 			to={`${HOME_PATH}/catalogue`}

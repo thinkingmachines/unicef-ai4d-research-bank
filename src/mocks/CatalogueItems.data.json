@@ -2,7 +2,7 @@
 	"items": [
 		{
 			"id": "povmap-timor-leste",
-			"name": "Poverty Mapping Model for Timor Leste",
+			"name": "Relative Wealth Model for Timor Leste",
 			"description": "This is a sklearn random forest regressor model for predicting relative wealth for Timor Leste.",
 			"card-type": "model",
 			"organization": {
@@ -10,7 +10,7 @@
 				"url": "https://thinkingmachin.es"
 			},
 			"date-added": "2023-03-02",
-			"tags": ["poverty-mapping", "timor-leste"],
+			"tags": ["relative-wealth", "timor-leste"],
 			"country-region": "timor-leste",
 			"year-period": 2016,
 			"evaluation-metrics": [
@@ -30,7 +30,7 @@
 			"links": [
 				{
 					"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl",
-					"description": "Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage",
+					"description": "Timor Leste Relative Wealth Model Weights (.pkl). See related notebooks for usage",
 					"type": "model-weights"
 				},
 				{
@@ -52,7 +52,7 @@
 		},
 		{
 			"id": "povmap-philippines",
-			"name": "Poverty Mapping Model for Philippines",
+			"name": "Relative Wealth Model for Philippines",
 			"description": "This is a sklearn random forest regressor model  for predicting relative wealth for Philippines.  (add more details here later...)",
 			"card-type": "model",
 			"organization": {
@@ -60,7 +60,7 @@
 				"url": "https://thinkingmachin.es"
 			},
 			"date-added": "2023-03-02",
-			"tags": ["poverty-mapping", "philippines"],
+			"tags": ["relative-wealth", "philippines"],
 			"country-region": "philippines",
 			"year-period": 2017,
 			"evaluation-metrics": [
@@ -80,12 +80,12 @@
 			"links": [
 				{
 					"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/model_ph_rollout.pkl",
-					"description": "Philippines Poverty Mapping Model Weights (.pkl). See related notebooks for usage",
+					"description": "Philippines Relative Wealth Model Weights (.pkl). See related notebooks for usage",
 					"type": "model-weights"
 				},
 				{
 					"url": "https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/blob/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_ph.geojson",
-					"description": "Country wide rollout (inference) of the Poverty Mapping Model on Philippines using 2.4km grids (bingtile quadkey level 14)",
+					"description": "Country wide rollout (inference) of the Relative Wealth Model on Philippines using 2.4km grids (bingtile quadkey level 14)",
 					"type": "dataset-geojson"
 				},
 				{
@@ -107,7 +107,7 @@
 		},
 		{
 			"id": "povmap-timor-leste-rollout-dataset",
-			"name": "Poverty Mapping Rollout Dataset for Timor Leste",
+			"name": "Relative Wealth Rollout Dataset for Timor Leste",
 			"description": "This is the rollout dataset of relative wealth predictions relative wealth for Timor Leste.  (add more details here later...)",
 			"card-type": "dataset",
 			"organization": {
@@ -115,18 +115,18 @@
 				"url": "https://thinkingmachin.es"
 			},
 			"date-added": "2023-03-02",
-			"tags": ["poverty-mapping", "timor-leste"],
+			"tags": ["relative-wealth", "timor-leste"],
 			"country-region": "timor-leste",
 			"year-period": 2016,
 			"links": [
 				{
 					"url": "https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.geojson",
-					"description": "Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson",
+					"description": "Country wide rollout (inference) of the Relative Wealth Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson",
 					"type": "dataset-raw-geojson"
 				},
 				{
 					"url": "https://raw.githubusercontent.com/butchtm/unicef-ai4d-poverty-mapping/main/notebooks/2023-02-21-single-country-rollouts/rollout_output_tl.csv",
-					"description": "Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV",
+					"description": "Country wide rollout (inference) of the Relative Wealth Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as CSV",
 					"type": "dataset-raw-csv"
 				},
 				{

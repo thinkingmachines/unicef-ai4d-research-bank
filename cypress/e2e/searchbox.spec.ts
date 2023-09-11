@@ -11,7 +11,7 @@ describe('The search input needs at least 3 characters before displaying search 
 
 		cy.contains(
 			'.ant-select-item-option-content',
-			'Poverty Mapping Rollout Dataset for Timor Leste (2016)'
+			'Relative Wealth Rollout Dataset for Timor Leste (2016)'
 		).should('not.exist')
 	})
 
@@ -20,11 +20,11 @@ describe('The search input needs at least 3 characters before displaying search 
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()
-			.type('pov')
+			.type('relative')
 
 		cy.contains(
 			'.ant-select-item-option-content',
-			'Poverty Mapping Rollout Dataset for Timor Leste (2016)'
+			'Relative Wealth Rollout Dataset for Timor Leste (2016)'
 		).should('exist')
 	})
 })

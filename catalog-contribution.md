@@ -1,6 +1,6 @@
-# Contributing Datasets and Models to the Research Bank
+# Contributing Datasets and Models to the ML Web Catalog
 
-To contribute models and datasets to the UNICEF AI4D Research Bank, follow these steps to submit a pull request (PR) on the [UNICEF AI4D Research Bank Github repository](https://github.com/thinkingmachines/unicef-ai4d-research-bank).
+To contribute models and datasets to the UNICEF AI4D ML Web Catalog, follow these steps to submit a pull request (PR) on the [UNICEF AI4D ML Web Catalog Github repository](https://github.com/thinkingmachines/unicef-ai4d-research-bank).
 
 1. **Fork the main repository**: Click on the "Fork" button in the top-right corner of the repository's main page to create a copy of the repository in your own Github account (or [click on this link](https://github.com/thinkingmachines/unicef-ai4d-research-bank/fork)).
 
@@ -18,7 +18,7 @@ To contribute models and datasets to the UNICEF AI4D Research Bank, follow these
 https://github.dev/<your-username>/unicef-ai4d-research-bank
 ```
 
-3. **Create a new YAML File for your dataset/model contribution**: Locate the [`catalog` folder](https://github.com/thinkingmachines/unicef-ai4d-research-bank/tree/main/catalog) in your forked repository and make a copy of the [`sample-catalog-item.yml` file](https://github.com/thinkingmachines/unicef-ai4d-research-bank/blob/main/catalog/sample-catalog-item.yml). Your new file should have a unique lowercase name that is somewhat descriptive of your dataset/model (e.g. `povmap-philippines.yml` for a poverty mapping model of the Philippines or `airquality-thailand-model.yml` for an air quality model for Thailand) . Ensure that the file name contains no spaces or special characters (except a dash `-`) and has a `.yml` file extension.
+3. **Create a new YAML File for your dataset/model contribution**: Locate the [`catalog` folder](https://github.com/thinkingmachines/unicef-ai4d-research-bank/tree/main/catalog) in your forked repository and make a copy of the [`sample-catalog-item.yml` file](https://github.com/thinkingmachines/unicef-ai4d-research-bank/blob/main/catalog/sample-catalog-item.yml). Your new file should have a unique lowercase name that is somewhat descriptive of your dataset/model (e.g. `povmap-philippines.yml` for a relative wealth model of the Philippines or `airquality-thailand-model.yml` for an air quality model for Thailand) . Ensure that the file name contains no spaces or special characters (except a dash `-`) and has a `.yml` file extension.
 
 4. **Edit the YAML File**: Open the YAML file you created and add the relevant data for your item. Follow the [instructions provided](https://github.dev/thinkingmachines/unicef-ai4d-research-bank/blob/main/catalog/sample-catalog-item.yml) in the file's comments. Remove any optional fields if you are not providing data for them.
 
@@ -99,7 +99,7 @@ Link types - the following types of links are allowed:
    If you are using the github editor (the url starting with `https://github.dev/<your-github-username>/unicef-ai4d-research-bank`), make sure to commit and push the changes
    back to your repository in order to preserve your edits.
 
-7. **Create a Pull Request**: Go to the **Pull requests** tab of your forked repository and click on the "New pull request" button. This will create a pull request to merge your changes into the main [UNICEF AI4D Research Bank repository](https://github.com/thinkingmachines/unicef-ai4d-research-bank). The source of the pull request should be the git branch you used to make your changes (default `main`).
+7. **Create a Pull Request**: Go to the **Pull requests** tab of your forked repository and click on the "New pull request" button. This will create a pull request to merge your changes into the main [UNICEF AI4D ML Web Catalog repository](https://github.com/thinkingmachines/unicef-ai4d-research-bank). The source of the pull request should be the git branch you used to make your changes (default `main`).
 
 ![Fork button](https://raw.githubusercontent.com/thinkingmachines/unicef-ai4d-research-bank/main/assets/pullrequest.png)
 
@@ -113,10 +113,10 @@ Link types - the following types of links are allowed:
     pnpm validate-catalog
     ```
 
-    Fix any flagged errors. If no errors are flagged, your entries can be submitted for merging into the UNICEF AI4D Research Bank.
+    Fix any flagged errors. If no errors are flagged, your entries can be submitted for merging into the UNICEF AI4D ML Web Catalog.
 
-11. **Confirmation and Notification**: Once your Pull Request is approved and merged by the maintainers of the UNICEF AI4D Research Bank, you will receive an email notification.
+11. **Confirmation and Notification**: Once your Pull Request is approved and merged by the maintainers of the UNICEF AI4D ML Web Catalog, you will receive an email notification.
 
-Please note that this guide provides a step-by-step process for contributing datasets and models to the UNICEF AI4D Research Bank via pull requests on Github.
+Please note that this guide provides a step-by-step process for contributing datasets and models to the UNICEF AI4D ML Web Catalog via pull requests on Github.
 
 If you have comments, suggestions and clarifications to improve this contribution guide, feel free to add an issue in our [discussions section](https://github.com/thinkingmachines/unicef-ai4d-research-bank/discussions).

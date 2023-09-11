@@ -1,13 +1,13 @@
-# UNICEF AI4D (AI for Development) Research Bank Project
+# UNICEF AI4D (AI for Development) ML Catalogue Project
 
 <!--
 [![codecov](https://codecov.io/gh/wtchnm/Vitamin/branch/main/graph/badge.svg?token=H9BBAKGYI0)](https://codecov.io/gh/wtchnm/Vitamin) ![Test workflow](https://github.com/wtchnm/Vitamin/actions/workflows/test.yml/badge.svg) ![CodeQL workflow](https://github.com/wtchnm/Vitamin/actions/workflows/codeql-analysis.yml/badge.svg) [![Total alerts](https://img.shields.io/lgtm/alerts/g/wtchnm/Vitamin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wtchnm/Vitamin/alerts/) [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/wtchnm/Vitamin.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/wtchnm/Vitamin/context:javascript) [![Vitamin](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/simple/etow1b&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/etow1b/runs) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/) [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/wtchnm/Vitamin/blob/main/LICENSE)
 -->
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/thinkingmachines/unicef-ai4d-research-bank/blob/main/LICENSE)
-[![Unicef AI4D Research Bank](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/ivvovd&style=flat&logo=cypress)](https://cloud.cypress.io/projects/ivvovd/runs)
+[![Unicef AI4D ML Web Catalog](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/simple/ivvovd&style=flat&logo=cypress)](https://cloud.cypress.io/projects/ivvovd/runs)
 
-The UNICEF AI4D Research Bank is part of Thinking Machines's [overall push for open science through the AI4D](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) (AI for Development) initiative which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.
+The UNICEF AI4D ML Web Catalog is part of Thinking Machines's [overall push for open science through the AI4D](https://stories.thinkingmachin.es/unicef-ai4d-research-bank/) (AI for Development) initiative which aims to accelerate the development and adoption of effective machine learning (ML) models for development across Southeast Asia.
 
 The [**live site**](https://thinkingmachines.github.io/unicef-ai4d-research-bank) is hosted in Github Pages and uses
 the [Vitamin template](https://github.com/wtchnm/Vitamin) with ~~customized~~ simplified features. To see the instructions for original Vitamin template [see this](old-README.md)

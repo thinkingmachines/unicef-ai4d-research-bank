@@ -137,13 +137,13 @@ describe('Filter for a single year', () => {
 		cy.contains('.ant-picker-cell-inner', '2016').first().click()
 
 		cy.contains(
-			'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar'
+			'Cross Country Relative Wealth Model for Indonesia, Timor Leste and Myanmar'
 		).should('be.visible')
 
-		cy.contains('Poverty Mapping Rollout Dataset for Timor Leste').should(
+		cy.contains('Relative Wealth Rollout Dataset for Timor Leste').should(
 			'be.visible'
 		)
 
-		cy.contains('Poverty Mapping Model for Timor Leste').should('be.visible')
+		cy.contains('Relative Wealth Model for Timor Leste').should('be.visible')
 	})
 })

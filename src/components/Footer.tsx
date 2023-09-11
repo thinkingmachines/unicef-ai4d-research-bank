@@ -7,7 +7,7 @@ const Footer = () => (
 		data-cy='footer'
 	>
 		<div>
-			Want to contribute to the research bank?{' '}
+			Want to contribute to the ML catalogue?{' '}
 			<Link
 				to={`${HOME_PATH}/contribute`}
 				className='font-medium text-[#82838D] underline hover:text-cloud-burst hover:duration-500'

@@ -1,10 +1,10 @@
-name: 'Poverty Mapping Model for Myanmar'
+name: 'Relative Wealth Model for Myanmar'
 description: >
   This is an sklearn Random Forest (RF) regressor model for predicting relative wealth for Myanmar.
   Through a post-training binning process, the model also predicts a quintile-grouped relative wealth category ('A' to 'E') 
   It is a single-country model trained on open datasets from Earth Observation Group (EOG) nightlights data, Open Streetmap (OSM) Points of Interest (POI) data, Ookla internet speed data
   as well as Domestic and Health Survey (DHS) data from USAID. 
-  It was built as part of the UNICEF AI4D Poverty Mapping Project which aims to develop open datasets and machine learning (ML) models for poverty mapping estimation across nine countries 
+  It was built as part of the UNICEF AI4D Relative Wealth Project which aims to develop open datasets and machine learning (ML) models for relative wealth estimation across nine countries 
   in Southeast Asia (SEA).
 card-type: model
 organization:
@@ -12,12 +12,12 @@ organization:
   url: 'https://thinkingmachin.es'
 date-added: '2022-03-02'
 tags:
-  - poverty-mapping
+  - relative-wealth
   - myanmar
   - sklearn-model
   - machine-learning
   - relative-wealth
-  - unicef-ai4d-poverty-mapping
+  - unicef-ai4d-relative-wealth
 
 country-region: myanmar
 year-period: 2015
@@ -34,11 +34,11 @@ evaluation-metrics:
 
 links:
   - url: https://drive.google.com/file/d/1P4ND4OxhfkZ9DnTSbLMBDwSsSe6ICIxv/view?usp=drive_link
-    description: 'Myanmar Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+    description: 'Myanmar Relative Wealth Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
 
   - url: https://drive.google.com/file/d/13zoUz6466PISP6wjwinyJ5nazaqRPs6n/view?usp=drive_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Myanmar using 2.4km grids (bingtile quadkey level 14)'
+    description: 'Country wide rollout (inference) of the Relative Wealth Model on Myanmar using 2.4km grids (bingtile quadkey level 14)'
     type: 'dataset-geojson'
     name: 2023-02-21-mm-rollout-output-with-features.geojson
     alt-format:
@@ -46,7 +46,7 @@ links:
       type: 'dataset-csv'
 
   - url: https://drive.google.com/file/d/15s46pKnHO0KD95IPzlnsuVnpdi5fjs4v/view?usp=drive_link
-    description: 'Training dataset for Poverty Mapping Model on Myanmar as CSV'
+    description: 'Training dataset for Relative Wealth Model on Myanmar as CSV'
     type: 'training-dataset-csv'
     name: '2023-02-21-mm-dhs-cluster-features-all.csv'
 
@@ -63,7 +63,7 @@ links:
     type: 'code-notebook'
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping
-    description: UNICEF AI4D Poverty Mapping Project Github Repository
+    description: UNICEF AI4D Relative Wealth Project Github Repository
     type: repository
 
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8F-local-setup-for-development
@@ -75,5 +75,5 @@ links:
   - url: https://github.com/thinkingmachines/unicef-ai4d-poverty-mapping/tree/main#%EF%B8%8Frunning-in-docker
     type: 'documentation'
     description: >
-      You can run an interactive dialog that will rollout the poverty mapping model for different time periods using this model by 
+      You can run an interactive dialog that will rollout the relative wealth model for different time periods using this model by 
       running it via docker. Follow the instructions on the item for "Country-wide rollout".
