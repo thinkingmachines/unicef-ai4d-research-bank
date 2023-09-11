@@ -72,7 +72,7 @@ const LandingPage = () => {
 					alt='BannerImage'
 					className='absolute z-0 h-full w-full object-cover'
 				/>
-				<div className='absolute top-2 right-3 z-20 flex h-16 w-auto rounded-full bg-[#1CABE2] p-1 sm:h-20 lg:h-24 lg:p-2'>
+				<div className='absolute top-2 right-3 z-20 flex h-16 w-16 rounded-full bg-[#1CABE2] p-1 sm:h-20 sm:w-20 lg:h-24 lg:w-24 lg:p-2'>
 					<img className='h-auto w-full' src={UnicefLogo} alt='BannerImg' />
 				</div>
 				<div className='absolute z-10 h-full w-full bg-cloud-burst opacity-60' />
