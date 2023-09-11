@@ -41741,7 +41741,7 @@ const Yr = '/unicef-ai4d-research-bank',
 				U(ys, {
 					to: `${Yr}/`,
 					className: 'font-semibold hover:text-gray-600 hover:duration-500',
-					children: 'AI4D Research Bank'
+					children: 'AI4D ML Web Catalog'
 				}),
 				U(ys, {
 					to: `${Yr}/catalogue`,
