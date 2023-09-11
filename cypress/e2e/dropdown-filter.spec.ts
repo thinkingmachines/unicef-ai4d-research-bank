@@ -16,9 +16,9 @@ describe('The filter filters the displayed catalogue items', () => {
 			.type('{downArrow}{downArrow}{enter}')
 
 		cy.get('[data-cy="catalogue-item"]').should(items => {
-			expect(items.eq(0)).to.contain('Cross Country Poverty Mapping Model')
-			expect(items.eq(1)).to.contain('Poverty Mapping Rollout Dataset for')
-			expect(items.eq(2)).to.contain('Poverty Mapping Model for Timor Leste')
+			expect(items.eq(0)).to.contain('Cross Country Relative Wealth Model')
+			expect(items.eq(1)).to.contain('Relative Wealth Rollout Dataset for')
+			expect(items.eq(2)).to.contain('Relative Wealth Model for Timor Leste')
 		})
 	})
 	it('should filter entries by descending year', () => {
@@ -28,8 +28,8 @@ describe('The filter filters the displayed catalogue items', () => {
 
 		cy.get('[data-cy="catalogue-item"]').should(items => {
 			expect(items.eq(0)).to.contain('Air Quality Model for Thailand')
-			expect(items.eq(1)).to.contain('poverty mapping thailand')
-			expect(items.eq(2)).to.contain('Poverty Mapping Model for Philippines')
+			expect(items.eq(1)).to.contain('relative wealth thailand')
+			expect(items.eq(2)).to.contain('Relative Wealth Model for Philippines')
 		})
 	})
 
@@ -40,8 +40,8 @@ describe('The filter filters the displayed catalogue items', () => {
 
 		cy.get('[data-cy="catalogue-item"]').should(items => {
 			expect(items.eq(0)).to.contain('Air Quality Model for Thailand')
-			expect(items.eq(1)).to.contain('Cross Country Poverty Mapping Model for ')
-			expect(items.eq(2)).to.contain('Poverty Mapping Model for Philippines')
+			expect(items.eq(1)).to.contain('Cross Country Relative Wealth Model for ')
+			expect(items.eq(2)).to.contain('Relative Wealth Model for Philippines')
 		})
 	})
 	it('should filter entries by descending name', () => {
@@ -50,9 +50,9 @@ describe('The filter filters the displayed catalogue items', () => {
 			.type('{downArrow}{downArrow}{enter}')
 
 		cy.get('[data-cy="catalogue-item"]').should(items => {
-			expect(items.eq(0)).to.contain('poverty mapping thailand')
-			expect(items.eq(1)).to.contain('Poverty Mapping Rollout Dataset for Timo')
-			expect(items.eq(2)).to.contain('Poverty Mapping Model for Timor Leste')
+			expect(items.eq(0)).to.contain('relative wealth thailand')
+			expect(items.eq(1)).to.contain('Relative Wealth Rollout Dataset for Timo')
+			expect(items.eq(2)).to.contain('Relative Wealth Model for Timor Leste')
 		})
 	})
 })

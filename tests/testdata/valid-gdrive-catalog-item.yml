@@ -23,7 +23,7 @@ date-modified: '2022-03-20'
 # tags which can be associated with your dataset (optional)
 # lowercase characters, no special characters, underscore or spaces, use dash (-) allowed
 tags:
-  - poverty-mapping
+  - relative-wealth
   - timor-leste
   - sklearn-model
   - machine-learning
@@ -51,12 +51,12 @@ evaluation-metrics:
 # at least one link must be provided
 links:
   - url: https://github.com/butchtm/unicef-ai4d-poverty-mapping/blob/feat/convert-geojsons-to-csvs/notebooks/2023-02-21-single-country-rollouts/model_tl_rollout.pkl
-    description: 'Timor Leste Poverty Mapping Model Weights (.pkl). See related notebooks for usage'
+    description: 'Timor Leste Relative Wealth Model Weights (.pkl). See related notebooks for usage'
     type: model-weights
     # skip-hxl-tag-validation (optional) is a boolean flag that will skip hxl tag validation. the default value is false and is false if not present
     skip-hxl-tag-validation: false
   - url: https://drive.google.com/file/d/14pDvzoWHhiapEq986RdVEb-hn5eLAQOj/view?usp=share_link
-    description: 'Country wide rollout (inference) of the Poverty Mapping Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
+    description: 'Country wide rollout (inference) of the Relative Wealth Model on Timor Leste using 2.4km grids (bingtile quadkey level 14) as geojson'
     type: 'dataset-geojson'
 
   - url: https://drive.google.com/file/d/1kxScRmolAA5hSd6Ig1ly85WQJ_Z6NmGc/view?usp=share_link

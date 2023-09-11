@@ -13,7 +13,7 @@ describe('The catalog item sub components display correctly', () => {
 	})
 
 	it('should visit the specific catalog item page', () => {
-		cy.contains('Poverty Mapping Model for Philippines (2017)').click()
+		cy.contains('Relative Wealth Model for Philippines (2017)').click()
 		cy.location('pathname').should(
 			'eq',
 			`${URL_PREFIX}/catalogue/povmap-philippines`
@@ -25,7 +25,7 @@ describe('The catalog item sub components display correctly', () => {
 	})
 
 	it('should display the dataset/model name', () => {
-		cy.contains('Poverty Mapping Model for Philippines (2017)')
+		cy.contains('Relative Wealth Model for Philippines (2017)')
 	})
 
 	it('should display the Overview, Data, and Related links tab', () => {
@@ -41,7 +41,7 @@ describe('The catalog item sub components display correctly', () => {
 	})
 
 	it('should display the tags', () => {
-		cy.get('[data-cy="catalog-item-aside-tags"]').contains('poverty-mapping')
+		cy.get('[data-cy="catalog-item-aside-tags"]').contains('relative-wealth')
 		cy.get('[data-cy="catalog-item-aside-tags"]').contains('philippines')
 	})
 
@@ -71,7 +71,7 @@ describe('The data columns should render correctly', () => {
 
 	it('should visit the specific catalog item page', () => {
 		cy.contains(
-			'Poverty Mapping Rollout Dataset for Timor Leste (2016)'
+			'Relative Wealth Rollout Dataset for Timor Leste (2016)'
 		).click()
 		cy.location('pathname').should(
 			'eq',

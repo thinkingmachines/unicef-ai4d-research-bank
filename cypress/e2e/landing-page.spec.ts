@@ -88,13 +88,13 @@ describe('Landing page autocomplete on search should lead to catalog page', () =
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()
-			.type('cross country poverty')
+			.type('cross country relative wealth')
 
 		cy.get('span.ant-input-group-addon').find('button').click()
 		cy.location('pathname').should('eq', `${URL_PREFIX}/catalogue`)
 
 		cy.contains(
-			'Cross Country Poverty Mapping Model for Indonesia, Timor Leste and Myanmar (2016)'
+			'Cross Country Relative Wealth Model for Indonesia, Timor Leste and Myanmar (2016)'
 		)
 	})
 })
@@ -114,7 +114,7 @@ describe('Searching from the landing page should reset the tag filters', () => {
 
 		cy.get('input[placeholder="Search for a dataset or a model"]')
 			.click()
-			.type('cross country poverty')
+			.type('cross country relative wealth')
 
 		cy.get('span.ant-input-group-addon').find('button').click()
 		// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
