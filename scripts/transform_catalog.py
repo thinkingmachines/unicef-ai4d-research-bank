@@ -322,7 +322,9 @@ def add_detail_image_url(item: typing.Dict) -> typing.Dict:
             detail_img_url = f'assets/regions/{item["country-region"]}.png'
     geojson_url = find_geojson_link(item["links"])
     if geojson_url is not None:
+        print(f"geojson url found for {item['id']}: {geojson_url}")
         if check_size(geojson_url):
+            print(f"generating detail image for item {item['id']}: {geojson_url}")
             generate_detail_image(geojson_url, item["id"])
             detail_img_url = f'assets/items/{item["id"]}.png'
     if hasattr(region, "__iter__") and detail_img_url == DEFAULT_DETAIL_IMAGE_URL:
@@ -344,9 +346,9 @@ def transform(filename: str):
         item = yaml.safe_load(f)
         item["id"] = file.stem
         if "links" in item:
-            item["links"] = transform_links(item["links"])
             if "data-columns" not in item:
                 item = add_data_column_samples(item)
+            item["links"] = transform_links(item["links"])
         item = add_detail_image_url(item)
         if "country-region" in item:
             if type(item["country-region"]) == str:
