@@ -13,7 +13,6 @@ organization:
   url: 'https://thinkingmachin.es'
 date-added: '2023-03-02'
 tags:
-  - relative-wealth
   - machine-learning
   - sklearn-model
   - random-forest
